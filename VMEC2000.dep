@@ -1,0 +1,1015 @@
+# Microsoft Developer Studio Generated Dependency File, included by PARVMEC.mak
+Release/safe_open_mod.o:
+
+Release/system_mod.o:
+
+Release/parse_extension.o:
+
+Release/getcarg.o:
+
+Release/vmec_getenv.o:
+
+Release/vmec_seq.o:
+
+Release/system_mod.o:
+
+Release/ezcdf_opncls.o:
+
+Release/ezcdf_inqvar.o:
+
+Release/handle_err.o:
+
+Release/stel_kinds.o:
+
+Release/bsc_T.o:
+
+Release/mpi_params.o:
+
+Release/mpi_sharmem.o:
+
+Release/tolower.o:
+
+Release/mpi_inc.o: \
+	Release/mpi_params.o
+
+Release/ezcdf_attrib.o: \
+	Release/ezcdf_inqvar.o
+
+Release/ezcdf_GenGet.o: \
+	Release/ezcdf_opncls.o \
+	Release/ezcdf_inqvar.o
+
+Release/ezcdf_GenPut.o: \
+	Release/ezcdf_opncls.o \
+	Release/ezcdf_inqvar.o
+
+Release/ezcdf.o: \
+	Release/ezcdf_GenPut.o \
+	Release/ezcdf_GenGet.o \
+	Release/ezcdf_attrib.o \
+	Release/ezcdf_opncls.o
+
+Release/stel_constants.o: \
+	Release/stel_kinds.o
+
+Release/vsvd0.o: \
+	Release/stel_kinds.o
+
+Release/v3f_vmec_comm.o: \
+	Release/stel_kinds.o
+
+Release/functions.o: \
+	Release/stel_kinds.o
+
+Release/second0.o: \
+	Release/stel_kinds.o
+
+Release/dutfx.o: \
+	Release/stel_kinds.o
+
+Release/drandn.o: \
+	Release/stel_kinds.o
+
+Release/daxpby.o: \
+	Release/stel_kinds.o
+
+Release/tridslv.o: \
+	Release/stel_kinds.o
+
+Release/bextrema.o: \
+	Release/stel_kinds.o
+
+Release/solver.o: \
+	Release/stel_kinds.o
+
+Release/spline.o: \
+	Release/stel_kinds.o
+
+Release/spline_akima.o: \
+	Release/stel_kinds.o
+
+Release/spline_akima_int.o: \
+	Release/stel_kinds.o
+
+Release/spline_cubic.o: \
+	Release/stel_kinds.o
+
+Release/spline_cubic_int.o: \
+	Release/stel_kinds.o
+
+Release/spline_it.o : \
+	Release/stel_kinds.o
+
+Release/v3_utilities.o: \
+	Release/mpi_inc.o \
+	Release/stel_kinds.o
+
+Release/vparams.o: \
+	Release/stel_kinds.o \
+	Release/stel_constants.o
+
+Release/cyl_flux.o : \
+	Release/stel_constants.o \
+	Release/stel_kinds.o
+
+Release/vmec_input.o: \
+	Release/vparams.o \
+	Release/vsvd0.o
+
+Release/line_segment.o: \
+	Release/stel_constants.o \
+	Release/stel_kinds.o
+
+Release/date_and_computer.o: \
+	Release/safe_open_mod.o \
+	Release/system_mod.o
+
+Release/read_namelist.o : \
+	Release/vmec_input.o \
+	Release/vmec_seq.o
+
+Release/gmres.o: \
+	Release/stel_constants.o \
+	Release/stel_kinds.o \
+	Release/mpi_inc.o
+
+Release/biotsavart.o: \
+	Release/bsc_T.o \
+	Release/safe_open_mod.o \
+	Release/stel_kinds.o
+
+Release/mgrid_mod.o: \
+	Release/v3_utilities.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
+	Release/vsvd0.o \
+	Release/system_mod.o \
+	Release/safe_open_mod.o \
+	Release/ezcdf.o	\
+	Release/mpi_inc.o \
+	Release/mpi_sharmem.o
+
+Release/read_wout_mod.o: \
+	Release/stel_kinds.o \
+	Release/safe_open_mod.o \
+	Release/stel_constants.o \
+	Release/v3_utilities.o \
+	Release/ezcdf.o \
+	Release/mgrid_mod.o \
+	Release/vmec_input.o
+
+Release/vmec_utils.o : \
+	Release/cyl_flux.o \
+	Release/read_wout_mod.o \
+	Release/stel_constants.o	\
+	Release/stel_kinds.o
+
+Release/profile_functions.o: \
+	Release/line_segment.o \
+	Release/stel_kinds.o \
+	Release/stel_constants.o \
+	Release/functions.o	\
+	Release/vmec_input.o
+
+
+Release/vforces.o : \
+			Release/stel_kinds.o 
+
+Release/parallel_vmec_module.o : \
+			Release/stel_kinds.o \
+			Release/mpi_inc.o
+
+Release/vmec_dim.o :
+
+Release/vacmod0.o :
+
+Release/vac_persistent.o : \
+			Release/stel_kinds.o
+
+Release/vacmod.o : \
+			Release/mgrid_mod.o \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/vac_persistent.o \
+      Release/vacmod0.o \
+      Release/vmec_params.o 
+ 
+Release/add_fluxes.o : \
+			Release/vmec_input.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o 
+      
+
+Release/alias.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o 
+      
+
+Release/angle_constraints.o : \
+      Release/fbal.o \
+      Release/precon2d.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/aspectratio.o : \
+      Release/realspace.o \
+      Release/vmec_io.o \
+      Release/vmec_main.o 
+      
+
+Release/bcovar.o : \
+			Release/vmec_input.o \
+      Release/fbal.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/blocktridiagonalsolver_bst.o : \
+      Release/parallel_include_module.o \
+      Release/parallel_vmec_module.o \
+			Release/mpi_inc.o
+
+Release/blocktridiagonalsolver.o : \
+      Release/parallel_include_module.o 
+      
+
+Release/convert.o : \
+      Release/parallel_include_module.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/csplinx.o : \
+      Release/stel_kinds.o
+
+Release/directaccess.o : \
+			Release/safe_open_mod.o \
+      Release/stel_kinds.o
+
+Release/fbal.o : \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/forces.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/timer_sub.o \
+      Release/vmec_main.o 
+      
+
+Release/funct3d.o : \
+			Release/vmec_utils.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/timer_sub.o \
+      Release/tomnsp_mod.o \
+      Release/totzsp_mod.o \
+      Release/vacmod.o \
+      Release/vforces.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/getfsq.o : \
+      Release/parallel_include_module.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/jacobian.o : \
+			Release/vmec_input.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/lamcal.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/precondn.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/realspace.o : \
+      Release/stel_kinds.o
+
+Release/residue.o : \
+      Release/angle_constraints.o \
+      Release/parallel_include_module.o \
+      Release/parallel_vmec_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/scalfor.o : \
+			Release/stel_kinds.o \
+      Release/blocktridiagonalsolver_bst.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/spectrum.o : \
+      Release/parallel_include_module.o \
+      Release/totzsp_mod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/symforce.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o 
+      
+
+Release/symrzl.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o 
+      
+
+Release/tomnsp_mod.o : \
+      Release/fbal.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/totzsp_mod.o : \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+
+Release/vmec_main.o : \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/vmec_dim.o \
+      Release/vmec_params.o \
+      Release/vmec_persistent.o 
+      
+
+Release/vmec_params.o : \
+			Release/stel_kinds.o \
+			Release/vparams.o
+
+Release/vmec_persistent.o : \
+			Release/stel_kinds.o
+
+Release/xstuff.o : \
+			Release/stel_kinds.o
+      
+
+Release/precon2d.o : \
+			Release/safe_open_mod.o \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/blocktridiagonalsolver.o \
+      Release/directaccess.o \
+      Release/realspace.o \
+      Release/timer_sub.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/xstuff.o \
+      Release/vmec_params.o 
+      
+
+Release/allocate_funct3d.o : \
+			Release/vmec_input.o \
+      Release/realspace.o \
+      Release/vacmod.o \
+      Release/vforces.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o 
+      
+
+Release/allocate_ns.o : \
+			Release/mgrid_mod.o \
+			Release/vmec_input.o \
+      Release/csplinx.o \
+      Release/fbal.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/allocate_nunv.o : \
+      Release/vacmod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/close_all_files.o : \
+			Release/vparams.o
+
+Release/fixaray.o : \
+      Release/angle_constraints.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/free_mem_funct3d.o : \
+      Release/realspace.o \
+      Release/vacmod.o \
+      Release/vforces.o \
+      Release/vmec_main.o 
+      
+
+Release/free_mem_ns.o : \
+      Release/csplinx.o \
+      Release/fbal.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_main.o \
+      Release/xstuff.o 
+      
+
+Release/free_mem_nunv.o : \
+      Release/vacmod.o \
+      Release/vmec_main.o 
+      
+
+Release/free_persistent_mem.o : \
+			Release/mgrid_mod.o \
+      Release/parallel_vmec_module.o \
+      Release/vmec_main.o \
+      Release/xstuff.o 
+      
+
+Release/guess_axis.o : \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/heading.o : \
+			Release/date_and_computer.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/init_geometry.o : \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/initialize_radial.o : \
+      Release/angle_constraints.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/load_xc_from_wout.o : \
+			Release/read_wout_mod.o \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/magnetic_fluxes.o : \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+      Release/vmec_main.o 
+      
+
+Release/open_output_files.o : \
+			Release/safe_open_mod.o \
+			Release/vparams.o
+      
+
+Release/profil1d.o : \
+			Release/vmec_input.o \
+			Release/init_geometry.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vspline.o 
+      
+
+Release/profil3d.o : \
+      Release/angle_constraints.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vspline.o \
+      Release/xstuff.o 
+      
+
+Release/profile_functions.o : \
+			Release/functions.o \
+			Release/line_segment.o \
+			Release/stel_constants.o \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+			Release/vparams.o
+      
+
+Release/reset_params.o : \
+      Release/precon2d.o \
+      Release/timer_sub.o \
+      Release/vmec_main.o 
+      
+
+Release/vsetup.o : \
+			Release/mgrid_mod.o \
+      Release/gmres_mod.o \
+      Release/realspace.o \
+      Release/vacmod.o \
+      Release/vmec_main.o 
+      
+
+Release/bss.o : \
+      Release/realspace.o \
+      Release/vmec_main.o 
+      
+
+Release/dump_output.o : \
+      Release/realspace.o \
+      Release/vmec_main.o 
+      
+
+Release/elongation.o : \
+      Release/vmec_main.o 
+      
+
+Release/eqfor.o : \
+			Release/mgrid_mod.o \
+			Release/safe_open_mod.o \
+			Release/stel_constants.o \
+			Release/v3f_vmec_comm.o \
+      Release/csplinx.o \
+      Release/fbal.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vacmod.o \
+      Release/vforces.o \
+      Release/vmec_io.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vspline.o \
+      Release/xstuff.o 
+      
+
+Release/fileout.o : \
+			Release/vmec_c_interface.o \
+			Release/safe_open_mod.o \
+      Release/angle_constraints.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/timer_sub.o \
+      Release/vac_persistent.o \
+      Release/vforces.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/freeb_data.o : \
+      Release/realspace.o \
+      Release/vacmod.o \
+      Release/vmec_main.o 
+      
+
+Release/fsym_fft.o : \
+      Release/vmec_main.o 
+      
+
+Release/fsym_invfft.o : \
+      Release/vmec_main.o 
+      
+
+Release/getbrho.o : \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_persistent.o 
+      
+
+Release/getcurmid.o : \
+			Release/vmec_input.o \
+      Release/vmec_dim.o 
+      
+
+Release/jxbforce.o : \
+			Release/ezcdf.o \
+			Release/safe_open_mod.o \
+      Release/fbal.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/mercier.o : \
+			Release/safe_open_mod.o \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/vmercier.o 
+      
+
+Release/printout.o : \
+      Release/angle_constraints.o \
+      Release/parallel_include_module.o \
+      Release/parallel_vmec_module.o \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/read_indata.o : \
+			Release/safe_open_mod.o \
+			Release/vmec_input.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+Release/initialize_vmec_arrays.o : \
+			Release/vmec_main.o \
+			Release/vmec_input.o \
+			Release/vmec_params.o \
+			Release/vacmod.o \
+			Release/parallel_include_module.o \
+			Release/init_geometry.o \
+			Release/parallel_vmec_module.o
+
+Release/readin.o : \
+			Release/mgrid_mod.o \
+      Release/init_geometry.o \
+      Release/parallel_include_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vspline.o 
+      
+
+Release/TestWout.o : \
+			Release/read_wout_mod.o \
+			Release/stel_constants.o \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+			Release/vmec_utils.o \
+      Release/realspace.o \
+      Release/vforces.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/timer_sub.o : \
+			Release/stel_kinds.o \
+      Release/parallel_include_module.o 
+      
+
+Release/vmec_io.o : \
+			Release/stel_kinds.o
+      
+
+Release/vmercier.o : \
+			Release/vparams.o
+      
+
+Release/write_dcon.o : \
+      Release/realspace.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+      
+
+Release/wrout.o : \
+			Release/ezcdf.o \
+			Release/mgrid_mod.o \
+			Release/read_wout_mod.o \
+			Release/safe_open_mod.o \
+			Release/vmec_input.o \
+      Release/angle_constraints.o \
+      Release/parallel_include_module.o \
+      Release/realspace.o \
+      Release/totzsp_mod.o \
+      Release/vacmod.o \
+      Release/vforces.o \
+      Release/vmec_io.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vmec_persistent.o \
+      Release/vmercier.o \
+      Release/vspline.o \
+      Release/xstuff.o 
+      
+
+Release/analysum.o : \
+      Release/parallel_include_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o 
+      
+
+Release/analysum2.o : \
+      Release/parallel_include_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o 
+      
+
+Release/analyt.o : \
+      Release/parallel_include_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o 
+      
+
+Release/becoil.o : \
+			Release/vparams.o \
+      Release/timer_sub.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+Release/belicu.o : \
+			Release/biotsavart.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+Release/bextern.o : \
+			Release/mgrid_mod.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+Release/fouri.o : \
+      Release/parallel_include_module.o \
+      Release/vacmod.o \
+      Release/timer_sub.o
+      
+
+Release/fourp.o : \
+      Release/timer_sub.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+Release/greenf.o : \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+Release/precal.o : \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o \
+      Release/vmec_main.o 
+      
+
+Release/scalpot.o : \
+      Release/parallel_include_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o 
+      
+
+Release/surface.o : \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+Release/tolicu.o : \
+			Release/biotsavart.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/vacmod.o 
+      
+
+     
+
+Release/vacuum.o : \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o 
+            
+
+Release/add_tension.o : \
+      Release/vspline.o 
+      
+
+Release/getspline.o : \
+			Release/vparams.o \
+			Release/vsvd0.o
+      
+
+Release/gety2.o : \
+      Release/vspline.o 
+      
+
+Release/initspline.o : \
+      Release/vspline.o 
+      
+
+Release/jacprod.o : \
+      Release/vspline.o 
+      
+
+Release/set_dual.o : \
+			Release/vmec_input.o \
+			Release/vparams.o \
+      Release/vspline.o 
+      
+
+Release/setspline.o : \
+      Release/vspline.o 
+      
+
+Release/setup_int.o : \
+			Release/stel_kinds.o \
+			Release/vparams.o
+      
+
+Release/sort_data.o : \
+			Release/stel_kinds.o
+      
+
+Release/splinint.o : \
+			Release/vparams.o \
+      Release/vspline.o 
+      
+
+Release/splints.o : \
+			Release/vmec_input.o \
+      Release/vspline.o 
+      
+
+Release/splintx.o : \
+			Release/vparams.o \
+      Release/csplinx.o 
+      
+
+Release/vspline.o : \
+			Release/vsvd0.o
+      
+
+Release/eqsolve.o : \
+      Release/directaccess.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/realspace.o \
+      Release/vacmod.o \
+      Release/vmec_history.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/evolve.o : \
+      Release/gmres_mod.o \
+      Release/parallel_include_module.o \
+      Release/precon2d.o \
+      Release/timer_sub.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/gmres_mod.o : \
+      Release/precon2d.o \
+			Release/stel_kinds.o \
+			Release/gmres.o \
+      Release/parallel_include_module.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+      
+
+Release/interp.o : \
+      Release/parallel_include_module.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vmec_persistent.o 
+      
+
+Release/parallel_include_module.o : \
+			Release/stel_kinds.o \
+			Release/mpi_inc.o \
+      Release/parallel_vmec_module.o 
+      
+
+Release/restart.o : \
+      Release/parallel_include_module.o \
+      Release/vmec_main.o \
+      Release/xstuff.o 
+      
+
+Release/runvmec.o : \
+			Release/initialize_vmec_arrays.o \
+      Release/blocktridiagonalsolver_bst.o \
+      Release/parallel_include_module.o \
+      Release/parallel_vmec_module.o \
+      Release/timer_sub.o \
+      Release/vacmod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/xstuff.o 
+
+Release/vmec_c_interface.o : \
+			Release/mercier.o \
+			Release/safe_open_mod.o \
+			Release/vmec_input.o \
+			Release/vmec_io.o \
+			Release/vmec_main.o \
+			Release/vmec_seq.o \
+			Release/vmec_utils.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/parallel_vmec_module.o \
+      Release/vmec_params.o \
+			Release/vac_persistent.o \
+		  Release/vacmod.o \
+			Release/vspline.o
+
+Release/vmec.o : \
+			Release/safe_open_mod.o \
+			Release/vmec_input.mod \
+			Release/vmec_seq.o \
+			Release/vparams.o \
+      Release/parallel_include_module.o \
+      Release/parallel_vmec_module.o \
+      Release/vmec_params.o 
+      
+
+Release/vmec_history.o : \
+			Release/safe_open_mod.o \
+			Release/stel_kinds.o \
+			Release/vmec_input.o \
+      Release/precon2d.o \
+      Release/vmec_dim.o \
+      Release/vmec_main.o \
+      Release/xstuff.o 
