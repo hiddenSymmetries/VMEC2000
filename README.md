@@ -34,8 +34,8 @@ The following command was used to configure cmake build setup for VMEC on PPPL c
 cmake -S. -Bbuild -GNinja -DCMAKE_Fortran_COMPILER=mpifort -DNETCDF_INC_PATH=/usr/pppl/intel/2019-pkgs/netcdf-fortran-4.5.2/include/ -DNETCDF_LIB_PATH=/usr/pppl/intel/2019-pkgs/netcdf-fortran-4.5.2/lib -DSCALAPACK_LIB_NAME=scalapack -DBLACS_LIB_NAME=mpiblacs -DBLACS_CINIT_NAME=mpiblacsCinit -DBLACS_F77INIT_NAME=mpiblacsF77init --trace-source=CMakeLists.txt 2>&1 | tee log
 ```
 There are few points to note on the above command
-	- The above command gives a verbose output and also store the output in `log` file. 
-	- Ninja build system is used. If your system doesn't have ninja installed, remove the -G option. Alternatively you install ninja in a python virtual environment using pip.
+  - The above command gives a verbose output and also store the output in `log` file. 
+  - Ninja build system is used. If your system doesn't have ninja installed, remove the -G option. Alternatively you install ninja in a python virtual environment using pip.
 
 After successful completion of cmake configuration step, go to `build` directory and run `ninja` command as
 ```bash
