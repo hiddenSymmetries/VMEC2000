@@ -1,3 +1,18 @@
+cmake_minimum_required (VERSION 3.15.0)
+
+#message(STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
+
+# Start Project and note the language used. The BLAS and LAPACK libraries for ifort require a working C and C++ compiler.
+project (VMEC Fortran C CXX)
+
+#enable_testing ()
+
+
+# Activate or Deactivate code profiling. The profiler maybe activated by setting -DUSE_PROFILER=ON on the cmake command line.
+set (vmec_sources "")
+# List all the subdirectories these are in library dependancy order.
+#add_subdirectory (Sources)
+
 # Add subdirectories for all the sources.
 add_subdirectory (LIBSTELL_minimal)
 add_subdirectory (General)
@@ -8,4 +23,46 @@ add_subdirectory (NESTOR_vacuum)
 add_subdirectory (Splines)
 add_subdirectory (TimeStep)
 
-set (vmec_sources "${vmec_sources}" PARENT_SCOPE)
+set (vmec_sources "${vmec_sources}")# PARENT_SCOPE)
+
+add_library (vmec STATIC ${vmec_sources})
+set_target_properties(vmec PROPERTIES POSITION_INDEPENDENT_CODE ON)
+#add_dependencies (vmec stell)
+set_target_properties (vmec PROPERTIES COMPILE_DEFINITIONS "SKS")
+set_target_properties (vmec PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/vmec)
+if (CMAKE_VERSION VERSION_GREATER "2.8.8")
+	set_target_properties (vmec PROPERTIES INCLUDE_DIRECTORIES ${CMAKE_Fortran_MODULE_DIRECTORY}/vmec)
+else ()
+	set_target_properties (vmec PROPERTIES COMPILE_FLAGS "-I${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
+endif ()
+	
+
+# Define an executable and link all libraries.
+add_executable (xvmec ${CMAKE_CURRENT_SOURCE_DIR}/TimeStep/vmec.f)
+set_target_properties (xvmec PROPERTIES COMPILE_DEFINITIONS "SKS")
+#add_dependencies (xvmec vmec)
+target_link_libraries (xvmec vmec)
+
+if (CMAKE_VERSION VERSION_GREATER "2.8.8")
+	set_target_properties (xvmec PROPERTIES INCLUDE_DIRECTORIES "${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
+	#target_include_directories (xvmec PRIVATE "${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
+else ()
+	set_target_properties (xvmec PROPERTIES COMPILE_FLAGS "-I${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
+endif ()
+
+target_link_libraries (xvmec ${NETCDF_LIBRARIES})
+
+if (SCALAPACK_LIB)
+	target_link_libraries (xvmec ${SCALAPACK_LIB})
+endif ()
+if (BLAS_FOUND)
+	target_link_libraries (xvmec ${BLAS_LIBRARIES})
+endif ()
+if (LAPACK_FOUND)
+	target_link_libraries (xvmec ${LAPACK_LIBRARIES})
+endif ()
+if (MPI_Fortran_FOUND)
+        target_link_libraries (xvmec ${MPI_Fortran_LIBRARIES})
+endif ()
+
+

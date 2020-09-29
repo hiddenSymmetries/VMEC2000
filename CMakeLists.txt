@@ -1,42 +1,9 @@
-# cmake build system was created by Mark Cianciosa. Current this only supports Mac OS X and Linux.
-#
-# All options can be define by using -DOPTION_NAME="Definition of option"
-#
-# Options:
-# EXTRA_FLAGS         -- Compiler flags added to all builds.
-# EXTRA_RELEASE_FLAGS -- Compiler flags added to release builds.
-# EXTRA_DEBUG_FLAGS   -- Compiler flags added to debug builds.
-#
-# NETCDF_LIB_PATH     -- Path to the netcdf libraries.
-# NETCDF_INC_PATH     -- Path to the netcdf include files.
-# NETCDF_F_LIB_NAME   -- Name of Netcdf_f library if nonstandard
-# NETCDF_C_LIB_NAME   -- Name of netcdf_c library if nonstandard
-#
-# SCALAPACK_LIB_NAME  -- Name of Sscalapack library if nonstandard
-#
-# Some builds of SCALAPACK require linking to external BLACS LIBS
-# These options allow you to define nonstandard BLACS LIB NAMES if needed
-#
-# BLACS_LIB_NAME      -- Name of BLACS library
-# BLACS_CINIT_NAME    -- Name of BLACS Cinit library
-# BLACS_F77INIT_NAME  -- Name of BLACS F77init library
-#
-# BUILD_GTOVMI        -- Optionally builds GTOVMI
+cmake_minimum_required(VERSION 3.15.0)
 
-cmake_minimum_required (VERSION 2.8.7)
-
-message(STATUS "CMAKE_MODULE_PATH is ${CMAKE_MODULE_PATH}")
-
-# Start Project and note the language used. The BLAS and LAPACK libraries for ifort require a working C and C++ compiler.
-project (VMEC Fortran C CXX)
-
-enable_testing ()
-
-
-# Activate or Deactivate code profiling. The profiler maybe activated by setting -DUSE_PROFILER=ON on the cmake command line.
+project(vmec LANGUAGES C CXX Fortran)
 OPTION (USE_PROFILER "Activate code profiling." OFF)
 if (USE_PROFILER)
-        add_definitions (-DPROFILE_ON)
+    add_definitions (-DPROFILE_ON)
 endif ()
 
 # Activate or Deactivate fast copies. The fast copies maybe activated by setting -DUSE_FAST_COPY=ON on the cmake command line.
@@ -119,13 +86,13 @@ message(STATUS "NETCDF_I value is ${NETCDF_I}")
 
 if (NETCDF_LIB_PATH)
 	file (TO_NATIVE_PATH ${NETCDF_LIB_PATH} NETCDF_LIB_PATH)
-        find_library (NETCDF_F NAMES netcdff ${NETCDF_F_LIB_NAME} PATHS ${NETCDF_LIB_PATH} NO_DEFAULT_PATH)
-        find_library (NETCDF_C NAMES netcdf ${NETCDF_C_LIB_NAME} PATHS ${NETCDF_LIB_PATH} NO_DEFAULT_PATH)
+        find_library (NETCDF_F NAMES netcdff ${NETCDF_F_LIB_NAME} HINTS ${NETCDF_LIB_PATH} ENV LD_LIBRARY_PATH)
+        find_library (NETCDF_C NAMES netcdf ${NETCDF_C_LIB_NAME} HINTS ${NETCDF_LIB_PATH} ENV LD_LIBRARY_PATH)
 endif ()
 message(STATUS "NETCDF_F value is ${NETCDF_F}")
 message(STATUS "NETCDF_C value is ${NETCDF_C}")
 if (NETCDF_C_LIB_PATH)
-        find_library (NETCDF_C NAMES netcdf ${NETCDF_C_LIB_NAME} PATHS ${NETCDF_C_LIB_PATH} NO_DEFAULT_PATH)
+        find_library (NETCDF_C NAMES netcdf ${NETCDF_C_LIB_NAME} HINTS ${NETCDF_C_LIB_PATH} ENV LD_LIBRARY_PATH)
 endif ()
 
 if (NETCDF_I AND (NETCDF_F OR NETCDF_C))
@@ -180,46 +147,11 @@ message(STATUS "updated scalapack_lib is ${SCALAPACK_LIB}")
 
 add_definitions (-DMRC)
 
-set (vmec_sources "")
-# List all the subdirectories these are in library dependancy order.
-add_subdirectory (Sources)
 
-add_library (vmec STATIC ${vmec_sources})
-#add_dependencies (vmec stell)
-set_target_properties (vmec PROPERTIES COMPILE_DEFINITIONS "SKS")
-set_target_properties (vmec PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/vmec)
-if (CMAKE_VERSION VERSION_GREATER "2.8.8")
-	set_target_properties (vmec PROPERTIES INCLUDE_DIRECTORIES ${CMAKE_Fortran_MODULE_DIRECTORY}/vmec)
-else ()
-	set_target_properties (vmec PROPERTIES COMPILE_FLAGS "-I${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
-endif ()
-	
 
-# Define an executable and link all libraries.
-add_executable (xvmec ${CMAKE_CURRENT_SOURCE_DIR}/Sources/TimeStep/vmec.f)
-set_target_properties (xvmec PROPERTIES COMPILE_DEFINITIONS "SKS")
-#add_dependencies (xvmec vmec)
-target_link_libraries (xvmec vmec)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-if (CMAKE_VERSION VERSION_GREATER "2.8.8")
-	set_target_properties (xvmec PROPERTIES INCLUDE_DIRECTORIES "${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
-	#target_include_directories (xvmec PRIVATE "${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
-else ()
-	set_target_properties (xvmec PROPERTIES COMPILE_FLAGS "-I${CMAKE_Fortran_MODULE_DIRECTORY}/vmec")
-endif ()
-
-target_link_libraries (xvmec ${NETCDF_LIBRARIES})
-
-if (SCALAPACK_LIB)
-	target_link_libraries (xvmec ${SCALAPACK_LIB})
-endif ()
-if (BLAS_FOUND)
-	target_link_libraries (xvmec ${BLAS_LIBRARIES})
-endif ()
-if (LAPACK_FOUND)
-	target_link_libraries (xvmec ${LAPACK_LIBRARIES})
-endif ()
-if (MPI_Fortran_FOUND)
-        target_link_libraries (xvmec ${MPI_Fortran_LIBRARIES})
-endif ()
-
+add_subdirectory(Sources)
+if (SKBUILD)
+    add_subdirectory(python)
+endif()
