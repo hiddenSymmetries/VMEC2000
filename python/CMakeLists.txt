@@ -9,6 +9,9 @@ find_package(PythonExtensions REQUIRED)
 find_package(NumPy REQUIRED)
 find_package(F2PY REQUIRED)
 find_package(F90Wrap REQUIRED)
+#if(NOT APPLE)
+#	set(CMAKE_INSTALL_RPATH $ORIGIN)
+#endif()
 
 # Fortran preprocessing compiler 
 if(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
@@ -22,6 +25,7 @@ endif()
 get_directory_property(COMP_DEFS COMPILE_DEFINITIONS)
 message(STATUS "Compile definitions for preprocessor are ${COMP_DEFS}")
 string(REPLACE ";" " " COMP_DEF_STR "${COMPILE_DEFINITIONS}")
+string(REPLACE ";" " " SCALAPACK_LIB_STR "${SCALAPACK_LIB}")
 
 	
 function(preprocess_fortran outvar)
@@ -144,9 +148,8 @@ message(STATUS "f2py_module_name: ${f2py_module_name}")
 message(STATUS "generated_module_name: ${generated_module_file}")
 
 #set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
-set(CMAKE_INSTALL_RPATH "$ORIGIN")
 #set(CMAKE_SKIP_BUILD_PATH FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+#set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
 #set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}")
 #set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 include_directories("${NumPy_INCLUDE_DIRS}" "${F2PY_INCLUDE_DIRS}" "${CMAKE_CURRENT_BINARY_DIR}")
@@ -161,21 +164,26 @@ add_custom_command(
         -m ${f2py_module_name} 
         --build-dir ${CMAKE_CURRENT_BINARY_DIR} 
         --f90exec=${CMAKE_Fortran_COMPILER}
+        --f77exec=${CMAKE_Fortran_COMPILER}
         -c 
-        -L${CMAKE_BINARY_DIR}/build/lib -lvmec --verbose
         -I${CMAKE_BINARY_DIR}/build/modules/vmec
+		--verbose
+        ${SCALAPACK_LIB}
+        ${CMAKE_BINARY_DIR}/build/lib/libvmec.a  
         ${f90wrap_output_files} 
     #IMPLICIT_DEPENDS Fortran ${f90wrap_output_files}
     DEPENDS vmec ${f90wrap_output_files}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    #VERBATIM
+    COMMAND_EXPAND_LISTS
 )
 
 install(FILES ${python_mod_file} ${generated_module_file} ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
         DESTINATION vmec
 )
-install(TARGETS xvmec vmec
-        LIBRARY DESTINATION vmec
-        RUNTIME DESTINATION bin
-)
+install(TARGETS xvmec vmec)
+#        LIBRARY DESTINATION ${CMAKE_INSTALL_DIR}/.
+#        RUNTIME DESTINATION bin
+#)
 
 

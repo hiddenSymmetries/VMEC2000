@@ -27,7 +27,7 @@ list (APPEND vmec_sources
 	${CMAKE_CURRENT_SOURCE_DIR}/tomnsp_mod.f
 	${CMAKE_CURRENT_SOURCE_DIR}/totzsp_mod.f
 	${CMAKE_CURRENT_SOURCE_DIR}/vforces.f
-	${CMAKE_CURRENT_SOURCE_DIR}/vmec_c_interface.f
+	#${CMAKE_CURRENT_SOURCE_DIR}/vmec_c_interface.f
 	${CMAKE_CURRENT_SOURCE_DIR}/vmec_dim.f
 	${CMAKE_CURRENT_SOURCE_DIR}/vmec_main.f
 	${CMAKE_CURRENT_SOURCE_DIR}/vmec_params.f
