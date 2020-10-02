@@ -613,7 +613,7 @@ Release/eqfor.o : \
       
 
 Release/fileout.o : \
-			Release/vmec_c_interface.o \
+			Release/vmec_ext_interface.o \
 			Release/safe_open_mod.o \
       Release/angle_constraints.o \
       Release/parallel_include_module.o \
@@ -979,7 +979,7 @@ Release/runvmec.o : \
       Release/vmec_params.o \
       Release/xstuff.o 
 
-Release/vmec_c_interface.o : \
+Release/vmec_ext_interface.o : \
 			Release/mercier.o \
 			Release/safe_open_mod.o \
 			Release/vmec_input.o \

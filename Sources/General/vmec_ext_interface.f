@@ -1,15 +1,10 @@
-      MODULE vmec_c_interface
+      MODULE vmec_ext_interface
         USE, INTRINSIC :: ISO_C_BINDING
         USE stel_kinds
         USE stel_constants
         IMPLICIT NONE
         
-        PUBLIC :: runvmec_c, vmec_output_data,
-     &  retrieve_vmec_data_real, retrieve_vmec_data_int,
-     &  retrieve_vmec_data_bool, set_vmec_data_real,
-     &  set_vmec_data_int, set_vmec_data_bool,
-     &  set_vmec_data_char, 
-     &  finalize_from_c, initialize_from_c
+        PUBLIC :: vmec_output_data
 
         REAL(dp), DIMENSION(:,:), ALLOCATABLE :: rmnc, rmns, zmns, 
      &   zmnc, lmns, lmnc
@@ -25,10 +20,24 @@
      &   bsupvmnc, bsupvmns
 
         LOGICAL :: lcurr
+
+        INTERFACE set_vmec_data
+          MODULE PROCEDURE set_vmec_data_real
+          MODULE PROCEDURE set_vmec_data_int
+          MODULE PROCEDURE set_vmec_data_bool
+          MODULE PROCEDURE set_vmec_data_char
+        END INTERFACE
+
+        INTERFACE retrieve_vmec_data
+          MODULE PROCEDURE set_vmec_data_real
+          MODULE PROCEDURE set_vmec_data_int
+          MODULE PROCEDURE set_vmec_data_bool
+        END INTERFACE
+
       CONTAINS
 
-      SUBROUTINE runvmec_c(input_file0,EXT_MPI_COMM) 
-     & BIND(C,name='runvmec_c')
+      SUBROUTINE runvmec_ext(input_file0,EXT_MPI_COMM) 
+!     & BIND(C,name='runvmec_c')
         USE vmec_input
         USE vmec_seq
         USE safe_open_mod
@@ -243,10 +252,13 @@ C-----------------------------------------------
         ictrl(5) = iseq - 1
         ncount = 0
 
+        print *, ictrl
         CALL runvmec(ictrl, extension(index_seq), lscreen, EXT_MPI_COMM,
      &                reset_file_name)
 
+                print *, ictrl
         ierr_vmec = ictrl(2)
+        print *, ierr_vmec
 
         SELECT CASE (ierr_vmec)
           CASE (more_iter_flag)                                !Need a few more iterations to converge
@@ -308,7 +320,7 @@ C-----------------------------------------------
 
         CALL FinalizeParallel
 
-      END SUBROUTINE runvmec_c
+      END SUBROUTINE runvmec_ext
 
       SUBROUTINE c2f_string_array_1d(c_pointer,f_string)
         USE, INTRINSIC :: ISO_C_BINDING
@@ -778,8 +790,8 @@ C-----------------------------------------------
         rzl_array = 0
       END SUBROUTINE vmec_output_data
 
-      SUBROUTINE initialize_from_c(m_pol,n_tor)
-     &  BIND(C,name='initialize_vmec')
+      SUBROUTINE initialize(m_pol,n_tor)
+!     &  BIND(C,name='initialize_vmec')
         USE vmec_input
         USE vparams
         INTEGER(C_INT), INTENT(IN) :: m_pol, n_tor
@@ -857,9 +869,9 @@ C-----------------------------------------------
 !
         raxis = 0;  zaxis = 0
 
-      END SUBROUTINE initialize_from_c
+      END SUBROUTINE initialize
 
-      SUBROUTINE finalize_from_c() BIND(C,name='finalize_vmec')
+      SUBROUTINE finalize() !BIND(C,name='finalize_vmec')
         USE vmec_persistent, ONLY: xm, xn, xm_nyq, xn_nyq
         USE vmec_main
         IF (ALLOCATED(xm)) DEALLOCATE(xm,xn,xm_nyq,xn_nyq)
@@ -891,10 +903,10 @@ C-----------------------------------------------
 !     &              cosu, sinv, cosv, sinui, cosui, cmns, csign, sinu1,
 !     &              cosu1, sinv1, cosv1, imirr, xmpot, xnpot)
 
-      END SUBROUTINE finalize_from_c
+      END SUBROUTINE finalize
 
       SUBROUTINE set_vmec_data_real(data_size,data_id,data_ptr)
-     &  BIND(C,name='set_vmec_data_real')
+!     &  BIND(C,name='set_vmec_data_real')
         USE vmec_input
         USE vparams, ONLY: ntord, ndatafmax
         INTEGER(C_INT), INTENT(IN) :: data_size
@@ -1152,7 +1164,7 @@ C-----------------------------------------------
       END SUBROUTINE
 
       SUBROUTINE set_vmec_data_int(data_size,data_id,data_ptr)
-     &  BIND(C,name='set_vmec_data_int')
+!     &  BIND(C,name='set_vmec_data_int')
         USE vmec_input
         USE vparams
         INTEGER(C_INT), INTENT(IN) :: data_size
@@ -1223,7 +1235,7 @@ C-----------------------------------------------
       END SUBROUTINE set_vmec_data_int
 
       SUBROUTINE set_vmec_data_bool(data_size,data_id,data_ptr)
-     &  BIND(C,name='set_vmec_data_bool')
+!     &  BIND(C,name='set_vmec_data_bool')
         USE vmec_input
         USE vparams
         INTEGER(C_INT), INTENT(IN) :: data_size
@@ -1256,7 +1268,7 @@ C-----------------------------------------------
       END SUBROUTINE set_vmec_data_bool
 
       SUBROUTINE set_vmec_data_char(data_size,data_id,data_ptr)
-     &  BIND(C,name='set_vmec_data_char')
+!     &  BIND(C,name='set_vmec_data_char')
         USE vmec_input
         USE vparams
         INTEGER(C_INT), INTENT(IN) :: data_size
@@ -1287,7 +1299,7 @@ C-----------------------------------------------
       END SUBROUTINE set_vmec_data_char
 
       SUBROUTINE retrieve_vmec_data_real(data_size, data_id, data_ptr)
-     & BIND(C,name="retrieve_vmec_data_real")
+!     & BIND(C,name="retrieve_vmec_data_real")
         USE vmec_main
         USE vmec_persistent, ONLY: xm, xn, xm_nyq, xn_nyq
         USE vmec_io
@@ -1772,7 +1784,7 @@ C-----------------------------------------------
       END SUBROUTINE retrieve_vmec_data_real
 
       SUBROUTINE retrieve_vmec_data_int(data_size, data_id, data_ptr)
-     &  BIND(C,name='retrieve_vmec_data_int')
+!     &  BIND(C,name='retrieve_vmec_data_int')
         USE vmec_dim, ONLY: ns, mnmax
         USE vmec_main
         USE vmec_input
@@ -1799,6 +1811,7 @@ C-----------------------------------------------
           data_ptr(1) = mnmax_nyq
         ELSE IF (TRIM(data_string) .eq. "signgs") THEN
           data_ptr(1) = NINT(signgs)
+          print *, data_ptr(1)
         ELSE
           WRITE(6,"(A)") "No data field with label "
      &      //TRIM(data_string)//" found!"
@@ -1807,7 +1820,7 @@ C-----------------------------------------------
       END SUBROUTINE retrieve_vmec_data_int
 
       SUBROUTINE retrieve_vmec_data_bool(data_size, data_id, data_ptr)
-     &  BIND(C,name='retrieve_vmec_data_bool')
+!     &  BIND(C,name='retrieve_vmec_data_bool')
         USE vmec_main
         INTEGER(C_INT), INTENT(IN) :: data_size
         TYPE(C_PTR), INTENT(IN) :: data_id
@@ -1831,4 +1844,6 @@ C-----------------------------------------------
         END IF
 
       END SUBROUTINE retrieve_vmec_data_bool
-      END MODULE vmec_c_interface
+
+
+      END MODULE vmec_ext_interface

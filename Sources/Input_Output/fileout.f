@@ -148,7 +148,7 @@ C-----------------------------------------------
       USE angle_constraints, ONLY: free_multipliers, getrz
 #endif
       USE parallel_include_module
-      USE vmec_c_interface, ONLY: vmec_output_data
+      USE vmec_ext_interface, ONLY: vmec_output_data
 
       IMPLICIT NONE
 C-----------------------------------------------

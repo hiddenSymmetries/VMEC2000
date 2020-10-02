@@ -114,8 +114,8 @@ $(VMEC_STATIC_TARGET): $(LM_f_OBJ) $(LM_f90_OBJ) $(G_f_OBJ) $(G_f90_OBJ) $(IC_f_
 $(VMEC_SHARED_TARGET): $(LM_f_OBJ) $(LM_f90_OBJ) $(G_f_OBJ) $(G_f90_OBJ) $(IC_f_OBJ) $(IC_f90_OBJ) $(H_f_OBJ) $(IO_f_OBJ) $(NV_f_OBJ) $(S_f_OBJ) $(TS_f_OBJ) $(TS_f90_OBJ)
 	$(FLINKER) $(FC_COMPILE_FLAGS) -o $@ $^ -L${NETCDF_C_DIR}/lib -lnetcdf -L${NETCDF_F_DIR}/lib -lnetcdff ${F95ROOT}/lib/intel64/libmkl_blas95_lp64.a ${F95ROOT}/lib/intel64/libmkl_lapack95_lp64.a -L${MKLROOT}/lib/intel64 -L${TBBROOT}/lib/intel64_lin/gcc4.8 -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_tbb_thread -lmkl_core -lmkl_blacs_intelmpi_lp64 -ltbb -lpthread -lm -ldl
 
-$(VMEC_EXEC): $(LM_f_OBJ) $(LM_f90_OBJ) $(G_f_OBJ) $(G_f90_OBJ) $(IC_f_OBJ) $(IC_f90_OBJ) $(H_f_OBJ) $(IO_f_OBJ) $(NV_f_OBJ) $(S_f_OBJ) $(TS_f_OBJ) $(TS_f90_OBJ) $(LM_f_MOD) $(LM_f90_MOD) $(G_f_MOD) $(G_f90_MOD) $(IC_f_MOD) $(IC_f90_MOD) $(H_f_MOD) $(IO_f_MOD) $(NV_f_MOD) $(S_f_MOD) $(TS_f_MOD) $(TS_f90_MOD)
+$(VMEC_EXEC): $(LM_f_OBJ) $(LM_f90_OBJ) $(G_f_OBJ) $(G_f90_OBJ) $(IC_f_OBJ) $(IC_f90_OBJ) $(H_f_OBJ) $(IO_f_OBJ) $(NV_f_OBJ) $(S_f_OBJ) $(TS_f_OBJ) $(TS_f90_OBJ)
 	$(FLINKER) $(FC_COMPILE_FLAGS) -o $@ $^ -L${NETCDF_C_DIR}/lib -lnetcdf -L${NETCDF_F_DIR}/lib -lnetcdff ${F95ROOT}/lib/intel64/libmkl_blas95_lp64.a ${F95ROOT}/lib/intel64/libmkl_lapack95_lp64.a -L${MKLROOT}/lib/intel64 -L${TBBROOT}/lib/intel64_lin/gcc4.8 -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_tbb_thread -lmkl_core -lmkl_blacs_intelmpi_lp64 -ltbb -lpthread -lm -ldl
 
 vmec_clean:
-	rm -f Release/*.o Release/*.mod $(VMEC_TARGET)
+	rm -f Release/*.o Release/*.mod $(VMEC_STATIC_TARGET) $(VMEC_SHARED_TARGET)
