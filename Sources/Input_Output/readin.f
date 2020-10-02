@@ -246,8 +246,8 @@ C-----------------------------------------------
       CALL second0(treadon)
       
       ! MANGO
-      !lwrite = (grank .EQ. 0)
-      lwrite = .false.
+      lwrite = (grank .EQ. 0)
+      !lwrite = .false.
       ier_flag_init = ier_flag
       ier_flag = norm_term_flag
       IF (ier_flag_init .EQ. more_iter_flag) GOTO 1000
@@ -264,26 +264,26 @@ C-----------------------------------------------
 !     Open output files here, print out heading to threed1 file
 !
 !      PRINT *,'IN READIN, LWRITE: ', lwrite
-!      IF (lwrite) THEN
-!         CALL heading(input_extension, time_slice,
-!     &                iseq_count, lmac, lscreen, lwrite)
-!      END IF
+      IF (lwrite) THEN
+         CALL heading(input_extension, time_slice,
+     &                iseq_count, lmac, lscreen, lwrite)
+      END IF
 
 !
 !     READ IN COMMENTS DEMARKED BY "!"
 !  
-!      REWIND (iunit, iostat=iexit)
-!      IF (lWrite) THEN
-!         DO WHILE(iexit .EQ. 0)
-!            READ (iunit, '(a)', iostat=iexit) line
-!            IF (iexit .NE. 0) EXIT
-!            iexit = INDEX(line,'INDATA')
-!            iexit = iexit + INDEX(line,'indata')
-!            ipoint = INDEX(line,'!')
-!            IF (ipoint .EQ. 1) WRITE (nthreed, *) TRIM(line)
-!         ENDDO
-!      END IF
-!      CLOSE (iunit)
+      REWIND (iunit, iostat=iexit)
+      IF (lWrite) THEN
+         DO WHILE(iexit .EQ. 0)
+            READ (iunit, '(a)', iostat=iexit) line
+            IF (iexit .NE. 0) EXIT
+            iexit = INDEX(line,'INDATA')
+            iexit = iexit + INDEX(line,'indata')
+            ipoint = INDEX(line,'!')
+            IF (ipoint .EQ. 1) WRITE (nthreed, *) TRIM(line)
+         ENDDO
+      END IF
+      CLOSE (iunit)
 
 !
 !     READ IN AND STORE (FOR SEQUENTIAL RUNNING) MAGNETIC FIELD DATA
@@ -360,182 +360,182 @@ C-----------------------------------------------
 
       IF (nvacskip .LE. 0) nvacskip = nfp
 
-!      PROC0: IF (lwrite) THEN
-!         WRITE (nthreed,100)
-!     &   ns_array(multi_ns_grid),ntheta1,nzeta,mpol,ntor,nfp,
-!#ifdef _ANIMEC
-!     &   gamma,spres_ped,phiedge,curtor,bcrit,lRFP
-!#else
-!     &   gamma,spres_ped,phiedge,curtor,lRFP
-!#endif
-! 100  FORMAT(/,' COMPUTATION PARAMETERS: (u = theta, v = zeta)'/,
-!     &  1x,45('-'),/,
-!     &  '     ns     nu     nv     mu     mv',/,
-!     &  5i7,//,' CONFIGURATION PARAMETERS:',/,1x,39('-'),/,
-!     &  '    nfp      gamma      spres_ped    phiedge(wb)'
-!#ifdef _ANIMEC
-!     &  '     curtor(A)      BCrit(T)        lRFP',
-!     &  /,i7,1p,e11.3,2e15.3,2e14.3,L12/)
-!#else
-!     &  '     curtor(A)        lRFP',
-!     &  /,i7,1p,e11.3,2e15.3,e14.3,L12/)
-!#endif
-!         WRITE (nthreed,110) ncurr,niter_array(multi_ns_grid),
-!     &   ns_array(1),nstep,nvacskip,
-!     &   ftol_array(multi_ns_grid),tcon0,lasym,lforbal,lmove_axis,
-!     &   lconm1,mfilter_fbdy,nfilter_fbdy,lfull3d1out,
-!     &   max_main_iterations,lgiveup,fgiveup                                         ! M Drevlak 20130114
-! 110  FORMAT(' RUN CONTROL PARAMETERS:',/,1x,23('-'),/,
-!     &  '  ncurr  niter   nsin  nstep  nvacskip      ftol     tcon0',
-!     &  '    lasym  lforbal lmove_axis lconm1',/,
-!     &     4i7,i10,1p,2e10.2,4L9,/,
-!     &  '  mfilter_fbdy nfilter_fbdy lfull3d1out max_main_iterations', ! J Geiger 20120203
-!     &  ' lgiveup fgiveup',/,               ! M Drevlak 20130114
-!     &     2(6x,i7),L12,10x,i10,L8,e9.1,/)  ! M Drevlak 20130114
-!
-!         WRITE (nthreed,120) precon_type, prec2d_threshold
-! 120  FORMAT(' PRECONDITIONER CONTROL PARAMETERS:',/,1x,34('-'),/,
-!     &       '  precon_type   prec2d_threshold',/,2x,a10,1p,e20.2,/)
-!
-!         IF (nextcur .gt. 0) THEN
-!            WRITE(nthreed, "(' EXTERNAL CURRENTS',/,1x,17('-'))")
-!            ni = 0
-!            IF (ASSOCIATED(curlabel)) THEN
-!               ni = MAXVAL(LEN_TRIM(curlabel(1:nextcur)))
-!            END IF
-!            ni = MAX(ni+4, 14)
-!            WRITE (line,  '(a,i2.2,a)') "(5a",ni,")"
-!            WRITE (line2, '(a,i2.2,a)') "(5(",ni-12,"x,1p,e12.4))"
-!            DO i = 1,nextcur,5
-!               ni = MIN(i+4, nextcur)
-!               IF (ASSOCIATED(curlabel)) THEN
-!                  WRITE (nthreed, line, iostat=mj)
-!     &                  (TRIM(curlabel(n)),n=i,ni)
-!                  WRITE (nthreed, line2,iostat=mj) (extcur(n), n=i,ni)
-!               END IF
-!            END DO
-!            WRITE (nthreed, *)
-!         END IF
-!
-!         IF (bloat .ne. one) THEN
-!            WRITE (nthreed,'(" Profile Bloat Factor: ",1pe11.4)') bloat
-!            phiedge = phiedge*bloat
-!         END IF
-!
-!         IF (pres_scale .ne. one) THEN
-!            WRITE (nthreed,121) pres_scale
-!         END IF
-! 121  FORMAT(' Pressure profile factor: ',1pe11.4,
-!     &       ' (multiplier for pressure)')
-!!  Print out am array
-!            WRITE(nthreed,130)
-!            WRITE(nthreed,131) TRIM(pmass_type)
-!            WRITE(nthreed,132)
-! 130  FORMAT(' MASS PROFILE COEFFICIENTS - newton/m**2',
-!     &       ' (EXPANSION IN NORMALIZED RADIUS):')
-! 131  FORMAT(' PMASS parameterization type is ''', a,'''')
-! 132  FORMAT(1x,35('-'))
-!!         WRITE(nthreed,135)(am(i-1),i=1, SIZE(am))
-! 135  FORMAT(1p,6e12.3)
-!
-!         SELECT CASE(TRIM(pmass_type))
-!            CASE ('Akima_spline','cubic_spline')
-!               WRITE(nthreed,"(' am_aux_s is' )")
-!               n = NonZeroLen(am_aux_s,SIZE(am_aux_s))
-!               WRITE(nthreed,135)(am_aux_s(i),i=1, n)
-!               n = NonZeroLen(am_aux_f,SIZE(am_aux_f))
-!               WRITE(nthreed,"(' am_aux_f is' )")
-!               WRITE(nthreed,135)(am_aux_f(i),i=1, n)
-!            CASE DEFAULT
-!               n = NonZeroLen(am,SIZE(am))
-!               WRITE(nthreed,135)(am(i-1),i=1,n)
-!         END SELECT
-!
-!         IF (ncurr.eq.0) THEN
-!            IF (lRFP) THEN
-!               WRITE (nthreed,142)
-!            ELSE
-!               WRITE (nthreed,140)
-!            END IF
-!!  Print out ai array          
-!!          WRITE(nthreed,135)(ai(i-1),i=1, SIZE(ai))
-!            WRITE(nthreed,143) TRIM(piota_type)
-!            SELECT CASE(TRIM(piota_type))
-!               CASE ('Akima_spline','cubic_spline')
-!                  n = NonZeroLen(ai_aux_s,SIZE(ai_aux_s))
-!                  WRITE(nthreed,"(' ai_aux_s is' )")
-!                  WRITE(nthreed,135)(ai_aux_s(i),i=1, n)
-!                  n = NonZeroLen(ai_aux_f,SIZE(ai_aux_f))
-!                  WRITE(nthreed,"(' ai_aux_f is' )")
-!                  WRITE(nthreed,135)(ai_aux_f(i),i=1, n)
-!               CASE DEFAULT
-!                  n = NonZeroLen(ai,SIZE(ai))
-!                  WRITE(nthreed,135)(ai(i-1),i=1, n)
-!            END SELECT
-!         ELSE
-!!  Print out ac array
-!            WRITE(nthreed,145)
-!            WRITE(nthreed,146) TRIM(pcurr_type)
-!            WRITE(nthreed,147)
-!!            WRITE(nthreed,135)(ac(i-1),i=1, SIZE(ac))
-!            SELECT CASE(TRIM(pcurr_type))
-!               CASE ('Akima_spline_Ip','Akima_spline_I',                       &
-!     &               'cubic_spline_Ip','cubic_spline_I')
-!                  n = NonZeroLen(ac_aux_s,SIZE(ac_aux_s))
-!                  WRITE(nthreed,"(' ac_aux_s is' )")
-!                  WRITE(nthreed,135)(ac_aux_s(i),i=1, n)
-!                  n = NonZeroLen(ac_aux_f,SIZE(ac_aux_f))
-!                  WRITE(nthreed,"(' ac_aux_f is' )")
-!                  WRITE(nthreed,135)(ac_aux_f(i),i=1, n)
-!               CASE DEFAULT
-!                  n = NonZeroLen(ac,SIZE(ac))
-!                  WRITE(nthreed,135)(ac(i-1),i=1, n)
-!            END SELECT
-!         END IF
-!
-! 140  FORMAT(/' IOTA PROFILE COEFFICIENTS',
-!     &       ' (EXPANSION IN NORMALIZED RADIUS):',/,1x,35('-'))
-!! 142  FORMAT(/' SAFETY-FACTOR (q) PROFILE COEFFICIENTS ai',
-!     &       ' (EXPANSION IN NORMALIZED RADIUS):',/,1x,35('-'))
-! 143  FORMAT(' PIOTA parameterization type is ''', a,'''')
-! 145  FORMAT(/' TOROIDAL CURRENT DENSITY (*V'') COEFFICIENTS',
-!     &       ' ac (EXPANSION IN NORMALIZED RADIUS):')
-! 146  FORMAT(' PCURR parameterization type is ''', a,'''')
-! 147  FORMAT(1x,38('-'))
-!
-!         WRITE(nthreed,150)
-!         n = NonZeroLen(aphi,SIZE(aphi))
-!         WRITE(nthreed,135)(aphi(i),i=1,n)
-! 150  FORMAT(/' NORMALIZED TOROIDAL FLUX COEFFICIENTS aphi',
-!     &       ' (EXPANSION IN S):',/,1x,35('-'))
-!#ifdef _ANIMEC
-!         IF (ANY(ah .ne. zero)) THEN
-!            WRITE(nthreed,160)
-!            n = NonZeroLen(ah,SIZE(ah))
-!            WRITE(nthreed,135)(ah(i-1),i=1, n)
-!            WRITE(nthreed,165)
-!            n = NonZeroLen(at,SIZE(at))
-!            WRITE(nthreed,135)(at(i-1),i=1, n)
-!         END IF
-!
-! 160  FORMAT(' HOT PARTICLE PRESSURE COEFFICIENTS ah',
-!     &       ' (EXPANSION IN TOROIDAL FLUX):',/,1x,35('-'))
-! 165  FORMAT(' HOT PARTICLE TPERP/T|| COEFFICIENTS at',
-!     &       ' (EXPANSION IN TOROIDAL FLUX):',/,1x,35('-'))
-!#endif
-!
+      PROC0: IF (lwrite) THEN
+         WRITE (nthreed,100)
+     &   ns_array(multi_ns_grid),ntheta1,nzeta,mpol,ntor,nfp,
+#ifdef _ANIMEC
+     &   gamma,spres_ped,phiedge,curtor,bcrit,lRFP
+#else
+     &   gamma,spres_ped,phiedge,curtor,lRFP
+#endif
+ 100  FORMAT(/,' COMPUTATION PARAMETERS: (u = theta, v = zeta)'/,
+     &  1x,45('-'),/,
+     &  '     ns     nu     nv     mu     mv',/,
+     &  5i7,//,' CONFIGURATION PARAMETERS:',/,1x,39('-'),/,
+     &  '    nfp      gamma      spres_ped    phiedge(wb)'
+#ifdef _ANIMEC
+     &  '     curtor(A)      BCrit(T)        lRFP',
+     &  /,i7,1p,e11.3,2e15.3,2e14.3,L12/)
+#else
+     &  '     curtor(A)        lRFP',
+     &  /,i7,1p,e11.3,2e15.3,e14.3,L12/)
+#endif
+         WRITE (nthreed,110) ncurr,niter_array(multi_ns_grid),
+     &   ns_array(1),nstep,nvacskip,
+     &   ftol_array(multi_ns_grid),tcon0,lasym,lforbal,lmove_axis,
+     &   lconm1,mfilter_fbdy,nfilter_fbdy,lfull3d1out,
+     &   max_main_iterations,lgiveup,fgiveup                                         ! M Drevlak 20130114
+ 110  FORMAT(' RUN CONTROL PARAMETERS:',/,1x,23('-'),/,
+     &  '  ncurr  niter   nsin  nstep  nvacskip      ftol     tcon0',
+     &  '    lasym  lforbal lmove_axis lconm1',/,
+     &     4i7,i10,1p,2e10.2,4L9,/,
+     &  '  mfilter_fbdy nfilter_fbdy lfull3d1out max_main_iterations', ! J Geiger 20120203
+     &  ' lgiveup fgiveup',/,               ! M Drevlak 20130114
+     &     2(6x,i7),L12,10x,i10,L8,e9.1,/)  ! M Drevlak 20130114
+
+         WRITE (nthreed,120) precon_type, prec2d_threshold
+ 120  FORMAT(' PRECONDITIONER CONTROL PARAMETERS:',/,1x,34('-'),/,
+     &       '  precon_type   prec2d_threshold',/,2x,a10,1p,e20.2,/)
+
+         IF (nextcur .gt. 0) THEN
+            WRITE(nthreed, "(' EXTERNAL CURRENTS',/,1x,17('-'))")
+            ni = 0
+            IF (ASSOCIATED(curlabel)) THEN
+               ni = MAXVAL(LEN_TRIM(curlabel(1:nextcur)))
+            END IF
+            ni = MAX(ni+4, 14)
+            WRITE (line,  '(a,i2.2,a)') "(5a",ni,")"
+            WRITE (line2, '(a,i2.2,a)') "(5(",ni-12,"x,1p,e12.4))"
+            DO i = 1,nextcur,5
+               ni = MIN(i+4, nextcur)
+               IF (ASSOCIATED(curlabel)) THEN
+                  WRITE (nthreed, line, iostat=mj)
+     &                  (TRIM(curlabel(n)),n=i,ni)
+                  WRITE (nthreed, line2,iostat=mj) (extcur(n), n=i,ni)
+               END IF
+            END DO
+            WRITE (nthreed, *)
+         END IF
+
+         IF (bloat .ne. one) THEN
+            WRITE (nthreed,'(" Profile Bloat Factor: ",1pe11.4)') bloat
+            phiedge = phiedge*bloat
+         END IF
+
+         IF (pres_scale .ne. one) THEN
+            WRITE (nthreed,121) pres_scale
+         END IF
+ 121  FORMAT(' Pressure profile factor: ',1pe11.4,
+     &       ' (multiplier for pressure)')
+!  Print out am array
+            WRITE(nthreed,130)
+            WRITE(nthreed,131) TRIM(pmass_type)
+            WRITE(nthreed,132)
+ 130  FORMAT(' MASS PROFILE COEFFICIENTS - newton/m**2',
+     &       ' (EXPANSION IN NORMALIZED RADIUS):')
+ 131  FORMAT(' PMASS parameterization type is ''', a,'''')
+ 132  FORMAT(1x,35('-'))
+!         WRITE(nthreed,135)(am(i-1),i=1, SIZE(am))
+ 135  FORMAT(1p,6e12.3)
+
+         SELECT CASE(TRIM(pmass_type))
+            CASE ('Akima_spline','cubic_spline')
+               WRITE(nthreed,"(' am_aux_s is' )")
+               n = NonZeroLen(am_aux_s,SIZE(am_aux_s))
+               WRITE(nthreed,135)(am_aux_s(i),i=1, n)
+               n = NonZeroLen(am_aux_f,SIZE(am_aux_f))
+               WRITE(nthreed,"(' am_aux_f is' )")
+               WRITE(nthreed,135)(am_aux_f(i),i=1, n)
+            CASE DEFAULT
+               n = NonZeroLen(am,SIZE(am))
+               WRITE(nthreed,135)(am(i-1),i=1,n)
+         END SELECT
+
+         IF (ncurr.eq.0) THEN
+            IF (lRFP) THEN
+               WRITE (nthreed,142)
+            ELSE
+               WRITE (nthreed,140)
+            END IF
+!  Print out ai array          
+          WRITE(nthreed,135)(ai(i-1),i=1, SIZE(ai))
+            WRITE(nthreed,143) TRIM(piota_type)
+            SELECT CASE(TRIM(piota_type))
+               CASE ('Akima_spline','cubic_spline')
+                  n = NonZeroLen(ai_aux_s,SIZE(ai_aux_s))
+                  WRITE(nthreed,"(' ai_aux_s is' )")
+                  WRITE(nthreed,135)(ai_aux_s(i),i=1, n)
+                  n = NonZeroLen(ai_aux_f,SIZE(ai_aux_f))
+                  WRITE(nthreed,"(' ai_aux_f is' )")
+                  WRITE(nthreed,135)(ai_aux_f(i),i=1, n)
+               CASE DEFAULT
+                  n = NonZeroLen(ai,SIZE(ai))
+                  WRITE(nthreed,135)(ai(i-1),i=1, n)
+            END SELECT
+         ELSE
+!  Print out ac array
+            WRITE(nthreed,145)
+            WRITE(nthreed,146) TRIM(pcurr_type)
+            WRITE(nthreed,147)
+            WRITE(nthreed,135)(ac(i-1),i=1, SIZE(ac))
+            SELECT CASE(TRIM(pcurr_type))
+               CASE ('Akima_spline_Ip','Akima_spline_I',                       &
+     &               'cubic_spline_Ip','cubic_spline_I')
+                  n = NonZeroLen(ac_aux_s,SIZE(ac_aux_s))
+                  WRITE(nthreed,"(' ac_aux_s is' )")
+                  WRITE(nthreed,135)(ac_aux_s(i),i=1, n)
+                  n = NonZeroLen(ac_aux_f,SIZE(ac_aux_f))
+                  WRITE(nthreed,"(' ac_aux_f is' )")
+                  WRITE(nthreed,135)(ac_aux_f(i),i=1, n)
+               CASE DEFAULT
+                  n = NonZeroLen(ac,SIZE(ac))
+                  WRITE(nthreed,135)(ac(i-1),i=1, n)
+            END SELECT
+         END IF
+
+ 140  FORMAT(/' IOTA PROFILE COEFFICIENTS',
+     &       ' (EXPANSION IN NORMALIZED RADIUS):',/,1x,35('-'))
+ 142  FORMAT(/' SAFETY-FACTOR (q) PROFILE COEFFICIENTS ai',
+     &       ' (EXPANSION IN NORMALIZED RADIUS):',/,1x,35('-'))
+ 143  FORMAT(' PIOTA parameterization type is ''', a,'''')
+ 145  FORMAT(/' TOROIDAL CURRENT DENSITY (*V'') COEFFICIENTS',
+     &       ' ac (EXPANSION IN NORMALIZED RADIUS):')
+ 146  FORMAT(' PCURR parameterization type is ''', a,'''')
+ 147  FORMAT(1x,38('-'))
+
+         WRITE(nthreed,150)
+         n = NonZeroLen(aphi,SIZE(aphi))
+         WRITE(nthreed,135)(aphi(i),i=1,n)
+ 150  FORMAT(/' NORMALIZED TOROIDAL FLUX COEFFICIENTS aphi',
+     &       ' (EXPANSION IN S):',/,1x,35('-'))
+#ifdef _ANIMEC
+         IF (ANY(ah .ne. zero)) THEN
+            WRITE(nthreed,160)
+            n = NonZeroLen(ah,SIZE(ah))
+            WRITE(nthreed,135)(ah(i-1),i=1, n)
+            WRITE(nthreed,165)
+            n = NonZeroLen(at,SIZE(at))
+            WRITE(nthreed,135)(at(i-1),i=1, n)
+         END IF
+
+ 160  FORMAT(' HOT PARTICLE PRESSURE COEFFICIENTS ah',
+     &       ' (EXPANSION IN TOROIDAL FLUX):',/,1x,35('-'))
+ 165  FORMAT(' HOT PARTICLE TPERP/T|| COEFFICIENTS at',
+     &       ' (EXPANSION IN TOROIDAL FLUX):',/,1x,35('-'))
+#endif
+
 !!  Fourier Boundary Coefficients
-!         WRITE(nthreed,180)
-! 180  FORMAT(/,' R-Z FOURIER BOUNDARY COEFFICIENTS AND',
-!     &       ' MAGNETIC AXIS INITIAL GUESS',/,
-!     &       ' R = RBC*COS(m*u - n*v) + RBS*SIN(m*u - n*v),',
-!     &       ' Z = ZBC*COS(m*u - n*v) + ZBS*SIN(m*u-n*v)'/1x,86('-'),
-!     &       /,'   nb  mb     rbc         rbs         zbc         ',
-!     &       'zbs   ',
-!     &       '    raxis(c)    raxis(s)    zaxis(c)    zaxis(s)')
-!
-!      END IF PROC0
-!
+         WRITE(nthreed,180)
+ 180  FORMAT(/,' R-Z FOURIER BOUNDARY COEFFICIENTS AND',
+     &       ' MAGNETIC AXIS INITIAL GUESS',/,
+     &       ' R = RBC*COS(m*u - n*v) + RBS*SIN(m*u - n*v),',
+     &       ' Z = ZBC*COS(m*u - n*v) + ZBS*SIN(m*u-n*v)'/1x,86('-'),
+     &       /,'   nb  mb     rbc         rbs         zbc         ',
+     &       'zbs   ',
+     &       '    raxis(c)    raxis(s)    zaxis(c)    zaxis(s)')
+
+      END IF PROC0
+
 1000  CONTINUE
 
 !

@@ -113,8 +113,6 @@
 !-----------------------------------------------
 #endif
       lprint_flag = (ier_flag.eq.successful_term_flag)
-      ! MANGO
-      lprint_flag = .false.
       IF (lprint_flag) THEN
 #ifdef NETCDF
       jxbout_file = 'jxbout_'//TRIM(input_extension)//'.nc'

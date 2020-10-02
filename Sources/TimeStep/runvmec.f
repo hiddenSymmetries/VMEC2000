@@ -21,6 +21,7 @@
       USE blocktridiagonalsolver_bst, ONLY: Finalize_bst
       USE xstuff
       USE mpi_inc
+      USE vmec_ext_interface, ONLY: initialize_vmec_arrays
       IMPLICIT NONE
 C-----------------------------------------------
 C   D u m m y   A r g u m e n t s
@@ -159,8 +160,8 @@ C-----------------------------------------------
          CALL vsetup (iseq_count)
 
          ! MANGO
-         !CALL readin (input_file, iseq_count, ier_flag, lscreen)
-         CALL initialize_vmec_arrays(ier_flag)
+         CALL readin (input_file, iseq_count, ier_flag, lscreen)
+         !CALL initialize_vmec_arrays(ier_flag)
          max_grid_size = ns_array(multi_ns_grid)
 
          IF (ier_flag .NE. 0) GOTO 1000
@@ -185,7 +186,7 @@ C-----------------------------------------------
      &       LEN_TRIM(reset_file_name) .ne. 0) THEN
             igrid0 = multi_ns_grid
          END IF
-!         IF (grank .EQ. 0) WRITE (nthreed, 30)
+         IF (grank .EQ. 0) WRITE (nthreed, 30)
          delt0r = delt
       END IF
 
@@ -200,7 +201,6 @@ C-----------------------------------------------
 
       jacob_off = 0
 
-      print *, ictrl_array
       IF (IAND(ictrl_flag, timestep_flag) .EQ. 0) GOTO 1000
 
       IF(lfreeb) CALL SetVacuumCommunicator(nuv, nuv3, max_grid_size) !SAL 070719
@@ -230,7 +230,6 @@ C-----------------------------------------------
       DO igrid = igrid0 - jacob_off, multi_ns_grid
          CALL second0(gridton)
 
-         print *, igrid, ns_index
          IF (igrid .lt. igrid0) THEN
 !           TRY TO GET NON-SINGULAR JACOBIAN ON A 3 PT RADIAL MESH
             nsval = 3; ivac = -1
@@ -243,7 +242,6 @@ C-----------------------------------------------
             nsval = ns_array(ns_index)
             IF (nsval .le. 0) STOP 'NSVAL <= 0: WRONG INDEX VALUE'
             ftolv = ftol_array(ns_index)
-          print *, ftol_array
             niter = niter_array(ns_index)
          ELSE
             nsval = ns_array(igrid)
@@ -251,7 +249,6 @@ C-----------------------------------------------
             ns_min = nsval
             ictrl_array(4) = igrid
             ftolv = ftol_array(igrid)
-            print *, ictrl_array, ftolv
             niter = niter_array(igrid)
          END IF
 
@@ -299,7 +296,6 @@ C-----------------------------------------------
          END IF
 
          CALL eqsolve (ier_flag, lscreen)
-         print *, ier_flag
 
          IF (numsteps .GT. 0) THEN
             niter = niter_store

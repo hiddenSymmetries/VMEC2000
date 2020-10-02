@@ -242,12 +242,12 @@ C-----------------------------------------------
          END IF
       END DO
 
-!      IF (grank == 0 .and. lscreen) THEN
-!         PRINT *,' ---- Improved AXIS Guess ----'
-!         PRINT *,'     RAXIS_CC = ',raxis_cc(0:ntor)
-!         PRINT *,'     ZAXIS_CS = ',zaxis_cs(0:ntor)
-!         PRINT *,' -----------------------------'
-!      END IF
+      IF (grank == 0 .and. lscreen) THEN
+         PRINT *,' ---- Improved AXIS Guess ----'
+         PRINT *,'     RAXIS_CC = ',raxis_cc(0:ntor)
+         PRINT *,'     ZAXIS_CS = ',zaxis_cs(0:ntor)
+         PRINT *,' -----------------------------'
+      END IF
 
       CALL second0(tguessoff)
       guess_axis_time = guess_axis_time + (tguessoff - tguesson)

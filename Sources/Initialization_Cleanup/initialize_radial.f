@@ -56,21 +56,22 @@ C-----------------------------------------------
       nrzt = nznt*ns
       neqs = 3*irzloff
 
-!      IF (grank .EQ. 0) THEN
-!         WRITE (nthreed, 1000) ns, mnmax, ftolv, niter
-!         IF (lscreen) THEN
-!            PRINT 1000, ns, mnmax, ftolv, niter
-!         END IF
-!         IF (lactive) THEN
-!            IF (lfreeb) THEN
-!               WRITE(nthreed,1002) nranks, vnranks
-!               IF (lscreen) PRINT 1002, nranks, vnranks
-!            ELSE
-!               WRITE (nthreed, 1001) nranks
-!               IF (lscreen) PRINT 1001, nranks
-!            END IF
-!         END IF
-!      END IF
+
+      IF (grank .EQ. 0) THEN
+         WRITE (nthreed, 1000) ns, mnmax, ftolv, niter
+         IF (lscreen) THEN
+            PRINT 1000, ns, mnmax, ftolv, niter
+         END IF
+         IF (lactive) THEN
+            IF (lfreeb) THEN
+               WRITE(nthreed,1002) nranks, vnranks
+               IF (lscreen) PRINT 1002, nranks, vnranks
+            ELSE
+               WRITE (nthreed, 1001) nranks
+               IF (lscreen) PRINT 1001, nranks
+            END IF
+         END IF
+      END IF
 
 !
 !     ALLOCATE NS-DEPENDENT ARRAYS

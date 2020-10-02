@@ -66,21 +66,21 @@ C-----------------------------------------------
      &              sp, bmin, bmax, stat=istat5)
       END IF
 
-      IF (ALLOCATED(rru_fac)) THEN
-        DEALLOCATE(rru_fac,rzu_fac,frcc_fac,fzsc_fac,icurv,vpphi,
-     &             presgrad,r01,z01,bdamp, stat=istat6)
-!      IF (ALLOCATED(iotaf)) THEN
-!         DEALLOCATE(iotaf, mass, phi, presf, jcuru, jcurv, jdotb, buco,
-!     &              bvco, bucof, bvcof, chi,
-#ifdef _ANIMEC
+!      IF (ALLOCATED(rru_fac)) THEN
+!        DEALLOCATE(rru_fac,frcc_fac,fzsc_fac,icurv,vpphi,presgrad,
+!     &             r01,z01,bdamp, stat=istat6)
+      IF (ALLOCATED(iotaf)) THEN
+         DEALLOCATE(iotaf, mass, phi, presf, jcuru, jcurv, jdotb, buco)
+         DEALLOCATE(bvco, bucof, bvcof, chi)
+!#ifdef _ANIMEC
 !     &              phot, pmap, pppr, papr, tpotb, pd,
-#endif
-!     &              bdotgradv, equif, specw, tcon, psi, yellip, yinden,
-!     &              ytrian, yshift, ygeo, overr, faclam, iotas, phips,
-!     &              chips, pres, vp, beta_vol, jperp2, jpar2, bdotb,
-!     &              clam, blam, dlam, phipf, chipf, rru_fac, rzu_fac,
-!     &              frcc_fac, fzsc_fac, icurv, vpphi, presgrad, r01,
-!     &              z01, bdamp, stat=istat6)
+!#endif
+         DEALLOCATE(bdotgradv, equif, specw, tcon, psi, yellip, yinden)
+         DEALLOCATE(ytrian, yshift, ygeo, overr, faclam, iotas, phips)
+         DEALLOCATE(chips, pres, vp, beta_vol, jperp2, jpar2, bdotb)
+         DEALLOCATE(clam, blam, dlam, phipf, chipf, rru_fac, rzu_fac)
+         DEALLOCATE(frcc_fac, fzsc_fac, icurv, vpphi, presgrad, r01)
+         DEALLOCATE(z01, bdamp, stat=istat6)
       END IF
 
       IF (ALLOCATED(rmidx)) THEN
@@ -102,6 +102,6 @@ C-----------------------------------------------
           PRINT *,' istat3 = ',istat3,' istat4 = ',istat4
           PRINT *,' istat5 = ',istat5,' istat6 = ',istat6
           PRINT *,' istat7 = ',istat7,' istat8 = ',istat8
-       END IF
+      END IF
 
       END SUBROUTINE free_mem_ns
