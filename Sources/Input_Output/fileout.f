@@ -148,7 +148,7 @@ C-----------------------------------------------
       USE angle_constraints, ONLY: free_multipliers, getrz
 #endif
       USE parallel_include_module
-      USE vmec_c_interface, ONLY: vmec_output_data
+      USE vmec_ext_interface, ONLY: vmec_output_data
 
       IMPLICIT NONE
 C-----------------------------------------------
@@ -246,49 +246,49 @@ C-----------------------------------------------
 !
 !     Call WROUT to write output or error message if lwrite = false
 !
-       CALL vmec_output_data(bzmn_o, azmn_o,
-     &   clmn, blmn,crmn_o, czmn_e, crmn_e, xsave, gc)
+!       CALL vmec_output_data(bzmn_o, azmn_o,
+!     &   clmn, blmn,crmn_o, czmn_e, crmn_e, xsave, gc)
 
-!      IF (loutput .AND. ASSOCIATED(bzmn_o)) THEN
-!         CALL wrout(bzmn_o, azmn_o, clmn, blmn, crmn_o, czmn_e,
-!     &              crmn_e, xsave, gc, loc_ier_flag, lwrite
-!#ifdef _ANIMEC
-!     &              ,brmn_o, sigma_an, ppar, pperp, onembc, pp1, pp2,
-!     &              pp3
-!#endif 
-!     &             )
+      IF (loutput .AND. ASSOCIATED(bzmn_o)) THEN
+         CALL wrout(bzmn_o, azmn_o, clmn, blmn, crmn_o, czmn_e,
+     &              crmn_e, xsave, gc, loc_ier_flag, lwrite
+#ifdef _ANIMEC
+     &              ,brmn_o, sigma_an, ppar, pperp, onembc, pp1, pp2,
+     &              pp3
+#endif 
+     &             )
 
-!         IF (ntor .EQ. 0) THEN
-!            CALL write_dcon (xc)
-!         END IF
+         IF (ntor .EQ. 0) THEN
+            CALL write_dcon (xc)
+         END IF
 
-!         IF (lscreen .and. ier_flag.ne.more_iter_flag) 
-!     &   PRINT 120, TRIM(werror(loc_ier_flag))
-!         IF (lscreen .and. lterm) THEN
-!            IF (grank.EQ.0) THEN
-!               PRINT 10, TRIM(input_extension), ijacob
-!            END IF
-!         END IF
+         IF (lscreen .and. ier_flag.ne.more_iter_flag) 
+     &   PRINT 120, TRIM(werror(loc_ier_flag))
+         IF (lscreen .and. lterm) THEN
+            IF (grank.EQ.0) THEN
+               PRINT 10, TRIM(input_extension), ijacob
+            END IF
+         END IF
 
-!         IF (nthreed .gt. 0) THEN
-!            WRITE (nthreed,120) TRIM(werror(loc_ier_flag))
-!            IF (.not. lterm) GOTO 1000
-!            WRITE (nthreed, 10) TRIM(input_extension), ijacob
-!            IF (rank.EQ.0) THEN
-!               CALL write_times(nthreed, lscreen, lfreeb, lrecon,
-!     &                          ictrl_prec2d .ne. 0)
+         IF (nthreed .gt. 0) THEN
+            WRITE (nthreed,120) TRIM(werror(loc_ier_flag))
+            IF (.not. lterm) GOTO 1000
+            WRITE (nthreed, 10) TRIM(input_extension), ijacob
+            IF (rank.EQ.0) THEN
+               CALL write_times(nthreed, lscreen, lfreeb, lrecon,
+     &                          ictrl_prec2d .ne. 0)
 
-!            IF (grank.EQ.0) THEN 
-!               WRITE(nthreed,*)
-!               WRITE(nthreed,'(1x,a,i4)') 'NO. OF PROCS:  ',gnranks
-!               WRITE(nthreed,101)         'PARVMEC     :  ',PARVMEC
-!               WRITE(nthreed,101)         'LPRECOND    :  ',LPRECOND
-!               WRITE(nthreed,101)         'LV3FITCALL  :  ',LV3FITCALL
-!            END IF
+            IF (grank.EQ.0) THEN 
+               WRITE(nthreed,*)
+               WRITE(nthreed,'(1x,a,i4)') 'NO. OF PROCS:  ',gnranks
+               WRITE(nthreed,101)         'PARVMEC     :  ',PARVMEC
+               WRITE(nthreed,101)         'LPRECOND    :  ',LPRECOND
+               WRITE(nthreed,101)         'LV3FITCALL  :  ',LV3FITCALL
+            END IF
  101  FORMAT(1x,a,l4)
-!            END IF
-!         END IF
-!      END IF
+            END IF
+         END IF
+      END IF
 
    10 FORMAT(' FILE : ',a,/,' NUMBER OF JACOBIAN RESETS = ',i4,/)
   120 FORMAT(/1x,a,/)

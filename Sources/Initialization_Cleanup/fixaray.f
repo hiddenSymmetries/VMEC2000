@@ -37,42 +37,17 @@ C-----------------------------------------------
 
       mnmax_nyq = nnyq/2 + 1 + mnyq*(nnyq + 1)/2
 
-      IF (ALLOCATED(cosmu)) DEALLOCATE(cosmu)
-      IF (ALLOCATED(sinmu)) DEALLOCATE(sinmu)
-      ALLOCATE(cosmu(ntheta3,0:mnyq),  sinmu(ntheta3,0:mnyq))
-      IF (ALLOCATED(cosmum)) DEALLOCATE(cosmum)
-      IF (ALLOCATED(sinmum)) DEALLOCATE(sinmum)
-      ALLOCATE(cosmum(ntheta3,0:mnyq), sinmum(ntheta3,0:mnyq))
-      IF (ALLOCATED(cosmui)) DEALLOCATE(cosmui)
-      IF (ALLOCATED(cosmumi)) DEALLOCATE(cosmumi)
-      ALLOCATE(cosmui(ntheta3,0:mnyq), cosmumi(ntheta3,0:mnyq))
-      IF (ALLOCATED(cosmui3)) DEALLOCATE(cosmui3)
-      IF (ALLOCATED(cosmumi3)) DEALLOCATE(cosmumi3)
-      ALLOCATE(cosmui3(ntheta3,0:mnyq),cosmumi3(ntheta3,0:mnyq))
-      IF (ALLOCATED(sinmui)) DEALLOCATE(sinmui)
-      IF (ALLOCATED(sinmumi)) DEALLOCATE(sinmumi)
-      ALLOCATE(sinmui(ntheta3,0:mnyq), sinmumi(ntheta3,0:mnyq))
-      IF (ALLOCATED(cosnv)) DEALLOCATE(cosnv)
-      IF (ALLOCATED(sinnv)) DEALLOCATE(sinnv)
-      ALLOCATE(cosnv(nzeta,0:nnyq),    sinnv(nzeta,0:nnyq))
-      IF (ALLOCATED(cosnvn)) DEALLOCATE(cosnvn)
-      IF (ALLOCATED(sinnvn)) DEALLOCATE(sinnvn)
-      ALLOCATE(cosnvn(nzeta,0:nnyq),   sinnvn(nzeta,0:nnyq))
-      IF (ALLOCATED(cos01)) DEALLOCATE(cos01)
-      IF (ALLOCATED(sin01)) DEALLOCATE(sin01)
-      ALLOCATE(cos01(nznt), sin01(nznt), stat=istat1 )
-      IF (ALLOCATED(xm)) DEALLOCATE(xm)
-      IF (ALLOCATED(xn)) DEALLOCATE(xn)
-      ALLOCATE(xm(mnmax), xn(mnmax))
-      IF (ALLOCATED(ixm)) DEALLOCATE(ixm)
-      IF (ALLOCATED(jmin3)) DEALLOCATE(jmin3)
-      ALLOCATE(ixm(mnsize), jmin3(0:mnsize-1))
-      IF (ALLOCATED(xm_nyq)) DEALLOCATE(xm_nyq)
-      IF (ALLOCATED(xn_nyq)) DEALLOCATE(xn_nyq)
-      ALLOCATE(xm_nyq(mnmax_nyq), xn_nyq(mnmax_nyq))
-      IF (ALLOCATED(mscale)) DEALLOCATE(mscale)
-      IF (ALLOCATED(nscale)) DEALLOCATE(nscale)
-      ALLOCATE(mscale(0:mnyq), nscale(0:nnyq), stat=istat2)
+      ALLOCATE(cosmu(ntheta3,0:mnyq),  sinmu(ntheta3,0:mnyq),
+     1         cosmum(ntheta3,0:mnyq), sinmum(ntheta3,0:mnyq),
+     2         cosmui(ntheta3,0:mnyq), cosmumi(ntheta3,0:mnyq),
+     2         cosmui3(ntheta3,0:mnyq),cosmumi3(ntheta3,0:mnyq),
+     3         sinmui(ntheta3,0:mnyq), sinmumi(ntheta3,0:mnyq),
+     4         cosnv(nzeta,0:nnyq),    sinnv(nzeta,0:nnyq),
+     5         cosnvn(nzeta,0:nnyq),   sinnvn(nzeta,0:nnyq),
+     6         cos01(nznt), sin01(nznt), stat=istat1 )
+      ALLOCATE(xm(mnmax), xn(mnmax), ixm(mnsize), jmin3(0:mnsize-1),
+     1         xm_nyq(mnmax_nyq), xn_nyq(mnmax_nyq),
+     2         mscale(0:mnyq), nscale(0:nnyq), stat=istat2)
 
       IF (istat1.ne.0) THEN
          STOP 'allocation error in fixaray: istat1'

@@ -35,10 +35,10 @@ C-----------------------------------------------
       CHARACTER(LEN=120) mercier_file
 C-----------------------------------------------
       nrzt = ns*nznt
-!      mercier_file = 'mercier.'//TRIM(input_extension)
-!      CALL safe_open (nmerc, imercier0, mercier_file, 'replace',
-!     1   'formatted')
-!      IF (imercier0 .ne. 0) RETURN
+      mercier_file = 'mercier.'//TRIM(input_extension)
+      CALL safe_open (nmerc, imercier0, mercier_file, 'replace',
+     1   'formatted')
+      IF (imercier0 .ne. 0) RETURN
 
 
       ALLOCATE (gpp(ns,nznt), gsqrt_full(ns,nznt), b2(ns,nznt), stat=i)
@@ -155,23 +155,23 @@ C-----------------------------------------------
 !     Include (eventually) Suydam for reference (cylindrical limit)
 !
 
-!      WRITE(nmerc,90)
+      WRITE(nmerc,90)
  90   FORMAT(6x,'S',10x,'PHI',9x,'IOTA',8x,'SHEAR',7x,' VP ',8x,'WELL',
      1       8x,'ITOR',7x,'ITOR''',7x,'PRES',7x,'PRES''',/,120('-'))
 
       DO i = 2,ns1
          sqs = p5*(vp_real(i) + vp_real(i+1))*sign_jac
          IF (sqs .eq. zero) CYCLE
-!         WRITE(nmerc,100) sj(i), hs*SUM(phip_real(2:i)),
-!     1   p5*(iotas(i+1)+iotas(i)), shear(i)/sqs,
-!     2   sqs, -vpp(i)*sign_jac,
-!     3   p5*(torcur(i) + torcur(i+1)), ip(i)/sqs,
-!     4   p5*(pres(i) + pres(i+1)), presp(i)/sqs
+         WRITE(nmerc,100) sj(i), hs*SUM(phip_real(2:i)),
+     1   p5*(iotas(i+1)+iotas(i)), shear(i)/sqs,
+     2   sqs, -vpp(i)*sign_jac,
+     3   p5*(torcur(i) + torcur(i+1)), ip(i)/sqs,
+     4   p5*(pres(i) + pres(i+1)), presp(i)/sqs
       END DO
 
  100  FORMAT(1p,10e12.4)
 
-!      WRITE(nmerc,190)
+      WRITE(nmerc,190)
  190  FORMAT(/,6x,'S',8x,'DMerc',8x,'DShear',7x,'DCurr',7x,'DWell',
      1     7x,'Dgeod',/,100('-'))
 
@@ -185,10 +185,10 @@ C-----------------------------------------------
          Dwell(i)  = presp(i) * (vpp(i) - presp(i) *tpp(i))*tbb(i)
          Dgeod(i)  = tjb(i) *tjb(i)  - tbb(i) *tjj(i)
          DMerc(i)  = Dshear(i) + Dcurr(i) + Dwell(i) + Dgeod(i)
-!         WRITE(nmerc,100) sj(i), Dmerc(i), Dshear(i),
-!     1         Dcurr(i), Dwell(i), Dgeod(i)
+         WRITE(nmerc,100) sj(i), Dmerc(i), Dshear(i),
+     1         Dcurr(i), Dwell(i), Dgeod(i)
       END DO
 
-!      CLOSE (nmerc)
+      CLOSE (nmerc)
 
       END SUBROUTINE mercier

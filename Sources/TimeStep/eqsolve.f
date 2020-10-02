@@ -95,12 +95,12 @@ C-----------------------------------------------
      &       (ier_flag .eq. bad_jacobian_flag .or.
      &        irst     .eq. 4) .and.
      &       ns .ge.3) THEN
-!            IF (lscreen) THEN
-!               IF (ier_flag .eq. bad_jacobian_flag) THEN
-!                  IF (rank.EQ.0) WRITE (*,50)
-!               END IF
-!               IF (rank.EQ.0) WRITE (*,51)
-!            END IF
+            IF (lscreen) THEN
+               IF (ier_flag .eq. bad_jacobian_flag) THEN
+                  IF (rank.EQ.0) WRITE (*,50)
+               END IF
+               IF (rank.EQ.0) WRITE (*,51)
+            END IF
 
    50 FORMAT(' INITIAL JACOBIAN CHANGED SIGN!')
    51 FORMAT(' TRYING TO IMPROVE INITIAL MAGNETIC AXIS GUESS')
@@ -162,18 +162,18 @@ C-----------------------------------------------
          IF (ivac .eq. 1) THEN
             IF (grank .EQ. 0) THEN
               IF (lscreen) PRINT 110, iter2
-!              WRITE (nthreed, 110) iter2
+              WRITE (nthreed, 110) iter2
             END IF
             ivac = ivac + 1
          ENDIF
 
 !     NOTE: PRINTOUT clobbers gc!
 !     Increment time step and printout every nstep iterations
-!         IF (MOD(iter2,nstep) .eq. 0 .or.
-!     &       iter2            .eq. 1 .or.
-!     &       .not.liter_flag) THEN
-!            CALL printout(iter2, delt0r, w0, lscreen)
-!         END IF
+         IF (MOD(iter2,nstep) .eq. 0 .or.
+     &       iter2            .eq. 1 .or.
+     &       .not.liter_flag) THEN
+            CALL printout(iter2, delt0r, w0, lscreen)
+         END IF
          iter2 = iter2 + 1
          iterc = iterc + 1
 ! JDH 2012-06-20 ^^^ iterc is a cumulative iteration counter. Used in V3FIT.

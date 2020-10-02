@@ -144,7 +144,7 @@ C-----------------------------------------------
 
       betaxis = c1p5*beta_vol(2) - p5*beta_vol(3)
 
-!      IF (grank.EQ. 0) WRITE (nthreed, 5)
+      IF (grank.EQ. 0) WRITE (nthreed, 5)
  5    FORMAT(/,' NOTE:  S=normalized toroidal flux (0 - 1)',/,
      1         '        U=poloidal angle (0 - 2*pi)',/,
      1         '        V=geometric toroidal angle (0 - 2*pi)',/,
@@ -219,15 +219,15 @@ C-----------------------------------------------
       DO js = 1, ns
          es = (js - 1)*hs
          cur0 = fac*vpphi(js)*twopi              !==dV/ds = dV/dPHI * d(PHI/ds)  (V=actual volume)
-!         IF (rank .EQ. 0) THEN
-!            WRITE (nthreed, 30) es, equif(js), fac*phi1(js), iotaf(js),
-!     &                          jcuru(js)/vpphi(js)/mu0,
-!     &                          jcurv(js)/vpphi(js)/mu0,
-!     &                          cur0/phipf_loc(js),
-!     &                          presgrad(js)/phipf_loc(js)/mu0,
-!     &                          specw(js), presf(js)/mu0, bucof(js),
-!     &                          bvcof(js), jdotb(js), bdotb(js)
-!         END IF
+         IF (rank .EQ. 0) THEN
+            WRITE (nthreed, 30) es, equif(js), fac*phi1(js), iotaf(js),
+     &                          jcuru(js)/vpphi(js)/mu0,
+     &                          jcurv(js)/vpphi(js)/mu0,
+     &                          cur0/phipf_loc(js),
+     &                          presgrad(js)/phipf_loc(js)/mu0,
+     &                          specw(js), presf(js)/mu0, bucof(js),
+     &                          bvcof(js), jdotb(js), bdotb(js)
+         END IF
       END DO
  30   FORMAT(1p,2e10.2,2e12.4,4e11.3,0p,f7.3,1p,5e11.3)
 
@@ -375,8 +375,8 @@ C-----------------------------------------------
 !
       CALL elongation (r1, z1, waist, height)
 
-!      IF(rank.EQ.0) WRITE (nthreed, 75) bmin(1,ns), bmax(1,ns),
-!     1    bmin(ntheta2,ns), bmax(ntheta2,ns)
+      IF(rank.EQ.0) WRITE (nthreed, 75) bmin(1,ns), bmax(1,ns),
+     1    bmin(ntheta2,ns), bmax(ntheta2,ns)
    75 FORMAT(/
      1   ' Magnetic field modulation (averaged over toroidal angle)',/,
      2   1x,71('-')/,' BMIN(u=0)             = ',f14.6/
@@ -401,16 +401,16 @@ C-----------------------------------------------
          jpar_perp = jpar_perp/s2
          jparPS_perp = jparPS_perp/s2
       END IF
-!      IF (ntor .gt. 1) THEN
-!        IF(rank.EQ.0) WRITE (nthreed, 80) aspect, kappa_p, volume_p,
-!     1   cross_area_p,  surf_area_p, circum_p, Rmajor_p, Aminor_p,
-!     2   rmin_surf,  rmax_surf, zmax_surf, waist(1), height(1),
-!     3   waist(2), height(2)
-!      ELSE
-!        IF(rank.EQ.0) WRITE (nthreed, 80) aspect, kappa_p, volume_p,
-!     1   cross_area_p,  surf_area_p, circum_p, Rmajor_p, Aminor_p,
-!     2   rmin_surf,  rmax_surf, zmax_surf, waist(1), height(1)
-!      END IF
+      IF (ntor .gt. 1) THEN
+        IF(rank.EQ.0) WRITE (nthreed, 80) aspect, kappa_p, volume_p,
+     1   cross_area_p,  surf_area_p, circum_p, Rmajor_p, Aminor_p,
+     2   rmin_surf,  rmax_surf, zmax_surf, waist(1), height(1),
+     3   waist(2), height(2)
+      ELSE
+        IF(rank.EQ.0) WRITE (nthreed, 80) aspect, kappa_p, volume_p,
+     1   cross_area_p,  surf_area_p, circum_p, Rmajor_p, Aminor_p,
+     2   rmin_surf,  rmax_surf, zmax_surf, waist(1), height(1)
+      END IF
  80   FORMAT(/,' Geometric and Magnetic Quantities',/,1x,71('-')/,
      1   ' Aspect Ratio          = ',f14.6, /
      1   ' Mean Elongation       = ',f14.6, /
@@ -429,9 +429,9 @@ C-----------------------------------------------
      B   ' Full Height(v = 0)    = ',f14.6,' [M]',:,/
      B   ' Waist (v = pi)  in R  = ',f14.6,' [M]',:,/
      B   ' Full Height(v = pi)   = ',f14.6,' [M]')
-!      IF (rank.EQ.0) WRITE (nthreed, 85) toroidal_flux,
-!     1       1.e-6_dp*ctor/mu0, rbtor, rbtor0, VolAvgB, IonLarmor,
-!     2       jpar_perp, jparPS_perp
+      IF (rank.EQ.0) WRITE (nthreed, 85) toroidal_flux,
+     1       1.e-6_dp*ctor/mu0, rbtor, rbtor0, VolAvgB, IonLarmor,
+     2       jpar_perp, jparPS_perp
  85   FORMAT(
      1   ' Toroidal Flux         = ',f14.6,' [Wb]',/
      1   ' Toroidal Current      = ',f14.6,' [MA]',/
@@ -442,7 +442,7 @@ C-----------------------------------------------
      3   ' <J||**2>/<J-perp**2>  = ',f14.6,' (Vol. Averaged)',/
      4   ' <JPS**2>/<J-perp**2>  = ',f14.6,' (Vol. Averaged)',/)
 
-!      IF(rank.EQ.0) WRITE (nthreed, 90)
+      IF(rank.EQ.0) WRITE (nthreed, 90)
    90 FORMAT(/,71('-'),/,' MORE GEOMETRIC AND PHYSICS QUANTITIES',/,
      1    71('-'),/,' Toroidal Plane: Phi = 0',/,
      1    5x,'j',3x,'psi-psiaxis',9x,'a [M]',3x,'ellipticity',3x,
@@ -465,7 +465,7 @@ C-----------------------------------------------
             noff = 1
          ELSE
             IF (nzeta .eq. 1) EXIT
-!            IF(rank.EQ.0) WRITE (nthreed, 95)
+            IF(rank.EQ.0) WRITE (nthreed, 95)
             noff = 1 + nzeta/2
          END IF
           
@@ -530,14 +530,14 @@ C-----------------------------------------------
                jparPS_perp = zero
             END IF
 
-!            IF (nplanes .eq. 1) THEN
-!               IF(rank.EQ.0) WRITE (nthreed, 120) js, psi(js), ygeo(js),
-!     1        yellip(js), yinden(js), ytrian(js), yshift(js), jpar_perp, 
-!     2        jparPS_perp
-!            ELSE
-!               IF(rank.EQ.0) WRITE (nthreed, 120) js, psi(js), ygeo(js),
-!     1             yellip(js), yinden(js), ytrian(js), yshift(js)
-!            END IF
+            IF (nplanes .eq. 1) THEN
+               IF(rank.EQ.0) WRITE (nthreed, 120) js, psi(js), ygeo(js),
+     1        yellip(js), yinden(js), ytrian(js), yshift(js), jpar_perp, 
+     2        jparPS_perp
+            ELSE
+               IF(rank.EQ.0) WRITE (nthreed, 120) js, psi(js), ygeo(js),
+     1             yellip(js), yinden(js), ytrian(js), yshift(js)
+            END IF
 
          END DO
       END DO
@@ -545,13 +545,13 @@ C-----------------------------------------------
    95 FORMAT(/,71('-'),/,' Toroidal Plane: Phi = 180/Nfp',/,71('-'),/)
   120 FORMAT(1x,i5,6f14.5,1p,3e14.2)
 
-!      IF(rank.EQ.0) WRITE (nthreed, 130)
+      IF(rank.EQ.0) WRITE (nthreed, 130)
   130 FORMAT(//,' Magnetic Fields and Pressure',/,1x,71('-'))
       fac = p5/mu0
-!      IF(rank.EQ.0) WRITE (nthreed, 140) sump/mu0, pavg/mu0,
-!     1   fac*sumbpol,  fac*sumbpol/volume_p, fac*sumbtor, fac*sumbtor/
-!     2   volume_p, fac*sumbtot, fac*sumbtot/volume_p, c1p5*sump/mu0, 
-!     3   c1p5*pavg/mu0
+      IF(rank.EQ.0) WRITE (nthreed, 140) sump/mu0, pavg/mu0,
+     1   fac*sumbpol,  fac*sumbpol/volume_p, fac*sumbtor, fac*sumbtor/
+     2   volume_p, fac*sumbtot, fac*sumbtot/volume_p, c1p5*sump/mu0, 
+     3   c1p5*pavg/mu0
   140 FORMAT(' Volume Integrals (Joules) and Volume ',
      1   'Averages (Pascals)',/,24x,'Integral',6x,'Average',/,
      2   ' pressure         = ',1p,2e14.6,/,' bpol**2 /(2 mu0) = ',
@@ -559,7 +559,7 @@ C-----------------------------------------------
      4   ' b**2/(2 mu0)     = ',2e14.6,/,' EKIN (3/2p)      = ',
      5   2e14.6,/)
 
-!      IF(rank.EQ.0) WRITE (nthreed, 800)
+      IF(rank.EQ.0) WRITE (nthreed, 800)
   800 FORMAT(/,' MAGNETIC AXIS COEFFICIENTS'/,
      1   '    n     rmag       zmag        rmag        zmag',/,
      2   '        (cos nv)   (sin nv)    (sin nv)    (cos nv)',/)
@@ -570,25 +570,25 @@ C-----------------------------------------------
          t1 = mscale(0)*nscale(n)
          tz = t1
          IF (.NOT.lthreed) tz = 0
-!         IF (lasym) THEN
-!             WRITE (nthreed, 820) n, t1*rmags(n1),
-!     1          tz*zmags(n1), tz*rmaga(n1), t1*zmaga(n1)
-!         ELSE
-!             WRITE (nthreed, 820) n, t1*rmags(n1),
-!     1          tz*zmags(n1)
-!         END IF
+         IF (lasym) THEN
+             WRITE (nthreed, 820) n, t1*rmags(n1),
+     1          tz*zmags(n1), tz*rmaga(n1), t1*zmaga(n1)
+         ELSE
+             WRITE (nthreed, 820) n, t1*rmags(n1),
+     1          tz*zmags(n1)
+         END IF
       END DO
       END IF
   820 FORMAT(i5,1p,4e12.4)
 
       betstr = two*SQRT(sump2/volume_p)/(sumbtot/volume_p)
 
-!      IF(rank.EQ.0) WRITE (nthreed, 150) betatot, betapol, betator
+      IF(rank.EQ.0) WRITE (nthreed, 150) betatot, betapol, betator
   150 FORMAT(/,' From volume averages over plasma, betas are',/,
      1   ' beta total    = ',f14.6,/,' beta poloidal = ',f14.6,/,
      2   ' beta toroidal = ',f14.6,/)
 
-!      IF(rank.EQ.0) WRITE (nthreed, 160) rbtor, betaxis, betstr
+      IF(rank.EQ.0) WRITE (nthreed, 160) rbtor, betaxis, betstr
   160 FORMAT(' R * Btor-vac         = ',f14.6,' [Wb/M]',/,
      1       ' Peak Beta            = ',f14.6,/,
      2       ' Beta-star            = ',f14.6,/)
@@ -651,21 +651,21 @@ C-----------------------------------------------
       delta1 = zero
       delta2 = one - fgeo
       delta3 = one - flao
-!      IF(rank.EQ.0) WRITE (nthreed, 168)
-!      IF(rank.EQ.0) WRITE (nthreed, 170) rshaf, rcen, rlao,
-!     1   scaling_ratio, s3, smaleli, musubi, betai, lambda
+      IF(rank.EQ.0) WRITE (nthreed, 168)
+      IF(rank.EQ.0) WRITE (nthreed, 170) rshaf, rcen, rlao,
+     1   scaling_ratio, s3, smaleli, musubi, betai, lambda
 !      IF (lrecon.AND.rank.EQ.0) WRITE (nthreed, 172) dmusubi_meas
-!      IF(rank.EQ.0) WRITE (nthreed, 174) delta1, delta2, delta3, 
-!     1   s11, s12, s13, s2, s2/fgeo, s2/flao, 
-!     5   musubi + s11,musubi + s12, 
-!     6   musubi + s13, 
-!     8   p5*s11 + s2, p5*s12 + s2/fgeo, p5*s13 + s2/flao, 
-!     A   p5*(3*betai+smaleli-musubi)/(s11+s2) - one, 
-!     B   p5*(3*betai+smaleli-musubi)/(s12+s2/fgeo) - one, 
-!     C   p5*(3*betai+smaleli-musubi)/(s13+s2/flao) - one, 
-!     D   p5*(betai+smaleli+musubi)/s2 - one, 
-!     E   p5*fgeo*(betai+smaleli+musubi)/s2 - one,
-!     F   p5*flao*(betai+smaleli+musubi)/s2 - one
+      IF(rank.EQ.0) WRITE (nthreed, 174) delta1, delta2, delta3, 
+     1   s11, s12, s13, s2, s2/fgeo, s2/flao, 
+     5   musubi + s11,musubi + s12, 
+     6   musubi + s13, 
+     8   p5*s11 + s2, p5*s12 + s2/fgeo, p5*s13 + s2/flao, 
+     A   p5*(3*betai+smaleli-musubi)/(s11+s2) - one, 
+     B   p5*(3*betai+smaleli-musubi)/(s12+s2/fgeo) - one, 
+     C   p5*(3*betai+smaleli-musubi)/(s13+s2/flao) - one, 
+     D   p5*(betai+smaleli+musubi)/s2 - one, 
+     E   p5*fgeo*(betai+smaleli+musubi)/s2 - one,
+     F   p5*flao*(betai+smaleli+musubi)/s2 - one
 
   168 FORMAT(' Shafranov Surface Integrals',/
      1       ' Ref: S. P. Hirshman, Phys. Fluids B, 5, (1993) 3119',/,

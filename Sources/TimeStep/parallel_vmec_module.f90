@@ -344,13 +344,8 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
     
     INTEGER :: activeranks
     INTEGER :: i
-    !IF(.NOT.ALLOCATED(ntblkrcounts)) ALLOCATE(ntblkrcounts(activeranks))
-    !IF(.NOT.ALLOCATED(ntblkdisp))    ALLOCATE(ntblkdisp(activeranks))
-    IF (ALLOCATED(ntblkrcounts)) DEALLOCATE(ntblkrcounts)
-    ALLOCATE(ntblkrcounts(activeranks))
-    IF (ALLOCATED(ntblkdisp)) DEALLOCATE(ntblkdisp)
-    ALLOCATE(ntblkdisp(activeranks))
-
+    IF(.NOT.ALLOCATED(ntblkrcounts)) ALLOCATE(ntblkrcounts(activeranks))
+    IF(.NOT.ALLOCATED(ntblkdisp))    ALLOCATE(ntblkdisp(activeranks))
     DO i = 1, activeranks
        ntblkrcounts(i) = (trglob_arr(i) - tlglob_arr(i) + 1)*ntmaxblocksize
     END DO
@@ -369,13 +364,8 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
     
     INTEGER :: activeranks
     INTEGER :: i
-    !IF(.NOT.ALLOCATED(blkrcounts)) ALLOCATE(blkrcounts(activeranks))
-    !IF(.NOT.ALLOCATED(blkdisp))    ALLOCATE(blkdisp(activeranks))
-    IF (ALLOCATED(blkrcounts)) DEALLOCATE(blkrcounts)
-    ALLOCATE(blkrcounts(activeranks))
-    IF (ALLOCATED(blkdisp)) DEALLOCATE(blkdisp)
-    ALLOCATE(blkdisp(activeranks))
-
+    IF(.NOT.ALLOCATED(blkrcounts)) ALLOCATE(blkrcounts(activeranks))
+    IF(.NOT.ALLOCATED(blkdisp))    ALLOCATE(blkdisp(activeranks))
     DO i = 1, activeranks
        blkrcounts(i) = (trglob_arr(i) - tlglob_arr(i) + 1)*blocksize
     END DO
@@ -394,13 +384,8 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
 
     INTEGER :: activeranks
     INTEGER :: i
-    !IF(.NOT.ALLOCATED(nsrcounts)) ALLOCATE(nsrcounts(activeranks))
-    !IF(.NOT.ALLOCATED(nsdisp))    ALLOCATE(nsdisp(activeranks))
-    IF (ALLOCATED(nsrcounts)) DEALLOCATE(nsrcounts)
-    ALLOCATE(nsrcounts(activeranks))
-    IF (ALLOCATED(nsdisp)) DEALLOCATE(nsdisp)
-    ALLOCATE(nsdisp(activeranks))
-
+    IF(.NOT.ALLOCATED(nsrcounts)) ALLOCATE(nsrcounts(activeranks))
+    IF(.NOT.ALLOCATED(nsdisp))    ALLOCATE(nsdisp(activeranks))
     DO i = 1, activeranks
        nsrcounts(i) = (trglob_arr(i) - tlglob_arr(i) + 1)
     END DO
@@ -583,13 +568,13 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
        LPRECOND=.FALSE.
     END IF
 
-!    IF (grank.EQ.0) THEN 
-!       WRITE(*,*)
-!       WRITE(*,'(1x,a,i4)') 'NO. OF PROCS:  ',gnranks
-!       WRITE(*,100)         'PARVMEC     :  ',PARVMEC
-!       WRITE(*,100)         'LPRECOND    :  ',LPRECOND
-!       WRITE(*,100)         'LV3FITCALL  :  ',LV3FITCALL
-!    END IF
+    IF (grank.EQ.0) THEN 
+       WRITE(*,*)
+       WRITE(*,'(1x,a,i4)') 'NO. OF PROCS:  ',gnranks
+       WRITE(*,100)         'PARVMEC     :  ',PARVMEC
+       WRITE(*,100)         'LPRECOND    :  ',LPRECOND
+       WRITE(*,100)         'LV3FITCALL  :  ',LV3FITCALL
+    END IF
  100  FORMAT(1x,a,l4)
 
 #if defined(MPI_OPT)

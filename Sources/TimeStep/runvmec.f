@@ -21,7 +21,7 @@
       USE blocktridiagonalsolver_bst, ONLY: Finalize_bst
       USE xstuff
       USE mpi_inc
-      USE vmec_c_interface
+      USE vmec_ext_interface, ONLY: initialize_vmec_arrays
       IMPLICIT NONE
 C-----------------------------------------------
 C   D u m m y   A r g u m e n t s
@@ -160,8 +160,8 @@ C-----------------------------------------------
          CALL vsetup (iseq_count)
 
          ! MANGO
-         !CALL readin (input_file, iseq_count, ier_flag, lscreen)
-         CALL initialize_vmec_arrays(ier_flag)
+         CALL readin (input_file, iseq_count, ier_flag, lscreen)
+         !CALL initialize_vmec_arrays(ier_flag)
          max_grid_size = ns_array(multi_ns_grid)
 
          IF (ier_flag .NE. 0) GOTO 1000
@@ -186,7 +186,7 @@ C-----------------------------------------------
      &       LEN_TRIM(reset_file_name) .ne. 0) THEN
             igrid0 = multi_ns_grid
          END IF
-!         IF (grank .EQ. 0) WRITE (nthreed, 30)
+         IF (grank .EQ. 0) WRITE (nthreed, 30)
          delt0r = delt
       END IF
 

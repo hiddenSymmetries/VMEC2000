@@ -29,6 +29,30 @@ Release/mpi_sharmem.o:
 
 Release/tolower.o:
 
+Release/chfdv.o: \
+	Release/stel_kinds.o
+
+Release/pchdf.o: \
+	Release/stel_kinds.o
+
+Release/pchev.o: \
+	Release/stel_kinds.o
+
+Release/pchez.o: \
+	Release/stel_kinds.o
+
+Release/pchfd.o: \
+	Release/stel_kinds.o
+
+Release/pchsd.o: \
+	Release/stel_kinds.o
+
+Release/pchst.o: \
+	Release/stel_kinds.o
+
+Release/pchim.o: \
+	Release/stel_kinds.o
+
 Release/mpi_inc.o: \
 	Release/mpi_params.o
 
@@ -613,7 +637,7 @@ Release/eqfor.o : \
       
 
 Release/fileout.o : \
-			Release/vmec_c_interface.o \
+			Release/vmec_ext_interface.o \
 			Release/safe_open_mod.o \
       Release/angle_constraints.o \
       Release/parallel_include_module.o \
@@ -979,7 +1003,8 @@ Release/runvmec.o : \
       Release/vmec_params.o \
       Release/xstuff.o 
 
-Release/vmec_c_interface.o : \
+Release/vmec_ext_interface.o : \
+			Release/totzsp_mod.o \
 			Release/mercier.o \
 			Release/safe_open_mod.o \
 			Release/vmec_input.o \
