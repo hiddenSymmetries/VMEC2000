@@ -168,7 +168,7 @@ add_custom_command(
         -c 
         -I${CMAKE_BINARY_DIR}/build/modules/vmec
 		--verbose
-        ${SCALAPACK_LIB}
+        ${SCALAPACK_LIB} ${NETCDF_F} ${NETCDF_C}
         ${CMAKE_BINARY_DIR}/build/lib/libvmec.a  
         ${f90wrap_output_files} 
     #IMPLICIT_DEPENDS Fortran ${f90wrap_output_files}

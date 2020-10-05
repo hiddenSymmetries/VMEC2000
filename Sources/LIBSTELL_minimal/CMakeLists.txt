@@ -50,5 +50,13 @@ list (APPEND vmec_sources
 	${CMAKE_CURRENT_SOURCE_DIR}/system_mod.f
 	${CMAKE_CURRENT_SOURCE_DIR}/vmec_getenv.f
 	${CMAKE_CURRENT_SOURCE_DIR}/vsvd0.f
+	${CMAKE_CURRENT_SOURCE_DIR}/chfdv.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchdf.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchev.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchez.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchfd.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchim.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchsp.f
+ 	${CMAKE_CURRENT_SOURCE_DIR}/pchst.f
 )
 set (vmec_sources "${vmec_sources}" PARENT_SCOPE)
