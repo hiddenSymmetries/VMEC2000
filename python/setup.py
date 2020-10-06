@@ -9,8 +9,8 @@ setup(
     packages=["vmec"],
     install_requires=['f90wrap == v0.2.3'],
     cmake_args=[
-	       '-DCMAKE_C_COMPILER=mpicc',
-	       '-DCMAKE_CXX_COMPILER=mpicxx',
+           '-DCMAKE_C_COMPILER=mpicc',
+           '-DCMAKE_CXX_COMPILER=mpicxx',
            '-DCMAKE_Fortran_COMPILER=mpifort',
            #'-DNETCDF_INC_PATH=/usr/pppl/intel/2019-pkgs/netcdf-fortran-4.5.2/include',
            #'-DNETCDF_LIB_PATH=/usr/pppl/intel/2019-pkgs/netcdf-fortran-4.5.2/lib',

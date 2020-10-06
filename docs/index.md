@@ -1,6 +1,6 @@
 # Overview
 
-This repo contains both Fortran source code and Python interface for VMEC repo
+This repo contains both Fortran source code and Python interface for VMEC. 
 
 
 # Installation of python interface (Unix like OS only)
