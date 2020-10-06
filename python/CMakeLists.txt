@@ -72,13 +72,13 @@ function(preprocess_fortran outvar)
     set(${outvar} "${srcs}" PARENT_SCOPE)
 endfunction()
 
-set(fortran_src_files ${CMAKE_CURRENT_SOURCE_DIR}/runvmec.f
-                      ${CMAKE_CURRENT_SOURCE_DIR}/reinit.f90
-                      ${CMAKE_CURRENT_SOURCE_DIR}/vmec_input.f
-                      ${CMAKE_CURRENT_SOURCE_DIR}/read_wout_mod.f90
+set(fortran_src_files ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/runvmec.f
+                      ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/reinit.f90
+                      ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/vmec_input.f
+                      ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/read_wout_mod.f90
 )
-message(STATUS "fortran_src_file is ${fortran_src_file}")
-preprocess_fortran(fpp_files ${fortran_src_file})
+message(STATUS "fortran_src_files is ${fortran_src_files}")
+preprocess_fortran(fpp_files ${fortran_src_files})
 message(STATUS "fpp_files is ${fpp_files}")
 
 #add_library(cyl_lib SHARED ${fpp_files})
@@ -113,6 +113,11 @@ message(STATUS "fpp_files is ${fpp_files}")
 #f90wrap_outputs(f90wrap_output_files ${fpp_files})
 #f90wrap_outputs(f90wrap_output_files ${fortran_src_files})
 
+# ----------------------------------------------------------------------------
+# NOTE: There is no way to identify the f90wrap---.f90 files ahead of running f90wrap
+# NOTE: The files produced have no one->one relation with the source files.
+# NOTE: So giving the names of f90wrap_---.f90 files manually 
+#-----------------------------------------------------------------------------
 set(f90wrap_output_files ${CMAKE_CURRENT_BINARY_DIR}/f90wrap_toplevel.f90
 			             ${CMAKE_CURRENT_BINARY_DIR}/f90wrap_read_wout_mod.f90  
 						 ${CMAKE_CURRENT_BINARY_DIR}/f90wrap_vmec_input.f90 
@@ -178,7 +183,7 @@ add_custom_command(
     COMMAND_EXPAND_LISTS
 )
 
-install(FILES ${python_mod_file} ${generated_module_file} ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
+install(FILES ${python_mod_file} ${generated_module_file} #${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
         DESTINATION vmec
 )
 install(TARGETS xvmec vmec)
