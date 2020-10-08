@@ -4,7 +4,7 @@
 #list(APPEND CMAKE_MODULE_PATH "/home/mbkumar/anaconda3/envs/testv/lib/python3.8/site-packages/skbuild/resources/cmake")
 #list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-list(APPEND CMAKE_MODULE_PATH /u/bmedasan/.conda/envs/stlopt_v/lib/python3.8/site-packages/skbuild/resources/cmake)
+#list(APPEND CMAKE_MODULE_PATH /u/bmedasan/.conda/envs/stlopt_v/lib/python3.8/site-packages/skbuild/resources/cmake)
 find_package(PythonExtensions REQUIRED)
 find_package(NumPy REQUIRED)
 find_package(F2PY REQUIRED)
@@ -173,7 +173,8 @@ add_custom_command(
         -c 
         -I${CMAKE_BINARY_DIR}/build/modules/vmec
 		--verbose
-        ${SCALAPACK_LIB} ${NETCDF_F} ${NETCDF_C}
+        #${SCALAPACK_LIB} ${NETCDF_F} ${NETCDF_C}
+        ${VMEC_LINK_LIB}
         ${CMAKE_BINARY_DIR}/build/lib/libvmec.a  
         ${f90wrap_output_files} 
     #IMPLICIT_DEPENDS Fortran ${f90wrap_output_files}
