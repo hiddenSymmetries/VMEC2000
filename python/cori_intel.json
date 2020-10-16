@@ -1,0 +1,13 @@
+{
+    "cmake_args": [
+           "-DNETCDF_INC_PATH=/opt/cray/pe/netcdf-hdf5parallel/4.6.3.2/INTEL/19.0/include",
+           "-DNETCDF_LIB_PATH=/opt/cray/pe/netcdf-hdf5parallel/4.6.3.2/INTEL/19.0/lib",
+           "-DSCALAPACK_LIB_DIR=/opt/intel/compilers_and_libraries_2019.3.199/linux/mkl/lib/intel64",
+           "-DBLACS_LIB_DIR=/opt/intel/compilers_and_libraries_2019.3.199/linux/mkl/lib/intel64",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           "-DBLACS_LIB_NAME=mkl_blacs_openmpi_lp64",
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_CXX_COMPILER=mpicxx",
+           "-DCMAKE_Fortran_COMPILER=mpifort",
+           "-DBLA_VENDOR=Intel10_64lp"]
+}
