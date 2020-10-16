@@ -124,11 +124,11 @@ set(BLACS_LIB_DIR "/usr/local/lib" CACHE PATH "Direct path to where blacs is ins
 #        MESSAGE(FATAL_ERROR "Could not find the yaml-cpp library")
 #    ENDIF ()
 
-find_library (SCALAPACK_LIB NAMES scalapack ${SCALAPACK_LIB_NAME} HINTS "${SCALAPACK_LIB_DIR} ${SCALAPACK_PREFIX}/lib" ENV LD_LIBRARY_PATH)
+find_library (SCALAPACK_LIB NAMES scalapack ${SCALAPACK_LIB_NAME} HINTS "${SCALAPACK_LIB_DIR}" "${SCALAPACK_PREFIX}/lib" ENV LD_LIBRARY_PATH)
 message(STATUS "scalapack_lib is ${SCALAPACK_LIB}")
 if (SCALAPACK_LIB)
 # Some builds of SCALAPACK require linking to external BLACS Libraries
-    find_library (BLACS_LIB NAMES blacs ${BLACS_LIB_NAME} HINTS "${BLACS_LIB_DIR} ${BLACS_PREFIX}/lib" ENV LD_LIBRARY_PATH)
+    find_library (BLACS_LIB NAMES blacs ${BLACS_LIB_NAME} HINTS "${BLACS_LIB_DIR}" "${BLACS_PREFIX}/lib" ENV LD_LIBRARY_PATH)
 	if (BLACS_LIB)
 		list (APPEND SCALAPACK_LIB ${BLACS_LIB})
 	endif ()
