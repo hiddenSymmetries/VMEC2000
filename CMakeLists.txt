@@ -6,6 +6,8 @@ if (USE_PROFILER)
     add_definitions (-DPROFILE_ON)
 endif ()
 
+set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON")
+
 # Activate or Deactivate fast copies. The fast copies maybe activated by setting -DUSE_FAST_COPY=ON on the cmake command line.
 OPTION (USE_FAST_COPY "Activate code fast copies." OFF)
 if (USE_FAST_COPY)
@@ -65,17 +67,24 @@ set (CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -cpp")
 set (CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/build/modules)
 
 # Set Apple specific options. This adds a predefine for DARWIN and adds lapack from the Accelerate framework.
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-	add_definitions (-DDARWIN)
-	set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Accelerate")
+#if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+#add_definitions (-DDARWIN)
+#set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Accelerate")
+#endif ()
+if (APPLE)
+    add_definitions (-DMACOSX)
+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Accelerate")
 endif ()
 
 # Set Linux specific options. This adds a predefine for LINUX.
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	add_definitions (-DLINUX)
-	find_package (BLAS REQUIRED)
-	find_package (LAPACK REQUIRED)
-endif ()
+endif()
+
+find_package (BLAS REQUIRED)
+if (NOT ${BLA_VENDOR} MATCHES "^Intel")
+    find_package (LAPACK REQUIRED)
+endif()
 
 # Use netcdf if libraries are found. The values of NETCDF_LIB_PATH and NETCDF_INC_PATH should be set from the command line or Cmake GUI. Convert path from native format to cmake internal format.
 if (NETCDF_INC_PATH)

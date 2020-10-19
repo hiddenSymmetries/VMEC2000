@@ -1,0 +1,13 @@
+{
+    "cmake_args": [
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_CXX_COMPILER=mpicxx",
+           "-DCMAKE_Fortran_COMPILER=mpifort",
+           "-DNETCDF_INC_PATH=/opt/local/include",
+           "-DNETCDF_LIB_PATH=/opt/local/lib",
+           "-DBLA_VENDOR=Intel10_64lp",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           "-DBLACS_LIB_NAME=mkl_blacs_mpich_lp64",
+           "-DSCALAPACK_LIB_DIR=/opt/intel/compilers_and_libraries_2020.3.279/mac/mkl/lib",
+           "-DBLACS_LIB_DIR=/opt/intel/compilers_and_libraries_2020.3.279/mac/mkl/lib"
+}

@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-
+import sys
 import json
 import argparse
 
 import setuptools
+print("system.platform is {}".format(sys.platform))
+if (sys.platform == "darwin"):
+    from distutils import sysconfig
+    vars = sysconfig.get_config_vars()
+    vars['LDSHARED'] = vars['LDSHARED'].replace('-bundle', '-dynamiclib')
+
 from skbuild import setup
 
 #parser = argparse.ArgumentParser(
