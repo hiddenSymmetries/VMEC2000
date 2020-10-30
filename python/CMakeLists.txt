@@ -171,12 +171,12 @@ add_custom_command(
         --f90exec=${CMAKE_Fortran_COMPILER}
         --f77exec=${CMAKE_Fortran_COMPILER}
         -c 
+        #${SCALAPACK_LIB} ${NETCDF_F} ${NETCDF_C}
+        ${f90wrap_output_files} 
         -I${CMAKE_BINARY_DIR}/build/modules/vmec
 		--verbose
-        #${SCALAPACK_LIB} ${NETCDF_F} ${NETCDF_C}
-        ${VMEC_LINK_LIB}
         ${CMAKE_BINARY_DIR}/build/lib/libvmec.a  
-        ${f90wrap_output_files} 
+        ${VMEC_LINK_LIB}
     #IMPLICIT_DEPENDS Fortran ${f90wrap_output_files}
     DEPENDS vmec ${f90wrap_output_files}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
