@@ -121,10 +121,6 @@ C-----------------------------------------------
      &    ier_flag                       .eq. more_iter_flag) THEN
       ELSE
           CALL free_persistent_mem
-
-          CALL free_mem_funct3d
-          CALL free_mem_ns (.false.)
-          CALL free_mem_nunv
       END IF
       !CALL MPI_Barrier(NS_COMM, MPI_ERR) !SAL 070719
       CALL second0(tfileoff)
@@ -148,7 +144,6 @@ C-----------------------------------------------
       USE angle_constraints, ONLY: free_multipliers, getrz
 #endif
       USE parallel_include_module
-      USE vmec_ext_interface, ONLY: vmec_output_data
 
       IMPLICIT NONE
 C-----------------------------------------------
@@ -246,8 +241,6 @@ C-----------------------------------------------
 !
 !     Call WROUT to write output or error message if lwrite = false
 !
-!       CALL vmec_output_data(bzmn_o, azmn_o,
-!     &   clmn, blmn,crmn_o, czmn_e, crmn_e, xsave, gc)
 
       IF (loutput .AND. ASSOCIATED(bzmn_o)) THEN
          CALL wrout(bzmn_o, azmn_o, clmn, blmn, crmn_o, czmn_e,
@@ -322,9 +315,8 @@ C-----------------------------------------------
         CALL free_multipliers
 #endif
 
-      !IF (ALLOCATED(xm)) DEALLOCATE (xm, xn, ixm, xm_nyq, xn_nyq, 
-!     &   jmin3, mscale, nscale, uminus, stat=istat1)
-      IF (ALLOCATED(xm)) DEALLOCATE(ixm,jmin3,mscale,nscale,uminus)
+      IF (ALLOCATED(xm)) DEALLOCATE (xm, xn, ixm, xm_nyq, xn_nyq, 
+     &   jmin3, mscale, nscale, uminus, stat=istat1)
       IF (istat1 .ne. 0) PRINT *, Warning // "#2"
 
       IF (ALLOCATED(tanu))

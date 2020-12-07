@@ -21,7 +21,6 @@
       USE blocktridiagonalsolver_bst, ONLY: Finalize_bst
       USE xstuff
       USE mpi_inc
-      
       IMPLICIT NONE
 C-----------------------------------------------
 C   D u m m y   A r g u m e n t s
@@ -117,6 +116,48 @@ C-----------------------------------------------
       CALL second0(rvton)
       CALL MyEnvVariables
       CALL InitRunVmec(COMM_WORLD,lfreeb)
+      LV3FITCALL = l_v3fit
+      IF (LV3FITCALL) THEN
+         IF (RUNVMEC_PASS.GT.1) THEN
+            CALL Serial2Parallel4X(xc,pxc)
+            CALL Serial2Parallel4X(xcdot,pxcdot)
+            CALL Serial2Parallel4X(xstore,pxstore)
+            CALL second0(bcastton)
+            CALL MPI_Bcast(pxc,SIZE(pxc), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(pxcdot, SIZE(pxcdot), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(pxstore, SIZE(pxstore), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(iotas, SIZE(iotas), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(iotaf, SIZE(iotaf), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(phips, SIZE(phips), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(phipf, SIZE(phipf), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(chips, SIZE(chips), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(chipf, SIZE(chipf), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(mass, SIZE(mass), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(icurv, SIZE(icurv), MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+            CALL MPI_Bcast(lamscale, 1, MPI_REAL8, 0,
+     &                     RUNVMEC_COMM_WORLD, MPI_ERR)
+
+            nsmin = t1lglob; nsmax = t1rglob
+            DO js = nsmin, nsmax
+               pphip(:,js) = phips(js)
+               pchip(:,js) = chips(js)
+            END DO
+
+            CALL second0(bcasttoff)
+            broadcast_time = broadcast_time + (bcasttoff - bcastton)
+         END IF
+      END IF
 
       ictrl_flag = ictrl_array(1)
       numsteps = ictrl_array(3)
@@ -159,9 +200,7 @@ C-----------------------------------------------
 !
          CALL vsetup (iseq_count)
 
-         ! MANGO
          CALL readin (input_file, iseq_count, ier_flag, lscreen)
-         !CALL initialize_vmec_arrays(ier_flag)
          max_grid_size = ns_array(multi_ns_grid)
 
          IF (ier_flag .NE. 0) GOTO 1000
@@ -363,11 +402,7 @@ C-----------------------------------------------
          END IF
       END IF
 
-      CALL free_mem_funct3d
-      CALL free_mem_ns (.false.)
-      CALL free_mem_nunv
-!      IF(LV3FITCALL) CALL FinalizeRunVmec(RUNVMEC_COMM_WORLD)
-      CALL FinalizeRunVmec(RUNVMEC_COMM_WORLD)
+      IF(LV3FITCALL) CALL FinalizeRunVmec(RUNVMEC_COMM_WORLD)
       CALL second0(rvtoff)
       runvmec_time = runvmec_time + (rvtoff - rvton)
 
