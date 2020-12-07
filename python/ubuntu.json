@@ -1,0 +1,10 @@
+{
+    "comment": "This file works as of Dec 7 2020 for building the python VMEC module on a Github Actions CI.",
+    "cmake_args": [
+        "-DCMAKE_C_COMPILER=mpicc",
+        "-DCMAKE_CXX_COMPILER=mpicxx",
+        "-DCMAKE_Fortran_COMPILER=mpif90",
+        "-DSCALAPACK_LIB_NAME=scalapack-openmpi",
+        "-DNETCDF_INC_PATH=/usr/include",
+        "-DNETCDF_LIB_PATH=/usr/lib/x86_64-linux-gnu"]
+}
