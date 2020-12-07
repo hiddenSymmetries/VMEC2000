@@ -1,11 +1,14 @@
 ## Overview
 
-This VMEC repo is to build VMEC as isolated piece of software. It also comes with python extension building support.
+This VMEC repo is to build VMEC as isolated piece of software. It also comes with support for building a python extension,
+so VMEC can be run directly from python, with all variables passed directly in memory.
 
 
 ## Compiling
 
 Compiling VMEC requires MPI, parallel version of HDF5, netcdf-c, netcdf-fortran, numerical libraries such as BLAS, LAPACK, BLACS, and SCALAPACK.
+
+If you want to build the python extension, skip down to the "Python extension compiling" section below. Building the python extension will also build the VMEC executable.
 
 ### PPPL Cluster
 On PPPL cluster, the dependencies can be enabled using `module` command as
@@ -43,12 +46,21 @@ cd build; ninja
 ````
 
 ## Python Extension Compiling
------------------------------
-Switch to the python directory and edit the *setup.py* to configure the CMake variables
-Run 
+
+First, ensure that the following modules are installed: `cmake`, `scikit-build`, `ninja`, and `f90wrap`. These packages could be installed using
+```bash
+pip install cmake scikit-build ninja f90wrap
+```
+
+Next, change to the `python` directory of this repository and edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided there.
+
+Finally, run 
 ```bash
 python setup.py build_ext
 python setup.py install
 ``` 
-in succession.
+in succession. At this point, you should be able to import the `vmec` module in python. To test this, you can try the following command from the shell:
+```bash
+python -c "import vmec; print('success')"
+```
 
