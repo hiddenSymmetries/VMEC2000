@@ -73,16 +73,26 @@ C-----------------------------------------------
       phip=0; chip=0; shalf=0; sqrts=0; wint=0
 
       IF(PARVMEC) THEN
+         ! stop statements in this block added by MJL 2020-02-12
          ALLOCATE(pshalf(nznt,ns),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error pshalf"
          ALLOCATE(pwint(nznt,ns),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error pwint"
          ALLOCATE(pwint_ns(nznt),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error pwint_ns"
          ALLOCATE(ireflect_par(nzeta),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error ireflect_par"
          ALLOCATE(pchip(nznt,ns),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error pchip"
          ALLOCATE(pphip(nznt,ns),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error pphip"
          ALLOCATE(psqrts(nznt,ns),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error psqrts"
          ALLOCATE(pfaclam(0:ntor,0:mpol1,1:ns,ntmax),stat=istat1)
+         if (istat1.ne.0) stop "allocate_ns.f: error pfaclam"
       END IF
 
+      print *,"allocate_ns.f allocating ireflect"
       ALLOCATE(ireflect(ns*nzeta), stat=istat1)
       IF (istat1.ne.0) THEN
          STOP 'allocation error #3 in allocate_ns'

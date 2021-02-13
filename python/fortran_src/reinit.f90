@@ -38,7 +38,11 @@
       
 !----------------------------------------------------------------------
 !     BEGIN SUBROUTINE
-!----------------------------------------------------------------------
+      !----------------------------------------------------------------------
+      CALL vsetup (0) ! This line is from runvmec.f
+
+      ! Now come lines from readin.f:
+      
       ier_flag_init = 0
 !     Adjust vaccum grid file
       IF (lfreeb) THEN
@@ -94,6 +98,12 @@
            ENDDO
          END IF
       END IF
+
+!
+!     ALLOCATE MEMORY FOR NU, NV, MPOL, NTOR SIZED ARRAYS
+!
+      CALL allocate_nunv
+      
 !     CONVERT TO INTERNAL REPRESENTATION OF MODES
 !
 !     R = RBCC*COS(M*U)*COS(N*V) + RBSS*SIN(M*U)*SIN(N*V)
@@ -206,11 +216,17 @@
       currv = mu0*curtor              !Convert to Internal units
 
       ! finalize comm
-      CALL FinalizeSurfaceComm(NS_COMM)
-      CALL FinalizeRunVmec(RUNVMEC_COMM_WORLD)
+      ! CALL FinalizeSurfaceComm(NS_COMM)
+      ! CALL FinalizeRunVmec(RUNVMEC_COMM_WORLD)
 
+      ! Now comes a line from runvmec.f:
+      call fixaray
+      
       RETURN
 !----------------------------------------------------------------------
 !     END SUBROUTINE
 !----------------------------------------------------------------------
       END SUBROUTINE reinit
+
+
+
