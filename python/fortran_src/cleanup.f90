@@ -68,5 +68,11 @@
            call FinalizeSurfaceComm(NS_COMM)
            call FinalizeRunVmec(RUNVMEC_COMM_WORLD)
         end if
+
+        ! This next line is needed to prevent seg faults in vmec fileout_par line 67
+        ! ireflect(jcount) = js+ns*(jk - 1)
+        ! on the >= 2nd call to runvmec with readin_flag set.
+        ! Note this ns is in vmec_main, not vmec_input.
+        ns = 0
         
       end subroutine cleanup

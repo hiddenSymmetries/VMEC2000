@@ -92,7 +92,6 @@ C-----------------------------------------------
          if (istat1.ne.0) stop "allocate_ns.f: error pfaclam"
       END IF
 
-      print *,"allocate_ns.f allocating ireflect"
       ALLOCATE(ireflect(ns*nzeta), stat=istat1)
       IF (istat1.ne.0) THEN
          STOP 'allocation error #3 in allocate_ns'
