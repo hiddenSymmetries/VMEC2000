@@ -1,0 +1,22 @@
+*~
+*.a
+*.so
+*.o
+*.mod
+
+# f90wrap related
+src.*/
+.f2py_f2cmap 
+.libs/ 
+__pycache__/
+*.fpp
+f90wrap_*.f90
+
+# Python build specific
+python/_skbuild
+python/dist/
+python/src/vmec.egg-info/
+
+# Sphinx related files
+docs/build/
+
