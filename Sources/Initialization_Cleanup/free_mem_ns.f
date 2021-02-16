@@ -16,6 +16,10 @@ C-----------------------------------------------
       IF (ALLOCATED(pshalf))  DEALLOCATE(pshalf)
       IF (ALLOCATED(psqrts))  DEALLOCATE(psqrts)
       IF (ALLOCATED(pwint))   DEALLOCATE(pwint)
+C     <MJL 2021-02-12>
+      IF (ALLOCATED(pwint_ns))   DEALLOCATE(pwint_ns)
+      IF (ALLOCATED(ireflect_par)) DEALLOCATE(ireflect_par)
+C     </MJL>
       IF (ALLOCATED(pfaclam)) DEALLOCATE(pfaclam)
       IF (ALLOCATED(pchip))   DEALLOCATE(pchip)
       IF (ALLOCATED(pphip))   DEALLOCATE(pphip)

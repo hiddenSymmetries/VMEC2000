@@ -74,6 +74,7 @@ endfunction()
 
 set(fortran_src_files ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/runvmec.f
                       ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/reinit.f90
+                      ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/cleanup.f90
                       ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/vmec_input.f
                       ${CMAKE_CURRENT_SOURCE_DIR}/fortran_src/read_wout_mod.f90
 )
