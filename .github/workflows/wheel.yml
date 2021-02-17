@@ -32,7 +32,7 @@ jobs:
           # Install netcdf
           # Install python build dependencies
           CIBW_BEFORE_ALL_LINUX: >
-            yum-config-manager --add-repo https://yum.repos.intel.com/ipp/setup/intel-ipp.repo && 
+            yum-config-manager --add-repo https://yum.repos.intel.com/ipp/setup/intel-mkl.repo && 
             rpm --import https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && 
             yum install -y intel-mkl-2020.0-088 &&
             yum install -y openmpi-devel-1.10.7-5 openmpi-1.10.7-5 &&
