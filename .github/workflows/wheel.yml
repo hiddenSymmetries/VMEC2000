@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      #- name: Change to python directory
-      #  run: cd python
+      - name: Change to python directory
+        run: cd python
 
       - name: Build wheels
         uses: joerick/cibuildwheel@v1.9.0
@@ -39,9 +39,7 @@ jobs:
             export MKLROOT=/opt/intel/mkl &&
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/ &&
             pip install setuptools>=42 wheel scikit-build numpy f90wrap &&
-            pushd python
             cp centos_gcc_mkl.json cmake_config_file.json
-            popd
 
       - uses: actions/upload-artifact@v2
         with:
