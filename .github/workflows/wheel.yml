@@ -32,6 +32,7 @@ jobs:
           # Install netcdf
           # Install python build dependencies
           CIBW_BEFORE_ALL_LINUX: >
+            yum install epel-release &&
             yum install -y openmpi-devel-1.10.7-5 openmpi-1.10.7-5 &&
             module load mpi &&
             yum-config-manager --add-repo https://yum.repos.intel.com/mkl/setup/intel-mkl.repo && 
@@ -40,7 +41,7 @@ jobs:
             yum install -y netcdf-openmpi-devel-4.3.3.1-5 netcdf-fortran-openmpi-devel-4.2-16 &&
             export MKLROOT=/opt/intel/mkl &&
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/ &&
-            pip install setuptools>=42 wheel scikit-build numpy f90wrap &&
+            pip install setuptools>=42 wheel scikit-build numpy f90wrap cmake ninja &&
             cp centos_gcc_mkl.json cmake_config_file.json
 
       - uses: actions/upload-artifact@v2
