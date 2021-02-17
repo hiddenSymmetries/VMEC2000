@@ -32,12 +32,12 @@ jobs:
           # Install netcdf
           # Install python build dependencies
           CIBW_BEFORE_ALL_LINUX: >
-            yum-config-manager --add-repo https://yum.repos.intel.com/mkl/setup/intel-mkl.repo && 
-            rpm --import https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && 
-            yum install -y intel-mkl-2020.0-088 &&
             yum install -y openmpi-devel-1.10.7-5 openmpi-1.10.7-5 &&
             module load mpi &&
-            yum install -y netcdf-devel-4.3.3.1-5 netcdf-fortran-devel-4.2-16 &&
+            yum-config-manager --add-repo https://yum.repos.intel.com/mkl/setup/intel-mkl.repo && 
+            rpm --import https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && 
+            yum install -y intel-mkl-64bit-2020.0-088 &&
+            yum install -y netcdf-openmpi-devel-4.3.3.1-5 netcdf-fortran-openmpi-devel-4.2-16 &&
             export MKLROOT=/opt/intel/mkl &&
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/ &&
             pip install setuptools>=42 wheel scikit-build numpy f90wrap &&
