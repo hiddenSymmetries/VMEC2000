@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Change to python directory
-        run: cd python
+      #- name: Change to python directory
+      #  run: cd python
 
       - name: Build wheels
         uses: joerick/cibuildwheel@v1.9.0
@@ -26,20 +26,22 @@ jobs:
           CIBW_SKIP: cp27-manylinux*
           # Install the required libraries on linux
           # Configure MKL repo and install MKL
-          CIBW_BEFORE_ALL_LINUX: yum-config-manager --add-repo https://yum.repos.intel.com/ipp/setup/intel-ipp.repo
-          CIBW_BEFORE_ALL_LINUX: rpm --import https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
-          CIBW_BEFORE_ALL_LINUX: yum install -y intel-mkl-2020.0-088
           # Install openmpi
-          CIBW_BEFORE_ALL_LINUX: yum install -y openmpi-devel-1.10.7-5 openmpi-1.10.7-5
-          CIBW_BEFORE_ALL_LINUX: module load mpi
           # Install netcdf
-          CIBW_BEFORE_ALL_LINUX: yum install -y netcdf-devel-4.3.3.1-5 netcdf-fortran-devel-4.2-16
-          CIBW_BEFORE_ALL_LINUX: export MKLROOT=/opt/intel/mkl
-          CIBW_BEFORE_ALL_LINUX: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/
           # Install python build dependencies
-          CIBW_BEFORE_BUILD: pip install setuptools>=42 wheel scikit-build numpy f90wrap
-          # Change to python directory
-          CIBW_BEFORE_BUILD: cp centos_gcc_mkl.json cmake_config_file.json
+          CIBW_BEFORE_ALL_LINUX: >
+            yum-config-manager --add-repo https://yum.repos.intel.com/ipp/setup/intel-ipp.repo && 
+            rpm --import https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && 
+            yum install -y intel-mkl-2020.0-088 &&
+            yum install -y openmpi-devel-1.10.7-5 openmpi-1.10.7-5 &&
+            module load mpi &&
+            yum install -y netcdf-devel-4.3.3.1-5 netcdf-fortran-devel-4.2-16 &&
+            export MKLROOT=/opt/intel/mkl &&
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/ &&
+            pip install setuptools>=42 wheel scikit-build numpy f90wrap &&
+            pushd python
+            cp centos_gcc_mkl.json cmake_config_file.json
+            popd
 
       - uses: actions/upload-artifact@v2
         with:
