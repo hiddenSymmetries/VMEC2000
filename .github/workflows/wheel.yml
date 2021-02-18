@@ -39,6 +39,7 @@ jobs:
             yum install -y intel-mkl-64bit-2020.0-088 &&
             yum install -y netcdf-openmpi-devel netcdf-fortran-openmpi-devel 
           CIBW_BEFORE_BUILD_LINUX: >
+            "ls {package}" &&
             "cp {package}/centos_gcc_mkl.json {package}/cmake_config_file.json" &&
             source /etc/profile.d/modules.sh && 
             module load mpi &&
