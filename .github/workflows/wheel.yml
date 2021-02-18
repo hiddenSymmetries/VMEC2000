@@ -34,6 +34,7 @@ jobs:
           CIBW_BEFORE_ALL_LINUX: >
             yum install -y epel-release &&
             yum install -y openmpi openmpi-devel  &&
+            source /etc/profile.d/modules.sh && 
             module load mpi &&
             yum-config-manager --add-repo https://yum.repos.intel.com/mkl/setup/intel-mkl.repo && 
             rpm --import https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && 
