@@ -3,6 +3,8 @@ import sys
 import json
 import argparse
 import setuptools
+import pathlib
+import os
 
 from os.path import basename, splitext
 from glob import glob
@@ -13,18 +15,11 @@ if (sys.platform == "darwin"):
     vars = sysconfig.get_config_vars()
     vars['LDSHARED'] = vars['LDSHARED'].replace('-bundle', '-dynamiclib')
 
-from setuptools import find_packages
 from skbuild import setup
 
-#parser = argparse.ArgumentParser(
-#        description="Process arguments to building VMEC python interface")
-#parser.add_argument('--cmake_config_file', 
-#                    default="pppl_gcc.json")
-#args = parser.parse_known_args()
-#print(args)
+fldr_path = pathlib.Path(__file__).parent.absolute()
 
-#with open('pppl_intel.json') as fp:
-with open('cmake_config_file.json') as fp:
+with open(os.path.join(fldr_path, 'cmake_config_file.json')) as fp:
     d = json.load(fp)
 
 setup(
@@ -59,5 +54,5 @@ setup(
            #'-DBLACS_LIB_NAME=mpiblacs',
            #'-DBLACS_CINIT_NAME=mpiblacsCinit',
            #'-DBLACS_F77INIT_NAME=mpiblacsF77init'],
-    cmake_source_dir=".."
+    cmake_source_dir=os.path.join(fldr_path, "..")
 )
