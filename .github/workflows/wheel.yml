@@ -27,7 +27,7 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
           CIBW_SKIP: cp27-manylinux*
           CIBW_DEPENDENCY_VERSIONS: latest
-          CIBW_ENVIRONMENT: BASH_ENV=/root/.bashenv
+          CIBW_ENVIRONMENT: BASH_ENV=/root/.bashenv MKLROOT=/opt/intel/mkl 
           # Install the required libraries on linux
           # Configure MKL repo and install MKL
           # Install openmpi
