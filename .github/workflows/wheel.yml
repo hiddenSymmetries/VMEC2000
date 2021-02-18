@@ -46,8 +46,7 @@ jobs:
             echo "source /etc/profile.d/modules.sh" >> /root/.bashenv && 
             echo "module load mpi" >> /root/.bashenv &&
             echo "export MKLROOT=/opt/intel/mkl" >> /root/.bashenv &&
-            echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/" >> /root/.bashenv
-          CIBW_BEFORE_BUILD: >
+            echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/" >> /root/.bashenv &&
             pip install setuptools>=42 wheel cmake ninja scikit-build numpy f90wrap
 
       - uses: actions/upload-artifact@v2
