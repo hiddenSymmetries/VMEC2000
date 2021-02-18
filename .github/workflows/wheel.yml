@@ -34,6 +34,7 @@ jobs:
           # Install netcdf
           # Install python build dependencies
           #"ls {package}" &&
+          # "cp {package}/centos_gcc_mkl.json {package}/cmake_config_file.json" &&
           CIBW_BEFORE_ALL_LINUX: >
             yum install -y epel-release &&
             yum install -y openmpi openmpi-devel  &&
@@ -42,7 +43,6 @@ jobs:
             yum install -y intel-mkl-64bit-2020.0-088 &&
             yum install -y netcdf-openmpi-devel netcdf-fortran-openmpi-devel 
           CIBW_BEFORE_BUILD_LINUX: >
-            "cp {package}/centos_gcc_mkl.json {package}/cmake_config_file.json" &&
             echo "source /etc/profile.d/modules.sh" >> /root/.bashenv && 
             echo "module load mpi" >> /root/.bashenv &&
             echo "export MKLROOT=/opt/intel/mkl" >> /root/.bashenv &&
