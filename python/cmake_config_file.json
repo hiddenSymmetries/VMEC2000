@@ -1,8 +1,8 @@
 {
     "cmake_args": [
-           "-DCMAKE_C_COMPILER=mpicc",
-           "-DCMAKE_CXX_COMPILER=mpicxx",
-           "-DCMAKE_Fortran_COMPILER=mpifort",
+           "-DCMAKE_C_COMPILER=/usr/lib64/openmpi/bin/mpicc",
+           "-DCMAKE_CXX_COMPILER=/usr/lib64/openmpi/bin/mpicxx",
+           "-DCMAKE_Fortran_COMPILER=/usr/lib64/openmpi/bin/mpifort",
            "-DNETCDF_INC_PATH=/usr/include/openmpi-x86_64",
            "-DNETCDF_LIB_PATH=/usr/lib64/openmpi/lib",
            "-DBLA_VENDOR=Intel10_64lp",
