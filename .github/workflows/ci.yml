@@ -32,14 +32,16 @@ jobs:
     - name: get any needed packages from homebrew
       if: "contains(matrix.os, 'macos')"
       run: |
-        brew install netcdf open-mpi scalapack
+        brew install gcc netcdf open-mpi scalapack
 
     - name: Print versions
       run: |
         which mpicc
         which mpiexec
+        which gfortran
         which mpifort
         mpicc --version
+        gfortran --version
         mpifort --version
         cmake --version
 
@@ -64,8 +66,9 @@ jobs:
         python -m pip install --upgrade pip
 
     # pip install fails unless numpy is manually installed first, I think due to a problem with f90wrap.
+    # mpi4py is not needed for installation, but it is needed to actually do anything with the vmec python module.
     - name: Install python packages
-      run: pip install numpy
+      run: pip install numpy mpi4py
 
     #- name: Install the latest version of f90wrap, more recent than the PyPI version
     #  run: pip install git+https://github.com/jameskermode/f90wrap

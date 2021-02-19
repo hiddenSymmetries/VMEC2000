@@ -1,3 +1,2 @@
 [build-system]
-requires = ["setuptools", "wheel", "scikit-build", "cmake",  "ninja", "numpy", "f90wrap", "mpi4py"]
-# Note that mpi4py is not needed for installation, but it is needed to actually do anything with the vmec python module.
+requires = ["setuptools", "wheel", "scikit-build", "cmake",  "ninja", "numpy", "f90wrap"]
