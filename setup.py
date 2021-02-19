@@ -28,17 +28,18 @@ class EmptyListWithLength(list):
 
 setup(
     name="vmec",
-    version="0.0.2",
+    version="0.0.3",
     license="MIT",
     url="https://gitlab.com/mbkumar/VMEC2000",
     packages=['vmec'],
-    package_dir={'': 'src'},
-    #py_modules=[splitext(basename(path))[0] for path in glob('src/vmec/*.py')],
+    package_dir={'': 'python'},
     install_requires=['f90wrap == v0.2.3'],
     python_requires=">=3.7",
     ext_modules=EmptyListWithLength(),
     description="Python wrapper for VMEC2000",
     maintainer="Bharat Medasani",
+    maintainer_email="mbkumar@gmail.com",
+    author="Caoxiang Zhu, Matt Landreman, Bharat Medasani (developers of python extension only)",
     classifiers=[
         "Development Status :: 1 - Alpha",
         "Intended Audience :: Developers",
@@ -63,5 +64,4 @@ setup(
         "Topic :: Scientific/Engineering :: Optimization",
         "Topic :: Software Development",],
     cmake_args=d['cmake_args'],
-    cmake_source_dir=os.path.abspath("..")
 )

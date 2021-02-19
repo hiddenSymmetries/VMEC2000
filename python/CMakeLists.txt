@@ -188,7 +188,7 @@ add_custom_command(
 python_extension_module(${generated_module_file})
 
 install(FILES ${python_mod_file} ${generated_module_file} #${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
-        DESTINATION src/vmec
+        DESTINATION python/vmec
 )
 install(TARGETS xvmec vmec)
 #        LIBRARY DESTINATION ${CMAKE_INSTALL_DIR}/.

@@ -38,7 +38,7 @@ cmake -S. -Bbuild -GNinja -DCMAKE_Fortran_COMPILER=mpifort -DNETCDF_INC_PATH=/us
 ```
 There are few points to note on the above command
   - The above command gives a verbose output and also store the output in `log` file. 
-  - Ninja build system is used. If your system doesn't have ninja installed, remove the -G option. Alternatively you install ninja in a python virtual environment using pip.
+  - Ninja build system is used. If your system doesn't have ninja installed, remove the -G option. Alternatively you can install ninja in a python virtual environment using pip.
 
 After successful completion of cmake configuration step, go to `build` directory and run `ninja` command as
 ```bash
@@ -46,15 +46,20 @@ cd build; ninja
 ````
 
 ## Python Extension Compiling
+Edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided in the *python/machines* folder. The default one works for CentOS 8 with netcdf and openmpi installed from CentOS repos and Intel MKL.
 
-First, ensure that the following modules are installed: `cmake`, `scikit-build`, `ninja`, and `f90wrap`. These packages could be installed using
+There are two ways to build the python extension. 
+1. You could simply  run
+```bash
+pip install .
+```
+
+2. Ensure that the following modules are installed: `cmake`, `scikit-build`, `ninja`, and `f90wrap`. These packages could be installed using
 ```bash
 pip install cmake scikit-build ninja f90wrap
 ```
 
-Next, change to the `python` directory of this repository and edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided there.
-
-Finally, run 
+Then, run 
 ```bash
 python setup.py build_ext
 python setup.py install
