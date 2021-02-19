@@ -2,54 +2,11 @@ import unittest
 import numpy as np
 from mpi4py import MPI
 import os
-from vmec import vmec as vmec_f90wrap
-from vmec.core import run_modes
+import vmec
 
-success_codes = [0, 11]
 reset_file = ''
 
 class F90wrapVmecTests(unittest.TestCase):
-    def setUp(self):
-        """
-        Set up the test fixture. This subroutine is automatically run
-        by python's unittest module before every test.
-        """
-        self.fcomm = MPI.COMM_WORLD.py2f()
-        rank = MPI.COMM_WORLD.Get_rank()
-        self.verbose = (rank == 0)
-        # The input file will be in the same directory as this file:
-        self.filename = os.path.join(os.path.dirname(__file__), 'input.li383_low_res')
-
-        self.ictrl = np.zeros(5, dtype=np.int32)
-
-        ier = 0
-        numsteps = 0
-        ns_index = -1
-        iseq = rank
-        self.ictrl[0] = 0
-        self.ictrl[1] = ier
-        self.ictrl[2] = numsteps
-        self.ictrl[3] = ns_index
-        self.ictrl[4] = iseq
-
-        # Change the working directory to match the directory of this
-        # file. Otherwise the vmec output files may be put wherever
-        # the unit tests are run from.
-        this_dir = os.path.dirname(__file__)
-        if this_dir != '':
-            os.chdir(os.path.dirname(__file__))
-
-
-    def tearDown(self):
-        """
-        Tear down the test fixture. This subroutine is automatically
-        run by python's unittest module before every test. Here we
-        call runvmec with the cleanup flag to deallocate arrays, such
-        that runvmec can be called again later.
-        """
-        self.ictrl[0] = 16 # cleanup
-        vmec_f90wrap.runvmec(self.ictrl, self.filename, self.verbose, \
-                                 self.fcomm, reset_file)
 
     def test_read_input(self):
         """
