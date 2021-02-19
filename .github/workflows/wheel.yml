@@ -45,7 +45,7 @@ jobs:
             echo "module load mpi" >> /root/.bashenv &&
             echo "export MKLROOT=/opt/intel/mkl" >> /root/.bashenv &&
             echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64:/usr/lib64/openmpi/lib/" >> /root/.bashenv &&
-            echo "export PATH=$PATH:/usr/lib64/openmpi/bin" >> /root/.bashenv &&
+            echo "export PATH=$PATH:/usr/lib64/openmpi/bin" >> /root/.bashenv 
 
       - uses: actions/upload-artifact@v2
         with:
