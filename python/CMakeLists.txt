@@ -185,6 +185,8 @@ add_custom_command(
     COMMAND_EXPAND_LISTS
 )
 
+python_extension_module(${generated_module_file})
+
 install(FILES ${python_mod_file} ${generated_module_file} #${CMAKE_CURRENT_SOURCE_DIR}/__init__.py
         DESTINATION src/vmec
 )
