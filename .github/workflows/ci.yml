@@ -33,6 +33,7 @@ jobs:
       if: "contains(matrix.os, 'macos')"
       run: |
         brew install gcc netcdf open-mpi scalapack
+        alias gfortran='gfortran-9'
 
     - name: Print all mpi fortran commands
       run: compgen -c mpif
