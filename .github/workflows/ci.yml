@@ -37,6 +37,9 @@ jobs:
     - name: Print all mpi fortran commands
       run: compgen -c mpif
 
+    - name: Looking for gfortran
+      run: compgen -c g | sort
+
     - name: Print versions
       run: |
         which mpicc
