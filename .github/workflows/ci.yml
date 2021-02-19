@@ -64,7 +64,10 @@ jobs:
     #- name: Install required python packages
     #  run: |
     #    pip install wheel numpy jax jaxlib
-    
+
+    - name: Install f90wrap
+      run: pip install git+https://github.com/jameskermode/f90wrap
+
     - name: env after adding python
       run: env
 
