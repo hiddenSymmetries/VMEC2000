@@ -38,7 +38,9 @@ jobs:
       run: |
         which mpicc
         which mpiexec
+        which mpifort
         mpicc --version
+        mpifort --version
         cmake --version
 
     - uses: actions/checkout@v2
@@ -60,16 +62,19 @@ jobs:
     - name: Update pip
       run: |
         python -m pip install --upgrade pip
-    
-    - name: pip install fails unless numpy is manually installed first
-      run: |
-        pip install numpy
 
-    #- name: Install f90wrap
+    # pip install fails unless numpy is manually installed first, I think due to a problem with f90wrap.
+    - name: Install python packages
+      run: pip install numpy
+
+    #- name: Install the latest version of f90wrap, more recent than the PyPI version
     #  run: pip install git+https://github.com/jameskermode/f90wrap
 
     - name: env after adding python
       run: env
+
+    - name: List installed python packages
+      run: pip list
 
     - name: Set cmake_config_file.json for ubuntu
       if: "contains(matrix.os, 'ubuntu')"
