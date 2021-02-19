@@ -22,37 +22,46 @@ fldr_path = pathlib.Path(__file__).parent.absolute()
 with open(os.path.join(fldr_path, 'cmake_config_file.json')) as fp:
     d = json.load(fp)
 
+class EmptyListWithLength(list):
+    def __len__(self):
+        return 1
+
 setup(
     name="vmec",
     version="0.0.2",
     license="MIT",
-    #packages=["vmec"],
+    url="https://gitlab.com/mbkumar/VMEC2000",
     packages=['vmec'],
     package_dir={'': 'src'},
     #py_modules=[splitext(basename(path))[0] for path in glob('src/vmec/*.py')],
     install_requires=['f90wrap == v0.2.3'],
+    python_requires=">=3.7",
+    ext_modules=EmptyListWithLength(),
+    description="Python wrapper for VMEC2000",
+    maintainer="Bharat Medasani",
     classifiers=[
         "Development Status :: 1 - Alpha",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Science/Research",
         "Intended Audience :: Nuclear Fusion Community",
+        "Operating System :: MacOS",
+        "Operating System :: POSIX",
+        "Operating System :: Unix",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Topic :: MHD Equilibrium Solver"],
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Fortran",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Scientific/Engineering :: Nuclear Fusion",
+        "Topic :: Scientific/Engineering :: Nuclear Fusion :: Stellarator Research",
+        "Topic :: Scientific/Engineering :: Optimization",
+        "Topic :: Software Development",],
     cmake_args=d['cmake_args'],
-           # [
-           #'-DCMAKE_C_COMPILER=mpicc',
-           #'-DCMAKE_CXX_COMPILER=mpicxx',
-           #'-DCMAKE_Fortran_COMPILER=mpifort',
-           ##'-DNETCDF_INC_PATH=/usr/pppl/intel/2019-pkgs/netcdf-fortran-4.5.2/include',
-           ##'-DNETCDF_LIB_PATH=/usr/pppl/intel/2019-pkgs/netcdf-fortran-4.5.2/lib',
-           #'-DNETCDF_INC_PATH=/usr/pppl/gcc/9.3-pkgs/netcdf-fortran-4.5.2/include',
-           #'-DNETCDF_LIB_PATH=/usr/pppl/gcc/9.3-pkgs/netcdf-fortran-4.5.2/lib',
-           ##'-DBLAS_LIBRARIES=/usr/pppl/gcc/9.3-pkgs/lapack-3.9.0/lib/librefblas.a',
-           ##'-DLAPACK_LIBRARIES=/usr/pppl/gcc/9.3-pkgs/lapack-3.9.0/lib/liblapack.a',
-           #'-DBLA_VENDOR=Intel10_64lp',
-           #'-DSCALAPACK_LIB_NAME=scalapack',
-           #'-DBLACS_LIB_NAME=mpiblacs',
-           #'-DBLACS_CINIT_NAME=mpiblacsCinit',
-           #'-DBLACS_F77INIT_NAME=mpiblacsF77init'],
-    cmake_source_dir=os.path.join(fldr_path, "..")
+    cmake_source_dir=os.path.abspath("..")
 )
