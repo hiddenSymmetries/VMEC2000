@@ -41,8 +41,12 @@ jobs:
     - name: Looking for gfortran
       run: compgen -c g | sort
 
+    - name: Print PATH
+      run: echo $PATH
+
     - name: Print versions
       run: |
+        alias gfortran='gfortran-9'
         which mpicc
         which mpiexec
         which mpifort
