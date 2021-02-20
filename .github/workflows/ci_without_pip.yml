@@ -1,0 +1,116 @@
+# This file is based on examples in
+# https://docs.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: CI without using pip install
+
+on: [push, pull_request]
+
+jobs:
+  CI:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.7, 3.8]
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    # First print out lots of information. We do this in separate 
+    # "name" blocks because otherwise the output gets mixed together
+    # in the github actions log.
+
+    - name: PWD
+      run: pwd
+
+    - name: apt-get any needed packages
+      if: "contains(matrix.os, 'ubuntu')"
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libblacs-mpi-dev libscalapack-mpi-dev libhdf5-openmpi-dev git
+
+    # Github Actions macos environment contains gfortran-9 and gfortran-10 but not a plain gfortran.
+    # We must create a symlink so mpif90 can find a plain gfortran.
+    - name: get any needed packages from homebrew
+      if: "contains(matrix.os, 'macos')"
+      run: |
+        brew install netcdf open-mpi scalapack
+        ln -s /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
+
+    - name: Print all mpi commands
+      run: compgen -c mpi | sort
+
+    - name: Confirm that gfortran can be found
+      run: compgen -c g | sort
+
+    - name: Print versions
+      run: |
+        which mpicc
+        which mpiexec
+        which mpifort
+        which mpif90
+        mpicc --version
+        mpif90 --version
+        cmake --version
+        which gfortran
+        gfortran --version
+        #mpifort --version
+
+    - uses: actions/checkout@v2
+      # If we want submodules downloaded, uncomment the next 2 lines:
+      #with:
+      #  submodules: true
+
+    - name: ls
+      run: ls -l
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: which python after python setup
+      run: python --version
+
+    - name: Update pip
+      run: |
+        python -m pip install --upgrade pip
+
+    # pip install fails unless numpy is manually installed first, I think due to a problem with f90wrap.
+    # mpi4py is not needed for installation, but it is needed to actually do anything with the vmec python module.
+    - name: Install python packages
+      run: pip install numpy mpi4py
+
+    #- name: Install the latest version of f90wrap, more recent than the PyPI version
+    #  run: pip install git+https://github.com/jameskermode/f90wrap
+
+    - name: env after adding python
+      run: env
+
+    - name: Install more python packages
+      run: pip install wheel scikit-build ninja f90wrap
+
+    - name: List installed python packages
+      run: pip list
+
+    - name: Set cmake_config_file.json for ubuntu
+      if: "contains(matrix.os, 'ubuntu')"
+      run: cp python/machines/ubuntu.json cmake_config_file.json
+
+    - name: Set cmake_config_file.json for macos
+      if: "contains(matrix.os, 'macos')"
+      run: cp python/machines/mac_ci.json cmake_config_file.json
+
+    - name: Verify new cmake_config_file.json is in place
+      run: cat cmake_config_file.json
+
+    - name: Install
+      run: python setup.py install
+
+    - name: Try import
+      run: python -c "import vmec; print('Import vmec succeeded')"
+
+    - name: Run python unit tests
+      run: |
+        cd python/tests
+        python3 -m unittest -v
