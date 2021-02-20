@@ -111,7 +111,7 @@ jobs:
 
     - name: Install, Mac version
       if: "contains(matrix.os, 'macos')"
-      run: F90=gfortran-9 pip install -v .
+      run: F90=mpif90 pip install -v .
 
     - name: Try import
       run: python -c "import vmec; print('Import vmec succeeded')"
