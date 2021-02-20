@@ -4,6 +4,6 @@
            "-DCMAKE_C_COMPILER=gcc-10",
            "-DCMAKE_CXX_COMPILER=g++-10",
            "-DCMAKE_Fortran_COMPILER=mpif90",
-           "-DNETCDF_INC_PATH=/opt/local/include",
-           "-DNETCDF_LIB_PATH=/opt/local/lib"]
+           "-DNETCDF_INC_PATH=/usr/local/include",
+           "-DNETCDF_LIB_PATH=/usr/local/lib"]
 }
