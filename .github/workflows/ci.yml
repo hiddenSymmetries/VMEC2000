@@ -39,8 +39,8 @@ jobs:
 #        echo $PWD >> $GITHUB_PATH
 #        #alias gfortran='gfortran-9'
 
-    - name: Print all mpi fortran commands
-      run: compgen -c mpif
+    - name: Print all mpi commands
+      run: compgen -c mpi | sort
 
     - name: Looking for gfortran
       run: compgen -c g | sort
