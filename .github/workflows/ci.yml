@@ -33,7 +33,7 @@ jobs:
       if: "contains(matrix.os, 'macos')"
       run: |
         brew install gcc netcdf open-mpi scalapack
-        ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
+        ln -s /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
 #        echo 'gfortran-9 "$@"' > gfortran
 #        chmod a+x gfortran
 #        echo $PWD >> $GITHUB_PATH

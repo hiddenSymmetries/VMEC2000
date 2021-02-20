@@ -1,8 +1,8 @@
 {
     "comment": "This configuration file works on a macbook on which gcc and netcdf have been installed using macports.",
     "cmake_args": [
-           "-DCMAKE_C_COMPILER=gcc-10",
-           "-DCMAKE_CXX_COMPILER=g++-10",
+           "-DCMAKE_C_COMPILER=gcc-9",
+           "-DCMAKE_CXX_COMPILER=g++-9",
            "-DCMAKE_Fortran_COMPILER=mpif90",
            "-DNETCDF_INC_PATH=/usr/local/include",
            "-DNETCDF_LIB_PATH=/usr/local/lib"]
