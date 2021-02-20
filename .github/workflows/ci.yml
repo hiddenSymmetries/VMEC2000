@@ -33,10 +33,11 @@ jobs:
       if: "contains(matrix.os, 'macos')"
       run: |
         brew install gcc netcdf open-mpi scalapack
-        echo 'gfortran-9 "$@"' > gfortran
-        chmod a+x gfortran
-        echo $PWD >> $GITHUB_PATH
-        #alias gfortran='gfortran-9'
+        ln -s /usr/local/bin/gfortran-10 /usr/local/bin/gfortran
+#        echo 'gfortran-9 "$@"' > gfortran
+#        chmod a+x gfortran
+#        echo $PWD >> $GITHUB_PATH
+#        #alias gfortran='gfortran-9'
 
     - name: Print all mpi fortran commands
       run: compgen -c mpif
@@ -56,8 +57,8 @@ jobs:
         mpicc --version
         mpif90 --version
         cmake --version
-        #which gfortran
-        #gfortran --version
+        which gfortran
+        gfortran --version
         #mpifort --version
 
     - uses: actions/checkout@v2
@@ -111,7 +112,8 @@ jobs:
 
     - name: Install, Mac version
       if: "contains(matrix.os, 'macos')"
-      run: F90=mpif90 pip install -v .
+      run: pip install -v .
+      #run: F90=mpif90 pip install -v .
 
     - name: Try import
       run: python -c "import vmec; print('Import vmec succeeded')"
