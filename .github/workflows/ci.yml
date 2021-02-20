@@ -29,15 +29,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libblacs-mpi-dev libscalapack-mpi-dev libhdf5-openmpi-dev git
 
+    # Github Actions macos environment contains gfortran-9 and gfortran-10 but not a plain gfortran.
+    # We must create a symlink so mpif90 can find a plain gfortran.
     - name: get any needed packages from homebrew
       if: "contains(matrix.os, 'macos')"
       run: |
-        brew install gcc netcdf open-mpi scalapack
+        brew install netcdf open-mpi scalapack
         ln -s /usr/local/bin/gfortran-9 /usr/local/bin/gfortran
-#        echo 'gfortran-9 "$@"' > gfortran
-#        chmod a+x gfortran
-#        echo $PWD >> $GITHUB_PATH
-#        #alias gfortran='gfortran-9'
 
     - name: Print all mpi commands
       run: compgen -c mpi | sort
@@ -106,14 +104,8 @@ jobs:
     - name: Verify new cmake_config_file.json is in place
       run: cat cmake_config_file.json
 
-    - name: Install, Ubuntu version
-      if: "contains(matrix.os, 'ubuntu')"
+    - name: Install
       run: pip install -v .
-
-    - name: Install, Mac version
-      if: "contains(matrix.os, 'macos')"
-      run: pip install -v .
-      #run: F90=mpif90 pip install -v .
 
     - name: Try import
       run: python -c "import vmec; print('Import vmec succeeded')"
