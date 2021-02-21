@@ -23,7 +23,7 @@ jobs:
           CIBW_ARCHS_LINUX: x86_64
           # Use manylinux2014
           #CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-          CIBW_MANYLINUX_X86_64_IMAGE: medbha/vmec_manylinux2014_x86_64
+          CIBW_MANYLINUX_X86_64_IMAGE: "medbha/vmec_manylinux2014_x86_64:1"
           CIBW_SKIP: cp27-manylinux*
           CIBW_DEPENDENCY_VERSIONS: latest
           CIBW_ENVIRONMENT: > 
