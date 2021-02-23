@@ -82,8 +82,13 @@ class VmecTests(unittest.TestCase):
         # n = 1, m = 1:
         self.assertAlmostEqual(vmec.vmec_input.zbs[102,1], 1.6516E-01)
 
+        # Before trying to read the wout file, make sure master is
+        # done writing it.
+        MPI.COMM_WORLD.Barrier()
+        
         # Now try reading in the output
-        wout_file = os.path.join(os.path.dirname(__file__), 'wout_li383_low_res.nc')
+        #wout_file = os.path.join(os.path.dirname(__file__), 'wout_li383_low_res.nc')
+        wout_file = 'wout_li383_low_res.nc'
         ierr = 0
         vmec.read_wout_mod.read_wout_file(wout_file, ierr)
         self.assertEqual(ierr, 0)
