@@ -40,11 +40,8 @@ jobs:
     - name: Print all mpi commands
       run: compgen -c mpi | sort
 
-    - name: Looking for gfortran
+    - name: Confirm that gfortran can be found
       run: compgen -c g | sort
-
-    - name: Print PATH
-      run: echo $PATH
 
     - name: Print versions
       run: |
@@ -111,6 +108,4 @@ jobs:
       run: python -c "import vmec; print('Import vmec succeeded')"
 
     - name: Run python unit tests
-      run: |
-        cd python/tests
-        python3 -m unittest -v
+      run: ./run_tests_mpi

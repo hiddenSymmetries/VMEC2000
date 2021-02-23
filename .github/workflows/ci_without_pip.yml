@@ -111,6 +111,4 @@ jobs:
       run: python -c "import vmec; print('Import vmec succeeded')"
 
     - name: Run python unit tests
-      run: |
-        cd python/tests
-        python3 -m unittest -v
+      run: ./run_tests_mpi

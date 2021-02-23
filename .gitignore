@@ -4,6 +4,14 @@
 *.o
 *.mod
 
+# VMEC related
+threed1*
+wout*
+jxbout*
+parvmec*
+dcon*
+mercier*
+
 # f90wrap related
 src.*/
 .f2py_f2cmap 

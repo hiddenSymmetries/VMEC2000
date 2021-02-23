@@ -1,8 +1,14 @@
+#!/usr/bin/env python
+
 import unittest
+import os
+import logging
 import numpy as np
 from mpi4py import MPI
-import os
 import vmec
+
+logger = logging.getLogger('[{}]'.format(MPI.COMM_WORLD.Get_rank()) + __name__)
+logging.basicConfig(level=logging.INFO)
 
 ictrl = np.zeros(5, dtype=np.int32)
 verbose = True
@@ -18,7 +24,9 @@ reset_jacdt_flag = 32
 
 fcomm = MPI.COMM_WORLD.py2f()
 
-class F90wrapVmecTests(unittest.TestCase):
+filename = os.path.join(os.path.dirname(__file__), 'input.li383_low_res')
+
+class VmecTests(unittest.TestCase):
 
     def test_read_input(self):
         """
@@ -26,8 +34,7 @@ class F90wrapVmecTests(unittest.TestCase):
         """
         ictrl[:] = 0
         ictrl[0] = restart_flag + readin_flag
-        filename = 'input.li383_low_res'
-        print("Calling runvmec. ictrl={} comm={}".format(ictrl, fcomm))
+        logger.info("Calling runvmec. ictrl={} comm={}".format(ictrl, fcomm))
         vmec.runvmec(ictrl, filename, verbose, fcomm, reset_file)
 
         self.assertEqual(ictrl[1], 0)
@@ -47,16 +54,18 @@ class F90wrapVmecTests(unittest.TestCase):
         # n = 1, m = 1:
         self.assertAlmostEqual(vmec.vmec_input.zbs[102,1], 1.6516E-01)
 
+        logger.info("About to cleanup(False)")
         vmec.cleanup(False)
 
-"""
     def test_run_read(self):
-
+        """
+        Try running VMEC, then reading in the output.
+        """
+        ictrl[:] = 0
         ictrl[0] = 1 + 2 + 4 + 8
-        vmec.runvmec(ictrl, self.filename, self.verbose, \
-                                 self.fcomm, reset_file)
+        vmec.runvmec(ictrl, filename, verbose, fcomm, reset_file)
 
-        self.assertTrue(ictrl[1] in success_codes)
+        self.assertEqual(ictrl[1], 11)
 
         self.assertEqual(vmec.vmec_input.nfp, 3)
         self.assertEqual(vmec.vmec_input.mpol, 4)
@@ -89,7 +98,9 @@ class F90wrapVmecTests(unittest.TestCase):
 
         self.assertAlmostEqual(vmec.read_wout_mod.rmnc[0, 0], \
                                    1.4773028173065, places=4)
-"""
+        
+        logger.info("About to cleanup(True)")
+        vmec.cleanup(True)
 
 if __name__ == "__main__":
     unittest.main()
