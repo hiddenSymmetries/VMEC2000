@@ -8,7 +8,7 @@
 
 set -ex
 
-for j in {1..2}
+for j in {1..3}
 do
     mpiexec -n $j python -m unittest -v
 done
