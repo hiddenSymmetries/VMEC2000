@@ -4,6 +4,7 @@ import unittest
 import os
 import logging
 import numpy as np
+from scipy.io import netcdf
 from mpi4py import MPI
 import vmec
 
@@ -90,21 +91,30 @@ class SimpleTests(unittest.TestCase):
         # Now try reading in the output
         #wout_file = os.path.join(os.path.dirname(__file__), 'wout_li383_low_res.nc')
         wout_file = 'wout_li383_low_res.nc'
-        ierr = 0
-        vmec.read_wout_mod.read_wout_file(wout_file, ierr)
-        self.assertEqual(ierr, 0)
-        self.assertAlmostEqual(vmec.read_wout_mod.betatot, \
+        logger.info("About to read output file {}".format(wout_file))
+        #ierr = 0
+        #vmec.read_wout_mod.read_wout_file(wout_file, ierr)
+        #self.assertEqual(ierr, 0)
+        f = netcdf.netcdf_file(wout_file, mmap=False)
+        
+        #self.assertAlmostEqual(vmec.read_wout_mod.betatot, \
+        self.assertAlmostEqual(f.variables['betatotal'][()], \
                                    0.0426215030653306, places=4)
 
-        logger.info('iotaf.shape: {}'.format(vmec.read_wout_mod.iotaf.shape))
-        logger.info('rmnc.shape: {}'.format(vmec.read_wout_mod.rmnc.shape))
+        #logger.info('iotaf.shape: {}'.format(vmec.read_wout_mod.iotaf.shape))
+        #logger.info('rmnc.shape: {}'.format(vmec.read_wout_mod.rmnc.shape))
 
-        self.assertAlmostEqual(vmec.read_wout_mod.iotaf[-1], \
-                                   0.654868168783638, places=4)
+        #self.assertAlmostEqual(vmec.read_wout_mod.iotaf[-1], \
+        iotaf = f.variables['iotaf'][()]
+        self.assertAlmostEqual(iotaf[-1], \
+                               0.6556508142482989, places=4)
 
-        self.assertAlmostEqual(vmec.read_wout_mod.rmnc[0, 0], \
-                                   1.4773028173065, places=4)
-        
+        #self.assertAlmostEqual(vmec.read_wout_mod.rmnc[0, 0], \
+        rmnc = f.variables['rmnc'][()]
+        self.assertAlmostEqual(rmnc[0, 0], \
+                               1.4760749266902973, places=4)
+
+        f.close()
         logger.info("About to cleanup(True)")
         vmec.cleanup(True)
 
