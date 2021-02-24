@@ -10,8 +10,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8]
-        os: [ubuntu-latest, macos-latest]
+        # If os = macos-latest, the extension builds ok, but there is a seg fault when trying to use it.
+        os: [ubuntu-latest]
+        python-version: [3.7, 3.9]
+        use-pip: [yes-pip, no-pip]
 
     runs-on: ${{ matrix.os }}
 
@@ -87,6 +89,11 @@ jobs:
     - name: env after adding python
       run: env
 
+    - name: Install more python packages
+      # If using 'pip install', these packages should be included automatically.
+      if: "contains(matrix.use-pip, 'no-pip')"
+      run: pip install wheel scikit-build ninja f90wrap
+     
     - name: List installed python packages
       run: pip list
 
@@ -101,8 +108,13 @@ jobs:
     - name: Verify new cmake_config_file.json is in place
       run: cat cmake_config_file.json
 
-    - name: Install
+    - name: Install using pip install
+      if: "contains(matrix.use-pip, 'yes-pip')"
       run: pip install -v .
+
+    - name: Install using python setup.py install
+      if: "contains(matrix.use-pip, 'no-pip')"
+      run: python setup.py install
 
     - name: Try import
       run: python -c "import vmec; print('Import vmec succeeded')"

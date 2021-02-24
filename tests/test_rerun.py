@@ -28,7 +28,11 @@ class RerunTests(unittest.TestCase):
 
     def test_rerun(self):
         """
-        Read in multiple input files, running VMEC various numbers of times in between.
+        Read in multiple input files, running VMEC various numbers of
+        times in between.  Also compare several output quantities to
+        known reference values. The test includes cases covering both
+        axisymmetry and non-axisymmetry, and it covers both
+        stellarator-symmetry and non-stellarator-symmetry.
         """
         files = ['circular_tokamak',
                  'up_down_asymmetric_tokamak',

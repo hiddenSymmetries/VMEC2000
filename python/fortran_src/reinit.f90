@@ -188,9 +188,7 @@
 !
 !     ALLOCATE MEMORY FOR NU, NV, MPOL, NTOR SIZED ARRAYS
 !
-      print *,"reinit: about to allocate_nunv"
       CALL allocate_nunv
-      print *,"reinit: past allocate_nunv"
       
 !     CONVERT TO INTERNAL REPRESENTATION OF MODES
 !
@@ -285,9 +283,6 @@
 !
 
       IF (lconm1 .and. (lthreed .or. lasym)) THEN
-         print *,"reinit: About to allocate", SIZE(rbcc,1)
-         print *,"lconm1:", lconm1, " lthreed:", lthreed, " lasym:", lasym
-         print *,"size(rbcc):", size(rbcc)
          ALLOCATE (temp(SIZE(rbcc,1)))
          IF (lthreed) THEN
             mj = 1+joff

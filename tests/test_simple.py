@@ -26,7 +26,7 @@ fcomm = MPI.COMM_WORLD.py2f()
 
 filename = os.path.join(os.path.dirname(__file__), 'input.li383_low_res')
 
-class VmecTests(unittest.TestCase):
+class SimpleTests(unittest.TestCase):
 
     def test_read_input(self):
         """
@@ -42,8 +42,8 @@ class VmecTests(unittest.TestCase):
         self.assertEqual(vmec.vmec_input.nfp, 3)
         self.assertEqual(vmec.vmec_input.mpol, 4)
         self.assertEqual(vmec.vmec_input.ntor, 3)
-        print('rbc.shape:', vmec.vmec_input.rbc.shape)
-        print('rbc:',vmec.vmec_input.rbc[101:103, 0:4])
+        logger.info('rbc.shape: {}'.format(vmec.vmec_input.rbc.shape))
+        logger.info('rbc: {}'.format(vmec.vmec_input.rbc[101:103, 0:4]))
 
         # n = 0, m = 0:
         self.assertAlmostEqual(vmec.vmec_input.rbc[101,0], 1.3782)
@@ -57,6 +57,7 @@ class VmecTests(unittest.TestCase):
         logger.info("About to cleanup(False)")
         vmec.cleanup(False)
 
+        
     def test_run_read(self):
         """
         Try running VMEC, then reading in the output.
@@ -70,8 +71,8 @@ class VmecTests(unittest.TestCase):
         self.assertEqual(vmec.vmec_input.nfp, 3)
         self.assertEqual(vmec.vmec_input.mpol, 4)
         self.assertEqual(vmec.vmec_input.ntor, 3)
-        print('rbc.shape:', vmec.vmec_input.rbc.shape)
-        print('rbc:',vmec.vmec_input.rbc[101:103, 0:4])
+        logger.info('rbc.shape: {}'.format(vmec.vmec_input.rbc.shape))
+        logger.info('rbc: {}'.format(vmec.vmec_input.rbc[101:103, 0:4]))
 
         # n = 0, m = 0:
         self.assertAlmostEqual(vmec.vmec_input.rbc[101,0], 1.3782)
@@ -95,8 +96,8 @@ class VmecTests(unittest.TestCase):
         self.assertAlmostEqual(vmec.read_wout_mod.betatot, \
                                    0.0426215030653306, places=4)
 
-        print('iotaf.shape:',vmec.read_wout_mod.iotaf.shape)
-        print('rmnc.shape:',vmec.read_wout_mod.rmnc.shape)
+        logger.info('iotaf.shape: {}'.format(vmec.read_wout_mod.iotaf.shape))
+        logger.info('rmnc.shape: {}'.format(vmec.read_wout_mod.rmnc.shape))
 
         self.assertAlmostEqual(vmec.read_wout_mod.iotaf[-1], \
                                    0.654868168783638, places=4)
