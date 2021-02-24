@@ -119,7 +119,10 @@ class RegressionTests(unittest.TestCase):
                         # done writing it.
                         MPI.COMM_WORLD.Barrier()
 
-                        wout_file = os.path.join(os.path.dirname(__file__), 'wout_' + files[jfile] + '.nc')
+                        # New wout output file is in the current
+                        # working directory, whereas the reference
+                        # wout file is in a fixed directory.
+                        wout_file = 'wout_' + files[jfile] + '.nc'
                         reference_file = os.path.join(os.path.dirname(__file__), 'wout_' + files[jfile] + '_reference.nc')
 
                         ierr = 0
