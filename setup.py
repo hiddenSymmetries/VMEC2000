@@ -34,7 +34,7 @@ setup(
     packages=['vmec'],
     package_dir={'': 'python'},
     install_requires=['f90wrap == v0.2.3'],
-    python_requires=">=3.7",
+    python_requires=">=3.6",
     ext_modules=EmptyListWithLength(),
     description="Python wrapper for VMEC2000",
     maintainer="Bharat Medasani",
