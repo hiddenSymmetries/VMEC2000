@@ -34,7 +34,7 @@ def compare(f1, f2, field):
     x1 = f1.variables[field][()]
     x2 = f2.variables[field][()]
     logger.info('Diff in field {} is {}'.format(field, np.max(np.abs(x2 - x1))))
-    np.testing.assert_allclose(x1, x2)
+    np.testing.assert_allclose(x1, x2, atol=1e-10, rtol=1e-6)
 
     
 class RegressionTests(unittest.TestCase):
