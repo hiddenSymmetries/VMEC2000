@@ -170,7 +170,9 @@
       IF (bloat .ne. 1.0) phiedge = phiedge * bloat
 !     CONVERT TO REPRESENTATION WITH RBS(m=1) = ZBC(m=1)
       IF (lasym) THEN
-         delta = ATAN( (rbs(0,1) - zbc(0,1))/(ABS(rbc(0,1)) + ABS(zbs(0,1))) )
+         ! MJL 2021-02-26 Angle shift delta was incorrect due to ABS().
+!         delta = ATAN( (rbs(0,1) - zbc(0,1))/(ABS(rbc(0,1)) + ABS(zbs(0,1))) )
+         delta = ATAN2(rbs(0,1) - zbc(0,1), rbc(0,1) + zbs(0,1)) ! MJL
          IF (delta .ne. 0.0) THEN
            DO m = 0,mpol
              DO n = -ntor,ntor
@@ -283,7 +285,7 @@
 !
 
       IF (lconm1 .and. (lthreed .or. lasym)) THEN
-         ALLOCATE (temp(SIZE(rbss,1)))
+         ALLOCATE (temp(SIZE(rbcc,1)))
          IF (lthreed) THEN
             mj = 1+joff
             temp = rbss(:,mj)

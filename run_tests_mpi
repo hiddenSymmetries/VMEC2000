@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# You should run this command from the project root directory.
+
+# To enable python to discover tests, test files should be named
+# test*.py and be located in a directory that includes an __init__.py
+# file.
+
+set -ex
+
+for j in {1..3}
+do
+    mpiexec -n $j python -m unittest -v
+done

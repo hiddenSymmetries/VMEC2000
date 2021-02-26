@@ -1,0 +1,9 @@
+{
+    "comment": "This configuration file worked on Matt Landreman's macbook on 2021-02-26 with conda environment 20210223-06, with gfortran and netcdf installed via conda.",
+    "cmake_args": [
+           "-DCMAKE_C_COMPILER=clang",
+           "-DCMAKE_CXX_COMPILER=clang",
+           "-DCMAKE_Fortran_COMPILER=mpif90",
+           "-DNETCDF_INC_PATH=/Users/mattland/opt/miniconda3/envs/20210223-06/include",
+           "-DNETCDF_LIB_PATH=/Users/mattland/opt/miniconda3/envs/20210223-06/lib"]
+}
