@@ -34,7 +34,7 @@ def compare(f1, f2, field):
     x1 = f1.variables[field][()]
     x2 = f2.variables[field][()]
     logger.info('Diff in field {} is {}'.format(field, np.max(np.abs(x2 - x1))))
-    #np.testing.assert_allclose(x1, x2)
+    np.testing.assert_allclose(x1, x2)
 
     
 class RegressionTests(unittest.TestCase):
@@ -135,6 +135,10 @@ class RegressionTests(unittest.TestCase):
                         f2 = netcdf.netcdf_file(reference_file, mmap=False)
 
                         compare(f1, f2, 'iotaf')
+                        compare(f1, f2, 'rmnc')
+                        compare(f1, f2, 'zmns')
+                        compare(f1, f2, 'lmns')
+                        compare(f1, f2, 'bmnc')
                         #np.testing.assert_allclose(vmec.read_wout_mod.iotaf, f2.variables['iotaf'][()])
                         
                         f1.close()
