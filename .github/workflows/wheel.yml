@@ -23,14 +23,12 @@ jobs:
           CIBW_ARCHS_LINUX: x86_64
           # Use manylinux2014
           #CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-          CIBW_MANYLINUX_X86_64_IMAGE: "medbha/vmec_manylinux2014_x86_64:1"
+          CIBW_MANYLINUX_X86_64_IMAGE: "medbha/vmec_manylinux2014_x86_64:2"
           CIBW_SKIP: cp27-manylinux*
           CIBW_DEPENDENCY_VERSIONS: latest
           CIBW_ENVIRONMENT: > 
-            BASH_ENV=/root/.bashenv
-            MKLROOT=/opt/intel/mkl 
             PATH="/usr/lib64/openmpi/bin:${PATH}"
-            LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/intel/mkl/lib/intel64:${LD_LIBRARY_PATH}"
+            LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:${LD_LIBRARY_PATH}"
           # Install the required libraries on linux
           # Configure MKL repo and install MKL
           # Install openmpi
