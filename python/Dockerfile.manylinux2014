@@ -1,0 +1,18 @@
+FROM quay.io/pypa/manylinux2014_x86_64:latest
+
+#setup the base sysem
+#RUN yum group install "Development Tools" -y --setopt=group_package_types=mandatory,default,optional
+RUN yum -y install epel-release
+RUN yum install openmpi openmpi-devel  -y
+RUN yum install openblas-static openblas-devel -y
+RUN yum install blas-static blas-devel lapack-static lapack-devel  -y
+RUN yum install blacs-openmpi-devel blacs-openmpi-static -y 
+RUN yum install scalapack-openmpi-devel scalapack-openmpi-static -y
+RUN yum install -y python3 python3-devel python3-pip
+RUN pip3 install --upgrade pip
+RUN pip3 install wheel setuptools twine auditwheel
+RUN pip3 install numpy
+
+# Complete the setup of openmpi, they used environmentmodules, blehgh
+ENV PATH="/usr/lib64/openmpi/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:${LD_LIBRARY_PATH}"
