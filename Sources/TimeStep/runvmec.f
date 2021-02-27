@@ -41,7 +41,7 @@ C-----------------------------------------------
      &                                  jacob_off, niter_store
       INTEGER, SAVE                  :: igrid0
       INTEGER                        :: max_grid_size, flag
-      CHARACTER(LEN=120)             :: input_file
+      CHARACTER(LEN=256)             :: input_file
       LOGICAL                        :: lreset
       REAL(dp)                       :: rvton, rvtoff, tiniton, tinitoff
       REAL(dp)                       :: gridton, gridtoff
@@ -178,7 +178,6 @@ C-----------------------------------------------
          input_extension = input_file0(1:index_end)
          input_file = 'input.'//TRIM(input_extension)
       END IF
-
 !
 !     INITIALIZE PARAMETERS
 !

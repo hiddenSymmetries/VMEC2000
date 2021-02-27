@@ -3,6 +3,11 @@
 This VMEC repo is to build VMEC as isolated piece of software. It also comes with support for building a python extension,
 so VMEC can be run directly from python, with all variables passed directly in memory.
 
+## Downloading
+Download the package from git. And change to the root directory of VMEC source code by running
+```bash
+cd <VMEC_ROOT>
+```
 
 ## Compiling
 
@@ -38,7 +43,7 @@ cmake -S. -Bbuild -GNinja -DCMAKE_Fortran_COMPILER=mpifort -DNETCDF_INC_PATH=/us
 ```
 There are few points to note on the above command
   - The above command gives a verbose output and also store the output in `log` file. 
-  - Ninja build system is used. If your system doesn't have ninja installed, remove the -G option. Alternatively you can install ninja in a python virtual environment using pip.
+  - Ninja build system is used. If your system doesn't have ninja installed, remove the -G option. The default is Makefile setup. Alternatively you can install ninja in a python virtual environment using pip.
 
 After successful completion of cmake configuration step, go to `build` directory and run `ninja` command as
 ```bash
@@ -46,18 +51,26 @@ cd build; ninja
 ````
 
 ## Python Extension Compiling
-Edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided in the *python/machines* folder. The default one works for CentOS 8 with netcdf and openmpi installed from CentOS repos and Intel MKL.
+In the VMEC root folder, edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided in the *python/machines* folder. The default one works for CentOS 8 with netcdf and openmpi installed from CentOS repos and Intel MKL.
 
 There are two ways to build the python extension. 
 1. You could simply  run
 ```bash
 pip install .
 ```
-
-2. Ensure that the following modules are installed: `cmake`, `scikit-build`, `ninja`, and `f90wrap`. These packages could be installed using
+Sometimes you may get error associated with f90wrap installation. In that case, install numpy before running the above command:
 ```bash
+pip install numpy
+pip install .
+```
+If you are using conda virtual environment, the numpy version used by pip to build the VMEC extension could be different from the numpy version installed in the conda virtaul environment. The numpy version mismatch could pose some issues. For such cases, use the second approach given below.
+
+2. In this approach, we directly run the setup.py script present in the VMEC root folder. Ensure that the following modules are installed: `cmake`, `scikit-build`, `ninja`, `numpy`, and `f90wrap`. These packages could be installed by running the following commands:
+```bash
+pip install numpy
 pip install cmake scikit-build ninja f90wrap
 ```
+Some times you may have to install `numpy` before trying to install `f90wrap`.
 
 Then, run 
 ```bash
