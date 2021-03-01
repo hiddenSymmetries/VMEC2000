@@ -1,0 +1,13 @@
+{
+    "comments": "These settings worked on 2021-03-01 on IPP-Draco with the following modules: intel/18.0.5, impi/2018.4, mkl/2018.4, anaconda/3/2020.02, hdf5-mpi/1.8.21, netcdf-mpi/4.4.1",
+    "cmake_args": [
+           "-DNETCDF_INC_PATH=/mpcdf/soft/SLE_12/packages/haswell/netcdf-mpi/intel_18.0.5-18.0.5-impi_2018.4-2018.4.274/4.4.1/include",
+           "-DNETCDF_LIB_PATH=/mpcdf/soft/SLE_12/packages/haswell/netcdf-mpi/intel_18.0.5-18.0.5-impi_2018.4-2018.4.274/4.4.1/lib",
+	   "-DSCALAPACK_LIB_DIR=/mpcdf/soft/SLE_12/packages/x86_64/intel_parallel_studio/2018.4/mkl/lib/intel64",
+	   "-DBLACS_LIB_DIR=/mpcdf/soft/SLE_12/packages/x86_64/intel_parallel_studio/2018.4/mkl/lib/intel64",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           "-DBLACS_LIB_NAME=mkl_blacs_intelmpi_lp64",
+           "-DCMAKE_C_COMPILER=mpiicc",
+           "-DCMAKE_CXX_COMPILER=mpiicpc",
+           "-DCMAKE_Fortran_COMPILER=mpiifort"]
+}
