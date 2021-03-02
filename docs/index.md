@@ -5,19 +5,23 @@ This repo contains both Fortran source code and Python interface for VMEC.
 
 # Installation of python interface (Unix like OS only)
 
-0. Prerequisities: Install all dependencies such as SZIP, HDF5, NETCDF (C and Fortran), and MPI 
+0. Prerequisities: 
+    a. Install all dependencies such as SZIP, HDF5, NETCDF (C and Fortran), and MPI 
 and populate **LD_LIBRARY_PATH** with
 the locations of the libraries. For BLAS and LAPACK, users are urged to use Intel MKL even for
 gcc suite of compilers.
 
-1. Create a python virtual environment and install pip into the virtual environment
-
-2. Download the source code and go to `VMEC2000/python` folder
-
-3. If you are installating VMEC on supercomputing centers, where libraries are made avaialable 
+    b. If you are installating VMEC on supercomputing centers, where libraries are made avaialable 
 through modules command, load all the required modules listed in prerequisites.
 
-4. Edit the setup.py file to guide the CMake build system to find the required libraries.
+1. Create a python virtual environment and install pip into the virtual environment
+
+2. Download the source code and go to root folder named `VMEC2000`. 
+
+4. Edit the cmake_config_file.json file to guide the CMake build system to find the required libraries.
+Example files are available in `python/machines` folder
+
+5. If using Intel MKL compilers,
 Define MKLROOT environment variable as
 ```bash
 export MKLROOT=<path/to/MKL directory>
