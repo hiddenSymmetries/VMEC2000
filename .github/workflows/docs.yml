@@ -1,0 +1,59 @@
+name: docs_pages_workflow
+ 
+# execute this workflow automatically when a we push to master
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+ 
+jobs:
+ 
+  build_docs_job:
+    runs-on: ubuntu-latest
+    #container: debian:buster-slim
+ 
+    env:
+      OMPI_ALLOW_RUN_AS_ROOT: 1
+      OMPI_ALLOW_RUN_AS_ROOT_CONFIRM: 1
+
+    steps:
+ 
+    - name: Prereqs for changing git 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libblacs-mpi-dev libscalapack-mpi-dev libhdf5-openmpi-dev git rsync
+        git clone --depth 1 "https://token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" .
+      shell: bash
+ 
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+
+    - name: Install python dependencies
+      run: |
+        sudo -H -E $pythonLocation/bin/python -m pip install --upgrade pip
+        sudo -H -E $pythonLocation/bin/python -m pip install numpy mpi4py 
+        sudo -H -E $pythonLocation/bin/python -m pip install wheel scikit-build ninja f90wrap
+
+    - name: Install simsopt package
+      run: | 
+        cp python/machines/ubuntu.json cmake_config_file.json
+        sudo -H -E $pythonLocation/bin/python -m pip install -v -e .
+
+    - name: Install python dependencies for sphinx
+      run: >-
+        sudo -H -E $pythonLocation/bin/python -m pip install sphinx sphinx-autodoc-typehints
+        sphinx-rtd-theme sphinxcontrib-napoleon sphinx-autodoc-napoleon-typehints
+
+    - name: Execute script to build our documentation and update pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        ls "$PWD"
+        cd docs
+        ls "$PWD"
+        chmod +x ./build_docs.sh
+        ./build_docs.sh 
+      shell: bash

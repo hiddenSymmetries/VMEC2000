@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'VMEC'
-copyright = '2021, VMEC development team'
-author = 'VMEC development team'
+copyright = '2021, Simsopt Development Team'
+author = 'Simsopt Development Team'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.3'
@@ -33,7 +33,7 @@ release = '0.0.3'
 extensions = [
                 'sphinx_rtd_theme',
                 'sphinx.ext.autodoc',
-                'sphinx.ext.napolean',
+                'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
