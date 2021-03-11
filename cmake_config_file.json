@@ -1,8 +1,14 @@
 {
     "cmake_args": [
-           "-DCMAKE_C_COMPILER=/usr/lib64/openmpi/bin/mpicc",
-           "-DCMAKE_Fortran_COMPILER=/usr/lib64/openmpi/bin/mpifort",
-           "-DNETCDF_INC_PATH=/usr/include/openmpi-x86_64",
-           "-DNETCDF_LIB_PATH=/usr/lib64/openmpi/lib",
-           "-DBLA_VENDOR=OpenBLAS"]
+           "-DCMAKE_C_COMPILER=gcc-10",
+           "-DCMAKE_CXX_COMPILER=g++-10",
+           "-DCMAKE_Fortran_COMPILER=gfortran-10",
+           "-DNETCDF_INC_PATH=/usr/local/Cellar/netcdf/4.7.4_1/include",
+           "-DNETCDF_LIB_PATH=/usr/local/Cellar/netcdf/4.7.4_1/lib",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           "-DSCALAPACK_LIB_DIR=/opt/intel/compilers_and_libraries/mac/mkl/lib",
+           "-DBLA_VENDOR=Intel10_64lp",
+           "-DBLACS_LIB_NAME=mkl_blacs_mpich_lp64",
+           "-DBLACS_LIB_DIR=/opt/intel/compilers_and_libraries/mac/mkl/lib"
+    ]
 }

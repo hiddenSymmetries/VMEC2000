@@ -34,8 +34,8 @@ endif ()
 
 if (MPI_Fortran_FOUND)
 	add_definitions (-DMPI_OPT)
-	set (CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${MPI_Fortran_COMPILE_FLAGS}")
-	set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MPI_Fortran_LINK_FLAGS}")
+	set (CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${MPI_Fortran_COMPILE_FLAGS} -fallow-argument-mismatch")
+	set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MPI_Fortran_LINK_FLAGS} -fallow-argument-mismatch")
 	include_directories (${MPI_Fortran_INCLUDE_PATH})
 
 #  Some of the tests need to be oversubscribbed to run. There is a problem where

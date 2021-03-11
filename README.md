@@ -1,3 +1,11 @@
+# COMMENTS TO MYSELF
+
+Run
+
+    source /opt/intel/mkl/bin/mklvars.sh
+    export MKL_ROOT=/opt/intel/mkl
+    rm -rf _skbuild; pip3 install -v -e .
+
 ## Overview
 
 This VMEC repo is to build VMEC as isolated piece of software. It also comes with support for building a python extension,
