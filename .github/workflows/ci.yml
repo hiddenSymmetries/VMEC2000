@@ -30,7 +30,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libscalapack-mpi-dev libhdf5-openmpi-dev git
-        #sudo apt-get install -y build-essential gfortran openmpi-bin libopenmpi-dev libnetcdf-dev libnetcdff-dev liblapack-dev libblacs-mpi-dev libscalapack-mpi-dev libhdf5-openmpi-dev git
 
     # Github Actions macos environment contains gfortran-9 and gfortran-10 but not a plain gfortran.
     # We must create a symlink so mpif90 can find a plain gfortran.
