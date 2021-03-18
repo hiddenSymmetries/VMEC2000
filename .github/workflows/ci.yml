@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         # If os = macos-latest, the extension builds ok, but there is a seg fault when trying to use it.
-        os: [ubuntu-latest]
+        os: [ubuntu-18.04]
         python-version: [3.6, 3.7, 3.8, 3.9]
         use-pip: [yes-pip, no-pip]
 
