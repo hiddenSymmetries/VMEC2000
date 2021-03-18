@@ -9,5 +9,5 @@
            "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
            "-DBLACS_LIB_NAME=mkl_blacs_mpich_lp64",
            "-DSCALAPACK_LIB_DIR=/opt/intel/compilers_and_libraries_2020.3.279/mac/mkl/lib",
-           "-DBLACS_LIB_DIR=/opt/intel/compilers_and_libraries_2020.3.279/mac/mkl/lib"
+           "-DBLACS_LIB_DIR=/opt/intel/compilers_and_libraries_2020.3.279/mac/mkl/lib"]
 }
