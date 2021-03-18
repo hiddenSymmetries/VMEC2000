@@ -9,7 +9,9 @@
 set -ex
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+echo "Trying bash trick: ${GITHUB_ACTIONS:+--oversubscribe}"
+
 for j in {1..3}
 do
-    mpiexec -n $j python -m unittest discover -v -s ${DIR}/tests
+    mpiexec ${GITHUB_ACTIONS:+--oversubscribe} -n $j python -m unittest discover -v -s ${DIR}/tests
 done
