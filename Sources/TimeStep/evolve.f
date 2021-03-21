@@ -47,7 +47,7 @@ C-----------------------------------------------
 !   is always true. Read as "and, if lv3fit, then must also have iter2 - iter1 > 5"
 !      lfinal_mesh = (ns .eq. ns_maxval) .and. (ictrl_prec2d.eq.0)
 !     1              .and. (itype_precon.ne.0)
-
+      print*,"Entering evolve"
       CALL second0(tevon)
 
 
@@ -113,11 +113,13 @@ C-----------------------------------------------
 !
       CALL second0(f3dt1)
       f3d_num(NS_RESLTN) = f3d_num(NS_RESLTN)+1
+      print*,"evolve: calling funct3d. ier=",ier_flag
       IF (PARVMEC) THEN
          CALL funct3d_par(lscreen, ier_flag)
       ELSE
          CALL funct3d(lscreen, ier_flag)
       END IF
+      print*,"evolve: back from funct3d. ier=",ier_flag
       CALL second0(f3dt2)
       f3d_time(NS_RESLTN) = f3d_time(NS_RESLTN) + (f3dt2 - f3dt1)
       funct3d_time = funct3d_time + (f3dt2 - f3dt1)
@@ -126,6 +128,7 @@ C-----------------------------------------------
 !     COMPUTE ABSOLUTE STOPPING CRITERION
       IF (iter2.EQ.1 .and. irst.EQ.2) THEN
          ier_flag = bad_jacobian_flag
+         print*,"evolve: returning L"
          RETURN
 !  JDH 2012-04-24. Revise this absolute stopping criterion, so that if v3fit
 !    is running, then have to iterate at least 2 * nvacskip steps
@@ -137,6 +140,7 @@ C-----------------------------------------------
      &         fsql .le. ftolv) THEN
          liter_flag = .false.
          ier_flag = successful_term_flag
+         print*,"evolve: returning M"
          RETURN
       ENDIF
 
@@ -239,6 +243,7 @@ C-----------------------------------------------
       INTEGER  :: ier_flag
       LOGICAL, INTENT(IN) :: PARVMEC
 
+      print *,"Entering TimeStepControl, ier=",ier_flag
       fsq0 = fsqr+fsqz+fsql
       IF (iter2.EQ.iter1 .OR. res0.EQ.-1) THEN
          res0 = fsq

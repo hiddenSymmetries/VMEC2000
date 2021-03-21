@@ -1,8 +1,12 @@
 {
     "cmake_args": [
-           "-DCMAKE_C_COMPILER=/usr/lib64/openmpi/bin/mpicc",
-           "-DCMAKE_Fortran_COMPILER=/usr/lib64/openmpi/bin/mpifort",
-           "-DNETCDF_INC_PATH=/usr/include/openmpi-x86_64",
-           "-DNETCDF_LIB_PATH=/usr/lib64/openmpi/lib",
-           "-DBLA_VENDOR=OpenBLAS"]
+           "-DNETCDF_INC_PATH=/mpcdf/soft/SLE_12/packages/haswell/netcdf-mpi/gcc_9-9.3.0-impi_2019.9-2019.9.304/4.4.1/include",
+           "-DNETCDF_LIB_PATH=/mpcdf/soft/SLE_12/packages/haswell/netcdf-mpi/gcc_9-9.3.0-impi_2019.9-2019.9.304/4.4.1/lib",
+	   "-DSCALAPACK_LIB_DIR=/mpcdf/soft/SLE_12/packages/x86_64/intel_parallel_studio/2020.4/mkl/lib/intel64",
+	   "-DBLACS_LIB_DIR=/mpcdf/soft/SLE_12/packages/x86_64/intel_parallel_studio/2020.4/mkl/lib/intel64",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           "-DBLACS_LIB_NAME=mkl_blacs_intelmpi_lp64",
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_CXX_COMPILER=mpicxx",
+           "-DCMAKE_Fortran_COMPILER=mpif90"]
 }

@@ -53,9 +53,12 @@
       REAL(dp) :: fnlocal(ns), fntotal
       REAL(dp) :: fn1local(ns), fn1total
       REAL(dp) :: fnLlocal(ns), fnLtotal
-!-----------------------------------------------
-      IF (irst.EQ.2 .AND. iequi.EQ.0) RETURN
+      integer :: matt_rank, matt_size, mpi_integer_size
 
+!-----------------------------------------------
+      print*,"bcovarpar. irst=",irst," iequi=",iequi
+      IF (irst.EQ.2 .AND. iequi.EQ.0) RETURN
+      print*,"bcovarpar. past first return"
 !
 !     POINTER ALIAS ASSIGNMENTS
 
@@ -335,6 +338,7 @@
          IF (ANY(bsubvh(:,1) .ne. zero)) ier_flag = bsub_bad_js1_flag
          IF (ANY(bsubuh(:,1) .ne. zero)) ier_flag = bsub_bad_js1_flag
       END IF
+      print*,"bcovarpar C ier=",ier_flag
 
       nsmin = tlglob
       nsmax = MIN(trglob,ns - 1)
@@ -439,7 +443,9 @@
 !            IF (arnorm .eq. zero .or. aznorm .eq. zero) THEN
 !               STOP 'arnorm or aznorm=0 in bcovar'
 !            END IF
+            print*,"bcovarpar. arnorm=",arnorm, " aznorm=",aznorm
             IF (arnorm .eq. zero .or. aznorm .eq. zero) THEN !SAL 070719
+               print*,"bcovarpar Setting arz_bad_value_flag "
                ier_flag = arz_bad_value_flag
             END IF
 
@@ -453,8 +459,20 @@
 #endif
       ENDIF
 
+      print*,"bcovarpar. K ier=",ier_flag, " MPI_ERR=",MPI_ERR
+      print*,"MPI_IN_PLACE=",MPI_IN_PLACE, " MPI_INTEGER=",MPI_INTEGER
+      print*,"MPI_MAX=",MPI_MAX," NS_COMM=",NS_COMM
+      CALL MPI_COMM_SIZE(NS_COMM, matt_size, MPI_ERR)
+      CALL MPI_COMM_RANK(NS_COMM, matt_rank, MPI_ERR)
+      print*,"matt_size=",matt_size," matt_rank=",matt_rank
+      call MPI_TYPE_SIZE(MPI_INTEGER, mpi_integer_size, MPI_ERR)
+      print*,"Size of MPI_INTEGER:", mpi_integer_size
+      print*,"bit_size(ier):",bit_size(ier_flag)
+      print*,"storage_size(ier):",storage_size(ier_flag)
+      print*,"bcovarpar. L ier=",ier_flag, " MPI_ERR=",MPI_ERR
       CALL MPI_ALLREDUCE(MPI_IN_PLACE,ier_flag,1,MPI_INTEGER,
      1                MPI_MAX,NS_COMM,MPI_ERR)
+      print*,"bcovarpar. M ier=",ier_flag," MPI_ERR=",MPI_ERR
       IF (ier_flag .ne. norm_term_flag) RETURN
 !
 !     COMPUTE COVARIANT BSUBU,V (EVEN, ODD) ON HALF RADIAL MESH

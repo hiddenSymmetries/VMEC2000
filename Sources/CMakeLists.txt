@@ -7,6 +7,10 @@ project (VMEC Fortran C CXX)
 
 #enable_testing ()
 
+# <MJL 20210314>
+#set(CMAKE_BUILD_TYPE Debug)
+#add_definitions(-ffpe-trap=invalid)
+# </MJL>
 
 # Activate or Deactivate code profiling. The profiler maybe activated by setting -DUSE_PROFILER=ON on the cmake command line.
 set (vmec_sources "")

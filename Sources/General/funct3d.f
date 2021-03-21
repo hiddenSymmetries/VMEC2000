@@ -46,7 +46,7 @@ C-----------------------------------------------
       nfunct3d = nfunct3d + 1
       lu => pczmn;  lv => pcrmn
 
-
+      print*,"funct3dpar. lactive=",lactive
 !     CONVERT ODD M TO 1/SQRT(S) INTERNAL REPRESENTATION
       ACTIVE1: IF (lactive) THEN 
          IF (ictrl_prec2d .EQ. 3) THEN
@@ -148,7 +148,9 @@ C-----------------------------------------------
 !     PRESSURE, AND METRIC ELEMENTS ON HALF-GRID
 
          CALL second0(tbcovon)
+         print*,"func3dpar: about to call bcovarpar.ier=",ier_flag
          CALL bcovar_par(lu, lv, pxc, ier_flag)
+         print*,"func3dpar: back from bcovarpar.ier=",ier_flag
          CALL second0(tbcovoff)
          bcovar_time=bcovar_time+(tbcovoff - tbcovon)
 

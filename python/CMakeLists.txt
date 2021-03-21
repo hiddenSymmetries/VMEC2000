@@ -1,5 +1,10 @@
 #cmake_minimum_required(VERSION 3.17)
 
+# <MJL 20210314>
+#set(CMAKE_BUILD_TYPE Debug)
+#add_definitions(-ffpe-trap=invalid)
+# </MJL>
+
 #project(cylinder VERSION 1.0 LANGUAGES C CXX Fortran)
 #list(APPEND CMAKE_MODULE_PATH "/home/mbkumar/anaconda3/envs/testv/lib/python3.8/site-packages/skbuild/resources/cmake")
 #list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")

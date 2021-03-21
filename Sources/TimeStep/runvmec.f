@@ -333,7 +333,9 @@ C-----------------------------------------------
             niter = numsteps + iter2 - 1
          END IF
 
+         print*,"runvmec about to call eqsolve. ier=",ier_flag
          CALL eqsolve (ier_flag, lscreen)
+         print*,"runvmec back from calling eqsolve. ier=",ier_flag
 
          IF (numsteps .GT. 0) THEN
             niter = niter_store

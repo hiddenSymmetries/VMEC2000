@@ -243,6 +243,7 @@ C-----------------------------------------------
 !
 
       IF (loutput .AND. ASSOCIATED(bzmn_o)) THEN
+         print *,"fileout: calling wrout"
          CALL wrout(bzmn_o, azmn_o, clmn, blmn, crmn_o, czmn_e,
      &              crmn_e, xsave, gc, loc_ier_flag, lwrite
 #ifdef _ANIMEC

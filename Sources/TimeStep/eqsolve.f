@@ -46,7 +46,7 @@ C-----------------------------------------------
 !        modd    parity selection label for odd poloidal modes of R and
 !        gc      stacked array of R, Z, Lambda Spectral force coefficients (see readin for stack order)
 !        xc      stacked array of scaled R, Z, Lambda Fourier coefficients
-
+      print*,"Entering eqsolve"
       CALL second0(teqsolon)
 
       liter_flag = iter2 .eq. 1
@@ -65,6 +65,7 @@ C-----------------------------------------------
 !     FROM INITIAL PROFILE, BUT WITH A SMALLER TIME-STEP
 !
       IF (irst .EQ. 2) THEN
+         print*,"eqsolve: irst .EQ. 2"
 
          IF (PARVMEC) THEN
             CALL ZeroLastNType(pxc)
@@ -86,15 +87,19 @@ C-----------------------------------------------
 !     FORCE ITERATION LOOP
 !
       iter_loop: DO WHILE (liter_flag)
+      print*,"eqsolve: iter_loop. ier=",ier_flag
+      print*,"eqsolve: 0 ijacob=",ijacob," irst=",irst
 !
 !     ADVANCE FOURIER AMPLITUDES OF R, Z, AND LAMBDA
 !
          CALL evolve (delt0r, ier_flag, liter_flag, lscreen)
-
+         print*,"eqsolve: past evolve. ier=",ier_flag
+         print*,"eqsolve: 1 ijacob=",ijacob," irst=",irst
          IF (ijacob .eq. 0     .and.
      &       (ier_flag .eq. bad_jacobian_flag .or.
      &        irst     .eq. 4) .and.
      &       ns .ge.3) THEN
+            print*,"eqsolve: inside if 1"
             IF (lscreen) THEN
                IF (ier_flag .eq. bad_jacobian_flag) THEN
                   IF (rank.EQ.0) WRITE (*,50)
@@ -105,6 +110,7 @@ C-----------------------------------------------
    50 FORMAT(' INITIAL JACOBIAN CHANGED SIGN!')
    51 FORMAT(' TRYING TO IMPROVE INITIAL MAGNETIC AXIS GUESS')
 
+      print*,"eqsolve: about to guess axis"
             IF (PARVMEC) THEN
                CALL guess_axis_par (pr1, pz1, pru0, pzu0, lscreen)
             ELSE
@@ -114,12 +120,15 @@ C-----------------------------------------------
             lreset_internal = .true.
             ijacob = 1
             irst = 2
+            print*,"eqsolve: about to goto 20"
             GOTO 20
          ELSE IF (ier_flag .NE. norm_term_flag .AND.
      1            ier_flag .NE. successful_term_flag) THEN
+            print*,"eqsolve: about to return. ier=",ier_flag
             RETURN
          END IF
 
+         print*,"eqsolve: past if block"
 #ifdef _ANIMEC
          w0 = wb + wpar/(gamma-one)
 #else

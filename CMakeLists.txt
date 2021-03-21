@@ -8,6 +8,11 @@ endif ()
 
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "ON")
 
+# <MJL 20210314>
+#set(CMAKE_BUILD_TYPE Debug)
+#add_definitions(-ffpe-trap=invalid)
+# </MJL>
+
 # Activate or Deactivate fast copies. The fast copies maybe activated by setting -DUSE_FAST_COPY=ON on the cmake command line.
 OPTION (USE_FAST_COPY "Activate code fast copies." OFF)
 if (USE_FAST_COPY)
