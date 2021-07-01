@@ -26,6 +26,7 @@ requirements:
     - hdf5
     - netcdf-fortran
     - mkl
+    - scikit-build
 
   host:
     - python
@@ -33,6 +34,7 @@ requirements:
     - numpy
     - f90wrap
     - {{ mpi }}
+    - scikit-build
 
   run:
     - python
