@@ -21,7 +21,7 @@ requirements:
     - {{ mpi }}
     - cmake
     - ninja
-    - numpy
+    - numpy >=1.19
     - f90wrap
     - hdf5
     - netcdf-fortran
@@ -31,19 +31,20 @@ requirements:
   host:
     - python
     - pip
-    - numpy
+    - numpy >=1.19
     - f90wrap
     - {{ mpi }}
     - scikit-build
 
   run:
     - python
-    - numpy 
+    - numpy >=1.19
     - f90wrap
     - {{ mpi }}
     - hdf5
     - netcdf-fortran
     - mkl
+    - scikit-build
 
 test:
   commands:
