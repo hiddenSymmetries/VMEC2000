@@ -3,10 +3,7 @@
            "-DCMAKE_C_COMPILER=mpicc",
            "-DCMAKE_CXX_COMPILER=mpicxx",
            "-DCMAKE_Fortran_COMPILER=mpifort",
-           "-DNETCDF_INC_PATH=$PREFIX/include",
-           "-DNETCDF_LIB_PATH=$PREFIX/lib",
            "-DBLA_VENDOR=Intel10_64lp",
-           "-DSCALAPACK_LIB_DIR=$PREFIX/lib",
            "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
            "-DBLACS_LIB_NAME=mkl_blacs_mpich_lp64"]
 }
