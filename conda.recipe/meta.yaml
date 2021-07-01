@@ -15,36 +15,35 @@ build:
 
 requirements:
   build:
-    - "{{ compiler('cxx') }}"
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+    - {{ compiler('fortran') }}
+    - {{ mpi }}
     - cmake
     - ninja
-    # - numpy {{ numpy }}
-    # - python 
-    # - pip
+    - numpy
+    - f90wrap
+    - hdf5
+    - netcdf-fortran
+    - mkl
 
   host:
     - python
     - pip
-    - numpy >=1.19
+    - numpy
+    - f90wrap
+    - {{ mpi }}
 
   run:
     - python
-    - numpy >=1.19
-    - jax >=0.2.4
-    - jaxlib >=0.1.56
-    - scipy >=1.5.4
-    - Deprecated >=1.2.10
-    - nptyping >=1.3.0
-    - pandas >=1.1.4
-    - monty >=2021.6.10 
-    - ruamel.yaml
-
+    - numpy 
+    - f90wrap
+    - {{ mpi }}
+    - hdf5
+    - netcdf-fortran
+    - mkl
 
 test:
-  imports:
-    - vmec
-  source_files:
-    - tests
   commands:
     - python -c "import vmec; print('success')"
 

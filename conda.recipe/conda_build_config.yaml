@@ -1,0 +1,15 @@
+numpy:
+  - 1.19
+
+f90wrap:
+  - v0.2.3
+
+mpi:
+  - openmpi  # [not win]
+  - mpich    # [not win]
+  - mspi     # [win]
+
+pin_run_as_build:
+  mpich: x.x
+  openmpi: x.x
+  msmpi: x.x
