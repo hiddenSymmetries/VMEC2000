@@ -25,8 +25,9 @@ endif ()
 
 # Add linker and incldue directories for conda build before finding any library
 if (DEFINED ENV{CONDA_BUILD})
-  link_directories(ENV{PREFIX}/lib)
-  include_directories(ENV{PREFIX}/include)
+  link_directories("$ENV{PREFIX}/lib")
+  include_directories("$ENV{PREFIX}/include")
+  message(STATUS "Prefix environment variable is $ENV{PREFIX}")
 endif ()
 
 # Configure MPI
@@ -93,6 +94,7 @@ if (NOT ${BLA_VENDOR} MATCHES "^Intel")
 endif()
 
 # Use netcdf if libraries are found. The values of NETCDF_LIB_PATH and NETCDF_INC_PATH should be set from the command line or Cmake GUI. Convert path from native format to cmake internal format.
+message(STATUS "NETCDF_INC_PATH is ${NETCDF_INC_PATH}")
 if (NETCDF_INC_PATH)
     file (TO_NATIVE_PATH ${NETCDF_INC_PATH} NETCDF_INC_PATH)
 	find_file (NETCDF_I netcdf.inc ${NETCDF_INC_PATH} NO_DEFAULT_PATH)
