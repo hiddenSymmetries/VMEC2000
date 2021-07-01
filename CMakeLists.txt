@@ -23,6 +23,12 @@ endif ()
 #	                   COMMENT "Generating API documentation with Doxygen" VERBATIM)
 #endif ()
 
+# Add linker and incldue directories for conda build before finding any library
+if (DEFINED ENV{CONDA_BUILD})
+  linker_directories(ENV{PREFIX}/lib)
+  incldue_directories(ENV{PREFIX}/include)
+endif ()
+
 # Configure MPI
 # If using the compiler wrapper, there is no need to find the MPI libraries.
 get_filename_component (compiler ${CMAKE_Fortran_COMPILER} NAME)
