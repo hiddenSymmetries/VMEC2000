@@ -1,0 +1,13 @@
+{
+    "cmake_args": [
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_CXX_COMPILER=mpicxx",
+           "-DCMAKE_Fortran_COMPILER=mpifort",
+           # "-DNETCDF_INC_PATH=/usr/include/openmpi-x86_64",
+           # "-DNETCDF_LIB_PATH=/usr/lib64/openmpi/lib",
+           "-DBLA_VENDOR=Intel10_64lp",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           # "-DSCALAPACK_LIB_DIR=/opt/intel/mkl/lib/intel64",
+           "-DBLACS_LIB_NAME=mkl_blacs_openmpi_lp64",
+           # "-DBLACS_LIB_DIR=/opt/intel/mkl/lib/intel64"]
+}
