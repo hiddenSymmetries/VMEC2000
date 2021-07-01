@@ -25,8 +25,8 @@ endif ()
 
 # Add linker and incldue directories for conda build before finding any library
 if (DEFINED ENV{CONDA_BUILD})
-  linker_directories(ENV{PREFIX}/lib)
-  incldue_directories(ENV{PREFIX}/include)
+  link_directories(ENV{PREFIX}/lib)
+  include_directories(ENV{PREFIX}/include)
 endif ()
 
 # Configure MPI
