@@ -25,7 +25,7 @@ requirements:
     - netcdf-fortran
     - mkl
     - python
-    - scikit-biuld
+    - scikit-build
 
   host:
     - python
@@ -33,7 +33,7 @@ requirements:
     - numpy >=1.19
     - f90wrap
     - {{ mpi }}
-    - scikit-biuld
+    - scikit-build
 
   run:
     - python
@@ -54,7 +54,7 @@ about:
   # license: LGPL
   # license_file: ["COPYING", "COPYING.LESSER"]
   # description:
-  # doc_url: https://simsopt.readthedocs.io/
+  doc_url: https://hiddensymmetries.github.io/VMEC2000/
   dev_url: https://github.com/hiddensymmetries/vmec2000
 
 extra:
