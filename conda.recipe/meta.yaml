@@ -25,6 +25,7 @@ requirements:
     - netcdf-fortran
     - mkl
     - python
+    - scikit-biuld
 
   host:
     - python
@@ -32,6 +33,7 @@ requirements:
     - numpy >=1.19
     - f90wrap
     - {{ mpi }}
+    - scikit-biuld
 
   run:
     - python
