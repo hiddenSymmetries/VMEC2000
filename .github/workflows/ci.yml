@@ -12,7 +12,7 @@ jobs:
       matrix:
         # If os = macos-latest, the extension builds ok, but there is a seg fault when trying to use it.
         os: [ubuntu-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9]
         use-pip: [yes-pip, no-pip]
 
     runs-on: ${{ matrix.os }}
@@ -100,11 +100,11 @@ jobs:
 
     - name: Set cmake_config_file.json for ubuntu
       if: "contains(matrix.os, 'ubuntu')"
-      run: cp python/machines/ubuntu.json cmake_config_file.json
+      run: cp cmake/machines/ubuntu.json cmake_config_file.json
 
     - name: Set cmake_config_file.json for macos
       if: "contains(matrix.os, 'macos')"
-      run: cp python/machines/mac_ci.json cmake_config_file.json
+      run: cp cmake/machines/mac_ci.json cmake_config_file.json
 
     - name: Verify new cmake_config_file.json is in place
       run: cat cmake_config_file.json
