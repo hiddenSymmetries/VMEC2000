@@ -25,6 +25,8 @@ requirements:
     - netcdf4
     - netcdf-fortran
     - mkl
+    - scalapack
+    - lapack
     - python
     - scikit-build
 
@@ -45,6 +47,8 @@ requirements:
     - netcdf4
     - netcdf-fortran
     - mkl
+    - scalapack
+    - lapack
 
 test:
   commands:

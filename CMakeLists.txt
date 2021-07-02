@@ -27,7 +27,7 @@ endif ()
 if (DEFINED ENV{CONDA_BUILD})
   link_directories("$ENV{BUILD_PREFIX}/lib")
   include_directories("$ENV{BUILD_PREFIX}/include")
-  message(STATUS "Prefix environment variable is $ENV{PREFIX}")
+  message(STATUS "Prefix environment variable is $ENV{BUILD_PREFIX}")
 endif ()
 
 # Configure MPI
