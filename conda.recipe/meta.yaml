@@ -24,7 +24,6 @@ requirements:
     - hdf5
     - netcdf4
     - netcdf-fortran
-    - mkl
     - scalapack
     - lapack
     - python
