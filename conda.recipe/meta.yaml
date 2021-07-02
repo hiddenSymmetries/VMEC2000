@@ -22,6 +22,7 @@ requirements:
     - numpy >=1.19
     - f90wrap
     - hdf5
+    - netcdf
     - netcdf-fortran
     - mkl
     - python
@@ -41,6 +42,7 @@ requirements:
     - f90wrap
     - {{ mpi }}
     - hdf5
+    - netcdf
     - netcdf-fortran
     - mkl
 
