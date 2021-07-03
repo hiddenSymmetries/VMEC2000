@@ -33,7 +33,7 @@ setup(
     url="https://github.com/hiddenSymmetries/VMEC2000",
     packages=['vmec'],
     package_dir={'': 'python'},
-    install_requires=['f90wrap == v0.2.3'],
+    install_requires=['f90wrap'],
     python_requires=">=3.6",
     ext_modules=EmptyListWithLength(),
     description="Python wrapper for VMEC2000",
