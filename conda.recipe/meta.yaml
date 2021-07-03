@@ -21,11 +21,6 @@ requirements:
     - ninja
     - numpy >=1.19
     - f90wrap
-    - hdf5
-    - netcdf4
-    - netcdf-fortran
-    - scalapack
-    - lapack
     - python
     - scikit-build
 
@@ -36,6 +31,11 @@ requirements:
     - f90wrap
     - {{ mpi }}
     - scikit-build
+    - hdf5
+    - netcdf4
+    - netcdf-fortran
+    - scalapack
+    - lapack
 
   run:
     - python
