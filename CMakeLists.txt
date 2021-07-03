@@ -25,8 +25,8 @@ endif ()
 
 # Add linker and incldue directories for conda build before finding any library
 if (DEFINED ENV{CONDA_BUILD})
-  link_directories("$ENV{BUILD_PREFIX}/lib")
-  include_directories("$ENV{BUILD_PREFIX}/include")
+  link_directories($ENV{BUILD_PREFIX}/lib $ENV{PREFIX}/lib)
+  include_directories($ENV{BUILD_PREFIX}/include $ENV{PREFIX}/include)
   message(STATUS "Prefix environment variable is $ENV{BUILD_PREFIX}")
 endif ()
 
