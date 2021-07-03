@@ -21,13 +21,13 @@ Create a virtual environment (preferably with conda) and install *numpy*.
 Build & Install
 ---------------
 At this stage, you must get the source from https://github.com/hiddenSymmetries/VMEC2000
-and then do ``pip install``. 
+and then run ``pip install .``.
 Note: If you are using *pip*, install *numpy* also using *pip* at the prerequisites step.
 
 Alternatively, you could install the dependencies listed in *pyproject.toml* manually and
 run ``python setup.py install``.
 
-At a later date we will provide support for ``pip install vmec``.
+At a later date we will provide support for ``pip install vmec``, without the need to download VMEC.
 
 .. toctree::
    :maxdepth: 2
@@ -43,7 +43,7 @@ Features
 
 Authors
 =======
-Caoxiang Zhu, Bharat Medasani, and Matt Landremann.
+Caoxiang Zhu, Bharat Medasani, Ben Faber, and Matt Landremann.
 
 .. toctree::
    :maxdepth: 2
