@@ -39,7 +39,7 @@ jobs:
 
     - name: Install simsopt package
       run: | 
-        cp python/machines/ubuntu.json cmake_config_file.json
+        cp cmake/machines/ubuntu.json cmake_config_file.json
         sudo -H -E $pythonLocation/bin/python -m pip install -v -e .
 
     - name: Install python dependencies for sphinx
