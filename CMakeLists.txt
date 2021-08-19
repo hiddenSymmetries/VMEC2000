@@ -23,6 +23,13 @@ endif ()
 #	                   COMMENT "Generating API documentation with Doxygen" VERBATIM)
 #endif ()
 
+# Allow users to define include and link directories
+set(USER_INC_DIR "" CACHE FILEPATH "Set paths to include folders")
+set(USER_LIB_DIR "" CACHE FILEPATH "Set paths to link folders")
+
+include_directories(${USER_INC_DIR})
+link_directories(${USER_LIB_DIR})
+
 # Add linker and incldue directories for conda build before finding any library
 if (DEFINED ENV{CONDA_BUILD})
   link_directories("$ENV{BUILD_PREFIX}/lib")

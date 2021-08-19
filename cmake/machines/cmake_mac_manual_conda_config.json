@@ -1,0 +1,9 @@
+{
+    "comments": "For conda compilers and libraries", 
+    "cmake_args": [
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_Fortran_COMPILER=mpifort",
+           "-DUSER_INC_DIR=/Users/bharat/opt/miniconda3/envs/simsopt/include",
+           "-DUSER_LIB_DIR=/Users/bharat/opt/miniconda3/envs/simsopt/lib",
+           "-DBLA_VENDOR=OpenBLAS"]
+}
