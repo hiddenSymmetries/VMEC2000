@@ -28,18 +28,18 @@ class EmptyListWithLength(list):
 
 setup(
     name="vmec",
-    version="0.0.3",
+    version="0.0.4",
     license="MIT",
-    url="https://gitlab.com/mbkumar/VMEC2000",
+    url="https://github.com/hiddenSymmetries/VMEC2000",
     packages=['vmec'],
     package_dir={'': 'python'},
-    install_requires=['f90wrap == v0.2.3'],
+    install_requires=['f90wrap'],
     python_requires=">=3.6",
     ext_modules=EmptyListWithLength(),
     description="Python wrapper for VMEC2000",
     maintainer="Bharat Medasani",
     maintainer_email="mbkumar@gmail.com",
-    author="Caoxiang Zhu, Matt Landreman, Bharat Medasani (developers of python extension only)",
+    author="Ben Faber, Matt Landreman, Bharat Medasani, Caoxiang Zhu (developers of python extension only)",
     classifiers=[
         "Development Status :: 1 - Alpha",
         "Intended Audience :: Developers",

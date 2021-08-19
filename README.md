@@ -51,7 +51,7 @@ cd build; ninja
 ````
 
 ## Python Extension Compiling
-In the VMEC root folder, edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided in the *python/machines* folder. The default one works for CentOS 8 with netcdf and openmpi installed from CentOS repos and Intel MKL.
+In the VMEC root folder, edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided in the `cmake/machines` folder. The default one works for CentOS 8 with netcdf and openmpi installed from CentOS repos and Intel MKL.
 
 There are two ways to build the python extension. 
 1. You could simply  run

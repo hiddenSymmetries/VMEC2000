@@ -23,6 +23,20 @@ endif ()
 #	                   COMMENT "Generating API documentation with Doxygen" VERBATIM)
 #endif ()
 
+# Allow users to define include and link directories
+set(USER_INC_DIR "" CACHE FILEPATH "Set paths to include folders")
+set(USER_LIB_DIR "" CACHE FILEPATH "Set paths to link folders")
+
+include_directories(${USER_INC_DIR})
+link_directories(${USER_LIB_DIR})
+
+# Add linker and incldue directories for conda build before finding any library
+if (DEFINED ENV{CONDA_BUILD})
+  link_directories("$ENV{BUILD_PREFIX}/lib")
+  include_directories("$ENV{BUILD_PREFIX}/include")
+  message(STATUS "Prefix environment variable is $ENV{BUILD_PREFIX}")
+endif ()
+
 # Configure MPI
 # If using the compiler wrapper, there is no need to find the MPI libraries.
 get_filename_component (compiler ${CMAKE_Fortran_COMPILER} NAME)
@@ -87,9 +101,14 @@ if (NOT ${BLA_VENDOR} MATCHES "^Intel")
 endif()
 
 # Use netcdf if libraries are found. The values of NETCDF_LIB_PATH and NETCDF_INC_PATH should be set from the command line or Cmake GUI. Convert path from native format to cmake internal format.
+message(STATUS "NETCDF_INC_PATH is ${NETCDF_INC_PATH}")
 if (NETCDF_INC_PATH)
     file (TO_NATIVE_PATH ${NETCDF_INC_PATH} NETCDF_INC_PATH)
 	find_file (NETCDF_I netcdf.inc ${NETCDF_INC_PATH} NO_DEFAULT_PATH)
+else ()
+    get_directory_property(INC_DIRS INCLUDE_DIRECTORIES)
+    message(STATUS "INC_DIRS  are ${INC_DIRS}")
+	find_file (NETCDF_I netcdf.inc ${INC_DIRS} NO_DEFAULT_PATH)
 endif ()
 message(STATUS "NETCDF_I value is ${NETCDF_I}")
 
@@ -97,6 +116,10 @@ if (NETCDF_LIB_PATH)
     file (TO_NATIVE_PATH ${NETCDF_LIB_PATH} NETCDF_LIB_PATH)
     find_library (NETCDF_F NAMES netcdff ${NETCDF_F_LIB_NAME} HINTS ${NETCDF_LIB_PATH} ENV LD_LIBRARY_PATH)
     find_library (NETCDF_C NAMES netcdf ${NETCDF_C_LIB_NAME} HINTS ${NETCDF_LIB_PATH} ENV LD_LIBRARY_PATH)
+else()
+    get_directory_property(LINK_DIRS LINK_DIRECTORIES)
+    find_library (NETCDF_F NAMES netcdff ${NETCDF_F_LIB_NAME} HINTS ${LINK_DIRS} ENV LD_LIBRARY_PATH)
+    find_library (NETCDF_C NAMES netcdf ${NETCDF_C_LIB_NAME} HINTS ${LINK_DIRS} ENV LD_LIBRARY_PATH)
 endif ()
 message(STATUS "NETCDF_F value is ${NETCDF_F}")
 message(STATUS "NETCDF_C value is ${NETCDF_C}")

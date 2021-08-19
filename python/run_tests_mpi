@@ -9,7 +9,11 @@
 set -ex
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+echo "Checking if we are in the Github Actions CI: ${GITHUB_ACTIONS:+--oversubscribe}"
+
 for j in {1..3}
 do
-    mpiexec -n $j python -m unittest discover -v -s ${DIR}/tests
+    # In the next line, ${GITHUB_ACTIONS:+--oversubscribe} evaluates to --oversubscribe if the environment variable GITHUB_ACTIONS is set, and evaluates to nothing if the variable is not set.
+    # The motivation is that Github Actions only gives you 2 processors, so we have to "oversubscribe" to test on >2 mpi processes. But we don't want to set --oversubscribe when outside Github Actions, since mpich does not have this flag.
+    mpiexec ${GITHUB_ACTIONS:+--oversubscribe} -n $j python -m unittest discover -v -s ${DIR}/tests
 done

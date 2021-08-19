@@ -53,6 +53,7 @@
       REAL(dp) :: fnlocal(ns), fntotal
       REAL(dp) :: fn1local(ns), fn1total
       REAL(dp) :: fnLlocal(ns), fnLtotal
+      INTEGER :: ier_flag_copy
 !-----------------------------------------------
       IF (irst.EQ.2 .AND. iequi.EQ.0) RETURN
 
@@ -453,8 +454,13 @@
 #endif
       ENDIF
 
-      CALL MPI_ALLREDUCE(MPI_IN_PLACE,ier_flag,1,MPI_INTEGER,
+!     <MJL 2020-03-24> MPI_IN_PLACE is interpreted at 0 on Draco and Cobra!
+!      CALL MPI_ALLREDUCE(MPI_IN_PLACE,ier_flag,1,MPI_INTEGER,
+!     1                MPI_MAX,NS_COMM,MPI_ERR)
+      CALL MPI_ALLREDUCE(ier_flag,ier_flag_copy,1,MPI_INTEGER,
      1                MPI_MAX,NS_COMM,MPI_ERR)
+      ier_flag = ier_flag_copy
+!     </MJL>
       IF (ier_flag .ne. norm_term_flag) RETURN
 !
 !     COMPUTE COVARIANT BSUBU,V (EVEN, ODD) ON HALF RADIAL MESH
