@@ -1,8 +1,8 @@
 {
     "cmake_args": [
-           "-DCMAKE_C_COMPILER=mpicc",
-           "-DCMAKE_CXX_COMPILER=mpicxx",
-           "-DCMAKE_Fortran_COMPILER=mpifort",
+           "-DCMAKE_C_COMPILER=gcc",
+           "-DCMAKE_CXX_COMPILER=g++",
+           "-DCMAKE_Fortran_COMPILER=gfortran",
            "-DNETCDF_INC_PATH=/usr/pppl/gcc/9.3-pkgs/netcdf-fortran-4.5.2/include",
            "-DNETCDF_LIB_PATH=/usr/pppl/gcc/9.3-pkgs/netcdf-fortran-4.5.2/lib",
            "-DBLA_VENDOR=Intel10_64lp",
