@@ -1,15 +1,24 @@
 package:
   name: vmec
-  version: 0.0.3
+  version: 0.0.4
 
 source:
   path: ..
 
 build:
   include_recipe: False
-  # skip: "true # [win, py<37]"
+  skip: True  # [win or py<37]
   number: 0
-  # script: python -m pip install . -vvv
+  script:
+    - cp {{ SRC_DIR }}/cmake/machines/conda.json {{ SRC_DIR }}/cmake_config_file.json
+    - "{{ PYTHON }} -m pip install . -v"
+  run_exports:
+    - f90wrap
+    - hdf5
+    - netcdf4
+    - netcdf-fortran
+    - scalapack   
+    - mkl
 
 requirements:
   build:
@@ -19,35 +28,37 @@ requirements:
     - {{ mpi }}
     - cmake
     - ninja
-    - numpy >=1.19
     - f90wrap
     - hdf5
     - netcdf4
     - netcdf-fortran
-    - scalapack
-    - lapack
-    - python
+    - python {{ python }}
     - scikit-build
+    - numpy {{ numpy }}
 
   host:
     - python
     - pip
-    - numpy >=1.19
+    - numpy 
     - f90wrap
     - {{ mpi }}
     - scikit-build
+    - hdf5
+    - netcdf4
+    - netcdf-fortran
+    - scalapack
+    - mkl
 
   run:
     - python
-    - numpy >=1.19
-    - f90wrap
+    - {{ pin_compatible('numpy') }}
     - {{ mpi }}
+    - f90wrap
     - hdf5
     - netcdf4
     - netcdf-fortran
     - mkl
     - scalapack
-    - lapack
 
 test:
   commands:

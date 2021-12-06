@@ -1,8 +1,21 @@
 numpy:
+  - 1.18
   - 1.19
+  - 1.20
+  - 1.21
+
+python:
+  - 3.7
+  - 3.8
+  - 3.9
+  - 3.10
 
 mpi:
   - mpich    # [not win]
+  - openmpi  # [not win]
 
 pin_run_as_build:
   mpich: x.x
+  openmpi: x.x
+  python: x.x
+  numpy: x.x
