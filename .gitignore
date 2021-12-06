@@ -21,10 +21,12 @@ __pycache__/
 f90wrap_*.f90
 
 # Python build specific
-python/_skbuild
-python/dist/
 python/src/vmec.egg-info/
+_skbuild/
+dist/
 
 # Sphinx related files
 docs/build/
 
+# IDE
+.idea/
