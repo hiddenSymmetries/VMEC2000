@@ -21,7 +21,6 @@ build:
     - netcdf4
     - netcdf-fortran
     - scalapack   
-    - mkl
 
 requirements:
   build:
@@ -57,11 +56,15 @@ requirements:
     - python
     - {{ pin_compatible('numpy') }}
     - {{ mpi }}
+    - numpy
     - f90wrap
     - hdf5
     - netcdf4
     - netcdf-fortran
     - scalapack
+    - libblas
+    - liblapack
+    - mpi4py
 
 test:
   commands:
