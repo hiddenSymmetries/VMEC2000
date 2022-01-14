@@ -40,7 +40,7 @@ endif ()
 # Configure MPI
 # If using the compiler wrapper, there is no need to find the MPI libraries.
 get_filename_component (compiler ${CMAKE_Fortran_COMPILER} NAME)
-if (${compiler} STREQUAL mpiifort OR ${compiler} STREQUAL mpifort)
+if (${compiler} STREQUAL mpiifort OR ${compiler} STREQUAL mpifort OR ${compiler} STREQUAL ftn)
 	add_definitions (-DMPI_OPT)
 else ()
 	find_package (MPI REQUIRED)
