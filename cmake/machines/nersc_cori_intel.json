@@ -9,5 +9,7 @@
            "-DCMAKE_C_COMPILER=mpicc",
            "-DCMAKE_CXX_COMPILER=mpicxx",
            "-DCMAKE_Fortran_COMPILER=mpifort",
-           "-DBLA_VENDOR=Intel10_64lp"]
+           "-DBLA_VENDOR=Intel10_64lp"],
+    "modules_to_load": ["cray-hdf5-parallel"],
+    "modules_to_unload": ["craype-hugepages2M"]
 }

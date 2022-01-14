@@ -1,0 +1,16 @@
+{
+    "cmake_args": [
+           "-DNETCDF_INC_PATH=/opt/cray/pe/netcdf-hdf5parallel/4.6.3.2/GNU/8.2/include",
+           "-DNETCDF_LIB_PATH=/opt/cray/pe/netcdf-hdf5parallel/4.6.3.2/GNU/8.2/lib",
+           "-DSCALAPACK_LIB_DIR=/opt/cray/pe/libsci/19.06.1/GNU/8.1/x86_64/lib",
+           "-DSCALAPACK_LIB_NAME=sci_gnu_82_mpi",
+           "-DCMAKE_C_COMPILER=/opt/cray/pe/craype/2.6.2/bin/cc",
+           "-DCMAKE_CXX_COMPILER=/opt/cray/pe/craype/2.6.2/bin/CC",
+           "-DCMAKE_Fortran_COMPILER=/opt/cray/pe/craype/2.6.2/bin/ftn",
+           "-DBLAS_LIBRARIES=/opt/cray/pe/libsci/19.06.1/GNU/8.1/x86_64/lib/libsci_gnu_82.so",
+           "-DLAPACK_LIBRARIES=/opt/cray/pe/libsci/19.06.1/GNU/8.1/x86_64/lib/libsci_gnu_82.so"
+    ],
+    "modules_to_swap": ["PrgEnv-intel -> PrgEnv-gnu"],
+    "modules_to_load": ["cray-netcdf-hdf5parallel"],
+    "modules_to_unload": ["craype-hugepages2M"]
+}
