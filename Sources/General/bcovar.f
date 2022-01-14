@@ -115,7 +115,7 @@
 
       DO l = t1rglob, MAX(t1lglob,2), -1
          pguu(:,l) = p5*(pguu(:,l) + pguu(:,l-1) +
-     &             + pshalf(:,l)*(luu(:,l) + luu(:,l-1)))
+     &               pshalf(:,l)*(luu(:,l) + luu(:,l-1)))
          r12sq(:,l) = p5*(r12sq(:,l)+r12sq(:,l-1)+pshalf(:,l)*  !Comment: r12sq = r12**2
      &                    (phipog(:,l) + phipog(:,l-1)))
       END DO
