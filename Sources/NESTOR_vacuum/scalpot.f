@@ -95,6 +95,7 @@ C-----------------------------------------------
 
          CALL second0(ton)
          IF (vlactive) THEN
+            print*,"WARNING: MPI_IN_PLACE in scalpot.f 1"  ! MJL
             CALL MPI_Allreduce(MPI_IN_PLACE, gstore, SIZE(gstore),
      &                         MPI_REAL8, MPI_SUM, VAC_COMM, MPI_ERR)
          END IF
@@ -120,6 +121,7 @@ C-----------------------------------------------
 !
       CALL second0(ton)
       IF (vlactive) THEN
+            print*,"WARNING: MPI_IN_PLACE in scalpot.f 2"  ! MJL
          CALL MPI_Allreduce(MPI_IN_PLACE, bvec, SIZE(bvec), MPI_REAL8,
      &                      MPI_SUM, VAC_COMM, MPI_ERR)
       END IF
