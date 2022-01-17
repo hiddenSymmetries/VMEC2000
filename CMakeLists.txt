@@ -14,6 +14,11 @@ if (USE_FAST_COPY)
 	add_definitions (-DFAST_COPY)
 endif ()
 
+if(CMAKE_Fortran_COMPILER_ID STREQUAL GNU AND CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER 10.0)
+    message(STATUS "Fortran compiler is gnu 10 or higher")
+    set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS}  -fallow-argument-mismatch")
+endif()
+
 # Add the ability to auto generate API documentation with Doxygen
 #find_package (Doxygen)
 #if (DOXYGEN_FOUND)
