@@ -234,6 +234,7 @@ C-----------------------------------------------
       CALL second0(ton)
 
       IF (vlactive) THEN
+         print *,"WARNING: MPI_IN_PLACE in vacuum.f"  ! MJL
          CALL MPI_Allgatherv(MPI_IN_PLACE, numjs_vac, MPI_REAL8, bsqvac,
      &                       counts_vac, disps_vac, MPI_REAL8, VAC_COMM,
      &                       MPI_ERR)

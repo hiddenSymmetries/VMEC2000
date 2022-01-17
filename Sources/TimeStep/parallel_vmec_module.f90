@@ -935,6 +935,7 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
 
     !-----------------------------------------------
     REAL(dp), DIMENSION(0:par_ntor,0:par_mpol1,3*par_ntmax,par_ns), INTENT(INOUT) :: arr
+    REAL(dp), DIMENSION(0:par_ntor,0:par_mpol1,3*par_ntmax,par_ns) :: arr2 ! MJL 2022-01-13
     INTEGER                                   :: i
     INTEGER                                   :: blksize, numjs
     INTEGER, ALLOCATABLE, DIMENSION(:)        :: counts, disps
@@ -959,8 +960,14 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
        disps(i) = disps(i - 1) + counts(i - 1)
     END DO
 #if defined(MPI_OPT)
-    CALL MPI_Allgatherv(MPI_IN_PLACE, numjs*blksize, MPI_REAL8, arr,           &
-                        counts, disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    ! <MJL 2022-01-13>
+    ! The original PARVMEC line here used MPI_IN_PLACE, but MPI_IN_PLACE does not work with mpi4py with some MPI distributions. So this MPI_Allgatherv line was modified to use separate send and receive arrays.
+    !CALL MPI_Allgatherv(MPI_IN_PLACE, numjs*blksize, MPI_REAL8, arr,           &
+    !                    counts, disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    CALL MPI_Allgatherv(arr(0, 0, 1, tlglob), numjs*blksize, MPI_REAL8, arr2,           &
+         counts, disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    arr = arr2
+    ! </MJL>
 #endif
     DEALLOCATE(counts, disps)
     CALL second0(allgvtoff)
@@ -973,6 +980,7 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
     SUBROUTINE Gather2XArray(arr)
     
     REAL(dp), DIMENSION(par_nznt,par_ns), INTENT(INOUT) :: arr
+    REAL(dp), DIMENSION(par_nznt,par_ns) :: arr2 ! MJL 2022-01-13
     INTEGER :: i
     INTEGER :: par_nsmin, par_nsmax, blksize, numjs
     INTEGER, ALLOCATABLE, DIMENSION(:) :: counts, disps
@@ -998,8 +1006,14 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
     END DO
 
 #if defined(MPI_OPT)
-    CALL MPI_Allgatherv(MPI_IN_PLACE, numjs*blksize, MPI_REAL8, arr,           &
-                        counts, disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    ! <MJL 2022-01-13>
+    ! The original PARVMEC line here used MPI_IN_PLACE, but MPI_IN_PLACE does not work with mpi4py with some MPI distributions. So this MPI_Allgatherv line was modified to use separate send and receive arrays.
+    !CALL MPI_Allgatherv(MPI_IN_PLACE, numjs*blksize, MPI_REAL8, arr,           &
+    !                    counts, disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    CALL MPI_Allgatherv(arr(1, tlglob), numjs*blksize, MPI_REAL8, arr2,           &
+         counts, disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    arr = arr2
+    ! </MJL>
 #endif
     DEALLOCATE(counts, disps)
     CALL second0(allgvtoff)
@@ -1011,6 +1025,7 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
     SUBROUTINE Gather1XArray(arr)
     !-----------------------------------------------
     REAL(dp), DIMENSION(par_ns), INTENT(INOUT) :: arr
+    REAL(dp), DIMENSION(par_ns) :: arr2 ! MJL 2022-01-13
 
     INTEGER :: i, numjs
     INTEGER, ALLOCATABLE, DIMENSION(:) :: counts, disps
@@ -1035,8 +1050,15 @@ INTEGER, INTENT(IN) :: ns, nzeta, ntheta3
     END DO
 
 #if defined(MPI_OPT)
-    CALL MPI_Allgatherv(MPI_IN_PLACE, numjs, MPI_REAL8, arr, counts,           &
-                        disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    ! <MJL 2022-01-13>
+    ! The original PARVMEC line here used MPI_IN_PLACE, but MPI_IN_PLACE does not work with mpi4py with some MPI distributions. So this MPI_Allgatherv line was modified to use separate send and receive arrays.
+    ! See e.g. https://bitbucket.org/mpi4py/mpi4py/issues/162/mpi4py-initialization-breaks-fortran
+    !CALL MPI_Allgatherv(MPI_IN_PLACE, numjs, MPI_REAL8, arr, counts,           &
+    !                    disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    CALL MPI_Allgatherv(arr(tlglob), numjs, MPI_REAL8, arr2, counts,           &
+         disps, MPI_REAL8, NS_COMM, MPI_ERR)
+    arr = arr2
+    ! </MJL>
 #endif
     DEALLOCATE(counts, disps)
     CALL second0(allgvtoff)

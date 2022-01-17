@@ -103,6 +103,7 @@ C-----------------------------------------------
 
       IF (vlactive) THEN
          CALL second0(ton)
+         print*,"WARNING: MPI_IN_PLACE in fouri.f"  ! MJL
          CALL MPI_Allreduce(MPI_IN_PLACE, amatrix, SIZE(amatrix),
      &                      MPI_REAL8, MPI_SUM, VAC_COMM, MPI_ERR)
          CALL second0(toff)
