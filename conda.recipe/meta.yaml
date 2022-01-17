@@ -41,6 +41,8 @@ requirements:
     - pip
     - numpy 
     - f90wrap
+    - gfortran_linux-64  # [linux]
+    - gfortran_osx-64  # [osx]
     - {{ mpi }}
     - scikit-build
     - hdf5
