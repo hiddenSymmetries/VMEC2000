@@ -7,5 +7,7 @@
         "-DCMAKE_C_COMPILER=cc",
         "-DCMAKE_CXX_COMPILER=CC",
         "-DCMAKE_Fortran_COMPILER=ftn"
-    ]
+    ],
+    "modules_to_load": ["cray-netcdf-hdf5parallel"],
+    "modules_to_unload": ["craype-hugepages2M"]
 }
