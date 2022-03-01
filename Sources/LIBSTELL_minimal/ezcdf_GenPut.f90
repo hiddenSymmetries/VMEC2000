@@ -1,6 +1,10 @@
 MODULE ezcdf_GenPut
   USE ezcdf_opncls
   USE ezcdf_inqvar
+#ifdef NETCDF
+  USE netcdf_inc
+#endif
+
 
   ! Generic Interface to Write netcdf data Variables
   ! 03/10/99 C. Ludescher
@@ -8,7 +12,7 @@ MODULE ezcdf_GenPut
   ! + support for complex numbers (ap) Wed May 16 15:18:05 EDT 2001
   ! added support for logicals (sph) Oct 1, 2002
   IMPLICIT NONE
-#if defined (NETCDF)
+#ifdef NETCDF
 
   !
   ! C. Ludescher/A. Pletzer Tue Apr  4 10:11:33 EDT 2000
@@ -51,7 +55,6 @@ MODULE ezcdf_GenPut
   END INTERFACE
 
   PRIVATE
-  include "netcdf.inc"
 
   INTEGER, PARAMETER :: r4 = SELECTED_REAL_KIND(6,37)
   INTEGER, PARAMETER :: r8 = SELECTED_REAL_KIND(12,100)

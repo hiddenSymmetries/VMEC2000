@@ -1,8 +1,9 @@
 {
+    "comment": "This configuration file works on a macbook on which gcc and netcdf have been installed using macports.",
     "cmake_args": [
-           "-DCMAKE_C_COMPILER=/usr/lib64/openmpi/bin/mpicc",
-           "-DCMAKE_Fortran_COMPILER=/usr/lib64/openmpi/bin/mpifort",
-           "-DNETCDF_INC_PATH=/usr/include/openmpi-x86_64",
-           "-DNETCDF_LIB_PATH=/usr/lib64/openmpi/lib",
-           "-DBLA_VENDOR=OpenBLAS"]
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_CXX_COMPILER=mpicxx",
+           "-DCMAKE_Fortran_COMPILER=mpifort",
+           "-DNETCDF_INC_PATH=/opt/local/include",
+           "-DNETCDF_LIB_PATH=/opt/local/lib"]
 }

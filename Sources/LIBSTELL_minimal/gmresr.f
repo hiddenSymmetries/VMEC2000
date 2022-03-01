@@ -348,7 +348,7 @@ C        do not calculate initial residual first restart because
 C        initial guess is always zero. 
 C        make initial guess zero:
          coeff = 0.0
-         call dscal(n,coeff,uu,1)
+         uu = coeff*uu !call dscal(n,coeff,uu,1)
 C        make initial residual right-hand side:
          call dcopy(n,rhs,1,work0,1)
 
@@ -441,7 +441,7 @@ C     rs := hh1(1:i1,1:i) * rs
 
 C     now multiply Krylov basis vectors work0 by rs:
 C     cc := work0*rs
-      call dscal(n,coef1,cc,1)
+      cc = coef1*cc !call dscal(n,coef1,cc,1)
       do j=1, i1
          t = rs1(j)
 	 call daxpy(n, t, work0(1,j), 1, cc,1)

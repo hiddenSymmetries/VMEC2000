@@ -2,7 +2,8 @@
 list (APPEND vmec_sources
 	${CMAKE_CURRENT_SOURCE_DIR}/bextrema.f
 	${CMAKE_CURRENT_SOURCE_DIR}/daxpby.f
-	${CMAKE_CURRENT_SOURCE_DIR}/ezcdf.f90
+        ${CMAKE_CURRENT_SOURCE_DIR}/netcdf_inc.f	
+        ${CMAKE_CURRENT_SOURCE_DIR}/ezcdf.f90
 	${CMAKE_CURRENT_SOURCE_DIR}/functions.f
 	${CMAKE_CURRENT_SOURCE_DIR}/line_segment.f
 	${CMAKE_CURRENT_SOURCE_DIR}/parse_extension.f
