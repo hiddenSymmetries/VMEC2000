@@ -1,7 +1,8 @@
 MODULE ezcdf_attrib
    USE ezcdf_inqvar
-#if defined (NETCDF)
-   include "netcdf.inc"
+#ifdef NETCDF
+   USE netcdf_inc
+
    INTEGER, PARAMETER :: r4 = SELECTED_REAL_KIND(6,37)
    INTEGER, PARAMETER :: r8 = SELECTED_REAL_KIND(12,100)
    CHARACTER(len=nf_max_name) :: varnam_noalpha

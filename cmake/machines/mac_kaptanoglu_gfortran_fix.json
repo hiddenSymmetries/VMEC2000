@@ -1,0 +1,10 @@
+{
+    "comment": "This configuration file works on a macbook on which gcc and netcdf have been installed using macports.",
+    "cmake_args": [
+           "-DCMAKE_C_COMPILER=mpicc",
+           "-DCMAKE_CXX_COMPILER=mpicxx",
+           "-DCMAKE_Fortran_COMPILER=mpif90",
+           "-DNETCDF_INC_PATH=/usr/local/opt/netcdf/include/",
+           "-DNETCDF_LIB_PATH=/usr/local/opt/netcdf/lib/",
+           "-DBLA_VENDOR=OpenBLAS"]
+}
