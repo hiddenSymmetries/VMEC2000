@@ -4,7 +4,7 @@ import unittest
 import logging
 import os
 import numpy as np
-from scipy.io import netcdf
+from scipy.io import netcdf_file
 from mpi4py import MPI
 import vmec
 
@@ -127,12 +127,12 @@ class RegressionTests(unittest.TestCase):
 
                         ierr = 0
                         logger.info('About to read output file {}'.format(wout_file))
-                        f1 = netcdf.netcdf_file(wout_file, mmap=False)
+                        f1 = netcdf_file(wout_file, mmap=False)
                         #vmec.read_wout_mod.read_wout_file(wout_file, ierr)
                         #self.assertEqual(ierr, 0)
 
                         logger.info('About to read reference output file {}'.format(reference_file))
-                        f2 = netcdf.netcdf_file(reference_file, mmap=False)
+                        f2 = netcdf_file(reference_file, mmap=False)
 
                         compare(f1, f2, 'iotaf')
                         compare(f1, f2, 'rmnc')
