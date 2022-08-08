@@ -431,7 +431,7 @@
 
       CALL cdf_define(nwout, vn_qfact, qfact(1:ns), 
      1                dimname=r1dim)
-      CALL cdf_setatt(nwout, vn_iotaf, ln_qfact)
+      CALL cdf_setatt(nwout, vn_qfact, ln_qfact)
       CALL cdf_define(nwout, vn_presf, presf, 
      1                dimname=r1dim)
       CALL cdf_setatt(nwout, vn_presf, ln_presf, units='Pa')
@@ -1296,11 +1296,11 @@
       CALL cdf_write(nwout, vn_overr, overr(1:ns))
 
 !     MERCIER_CRITERION
-      CALL cdf_write(nwout, vn_merc, Dmerc)
-      CALL cdf_write(nwout, vn_mshear, Dshear)
-      CALL cdf_write(nwout, vn_mwell, Dwell)
-      CALL cdf_write(nwout, vn_mcurr, Dcurr)
-      CALL cdf_write(nwout, vn_mgeo, Dgeod)
+      CALL cdf_write(nwout, vn_merc, Dmerc(1:ns))
+      CALL cdf_write(nwout, vn_mshear, Dshear(1:ns))
+      CALL cdf_write(nwout, vn_mwell, Dwell(1:ns))
+      CALL cdf_write(nwout, vn_mcurr, Dcurr(1:ns))
+      CALL cdf_write(nwout, vn_mgeo, Dgeod(1:ns))
       CALL cdf_write(nwout, vn_equif, equif)
 
       CALL cdf_write(nwout, vn_fsq, fsqt(1:nstore_seq))

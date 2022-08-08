@@ -4,7 +4,7 @@ import unittest
 import os
 import logging
 import numpy as np
-from scipy.io import netcdf
+from scipy.io import netcdf_file
 from mpi4py import MPI
 import vmec
 
@@ -95,7 +95,7 @@ class SimpleTests(unittest.TestCase):
         #ierr = 0
         #vmec.read_wout_mod.read_wout_file(wout_file, ierr)
         #self.assertEqual(ierr, 0)
-        f = netcdf.netcdf_file(wout_file, mmap=False)
+        f = netcdf_file(wout_file, mmap=False)
         
         #self.assertAlmostEqual(vmec.read_wout_mod.betatot, \
         self.assertAlmostEqual(f.variables['betatotal'][()], \
