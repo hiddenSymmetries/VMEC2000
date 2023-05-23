@@ -1,0 +1,12 @@
+{
+    "cmake_args": [
+        "-DNETCDF_INC_PATH=/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/INTEL/19.0/include",
+        "-DNETCDF_LIB_PATH=/opt/cray/pe/netcdf-hdf5parallel/4.9.0.3/INTEL/19.0/lib",
+        "-DSCALAPACK_LIB_DIR=/opt/cray/pe/libsci/23.02.1.1/INTEL/2022.2/haswell/lib",
+        "-DSCALAPACK_LIB_NAME=sci_intel_mpi",
+        "-DCMAKE_C_COMPILER=cc",
+        "-DCMAKE_CXX_COMPILER=CC",
+        "-DCMAKE_Fortran_COMPILER=ftn"
+    ],
+    "modules_to_load": ["cray-netcdf-hdf5parallel"]
+}
