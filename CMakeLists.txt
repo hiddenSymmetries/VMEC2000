@@ -95,10 +95,10 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	add_definitions (-DLINUX)
 endif()
 
-find_package (BLAS REQUIRED)
-if (NOT ${BLA_VENDOR} MATCHES "^Intel")
-    find_package (LAPACK REQUIRED)
-endif()
+find_package (LAPACK REQUIRED)
+#if (NOT ${BLA_VENDOR} MATCHES "^Intel")
+#    find_package (LAPACK REQUIRED)
+#endif()
 
 # Use netcdf if libraries are found. The values of NETCDF_LIB_PATH and NETCDF_INC_PATH should be set from the command line or Cmake GUI. Convert path from native format to cmake internal format.
 message(STATUS "NETCDF_INC_PATH is ${NETCDF_INC_PATH}")
