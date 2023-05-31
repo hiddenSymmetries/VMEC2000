@@ -95,7 +95,24 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	add_definitions (-DLINUX)
 endif()
 
-find_package (LAPACK REQUIRED)
+find_package (LAPACK)
+if(NOT LAPACK_FOUND)
+    message(STATUS "--> LAPACK and BLAS were not found. Reference LAPACK and BLAS will be downloaded and installed")
+    include(ExternalProject)
+    ExternalProject_Add(
+        lapack
+        URL http://www.netlib.org/lapack/lapack.tgz
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}
+        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/dependencies
+    )
+    if (NOT MSVC)
+        SET(LAPACK_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/liblapack.a CACHE STRING "LAPACK library" FORCE)
+        SET(BLAS_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/libblas.a CACHE STRING "BLAS library" FORCE)
+    else () # MSVC
+        SET(LAPACK_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/liblapack.lib CACHE STRING "LAPACK library" FORCE)
+        SET(BLAS_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/libblas.lib CACHE STRING "BLAS library" FORCE)
+    endif ()
+ENDIF()
 #if (NOT ${BLA_VENDOR} MATCHES "^Intel")
 #    find_package (LAPACK REQUIRED)
 #endif()
