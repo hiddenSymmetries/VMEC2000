@@ -77,7 +77,13 @@ set (CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} ${EXTRA_DEBUG_FLAGS
 set (CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${EXTRA_FLAGS}")
 
 # Fortran specific settings. The first setting tells the compiler to use the C preprocessor. The second places a common directory to place all of the module files.
-set (CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch -cpp")
+
+set (CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -cpp")
+if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
+    if(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER "10.0")
+        set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -fallow-argument-mismatch")
+    endif()
+endif()
 set (CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR}/build/modules)
 
 # Set Apple specific options. This adds a predefine for DARWIN and adds lapack from the Accelerate framework.
@@ -95,7 +101,24 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	add_definitions (-DLINUX)
 endif()
 
-find_package (LAPACK REQUIRED)
+find_package (LAPACK)
+if(NOT LAPACK_FOUND)
+    message(STATUS "--> LAPACK and BLAS were not found. Reference LAPACK and BLAS will be downloaded and installed")
+    include(ExternalProject)
+    ExternalProject_Add(
+        lapack
+        URL http://www.netlib.org/lapack/lapack.tgz
+        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_BINARY_DIR}
+        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/dependencies
+    )
+    if (NOT MSVC)
+        SET(LAPACK_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/liblapack.a CACHE STRING "LAPACK library" FORCE)
+        SET(BLAS_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/libblas.a CACHE STRING "BLAS library" FORCE)
+    else () # MSVC
+        SET(LAPACK_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/liblapack.lib CACHE STRING "LAPACK library" FORCE)
+        SET(BLAS_LIBRARIES ${CMAKE_CURRENT_BINARY_DIR}/lib/libblas.lib CACHE STRING "BLAS library" FORCE)
+    endif ()
+ENDIF()
 #if (NOT ${BLA_VENDOR} MATCHES "^Intel")
 #    find_package (LAPACK REQUIRED)
 #endif()
