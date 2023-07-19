@@ -20,7 +20,7 @@
                            mgrid_path_old
       USE init_geometry
       USE mpi_params, ONLY: MPI_COMM_MYWORLD     
-      USE parallel_vmec_module, ONLY: FinalizeRunVmec
+      USE parallel_vmec_module, ONLY: FinalizeRunVmec, RUNVMEC_COMM_WORLD
       USE parallel_vmec_module, ONLY: FinalizeSurfaceComm
 
       IMPLICIT NONE
@@ -134,7 +134,7 @@
       IF (lfreeb) THEN
          CALL free_mgrid(iflag)
          mgrid_path_old = " "
-         CALL read_mgrid(mgrid_file,extcur,nzeta,nfp,.false.,iflag,MPI_COMM_MYWORLD)
+         CALL read_mgrid(mgrid_file,extcur,nzeta,nfp,.false.,iflag,RUNVMEC_COMM_WORLD)
       END IF
 !     PARSE NS_ARRAY
       nsin = MAX (3, nsin)
