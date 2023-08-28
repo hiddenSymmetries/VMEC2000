@@ -19,7 +19,7 @@ from skbuild import setup
 
 fldr_path = pathlib.Path(__file__).parent.absolute()
 
-with open(os.path.join(fldr_path, 'cmake_config_file.json')) as fp:
+with open(os.path.join(fldr_path, 'cmake/machines/mac_czhu_gfortran.json')) as fp:
     d = json.load(fp)
 
 class EmptyListWithLength(list):
