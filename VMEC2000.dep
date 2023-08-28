@@ -13,15 +13,19 @@ Release/vmec_seq.o:
 
 Release/system_mod.o:
 
-Release/ezcdf_opncls.o:
+Release/ezcdf_opncls.o: \
+      Release/netcdf_inc.o
 
-Release/ezcdf_inqvar.o:
+Release/ezcdf_inqvar.o: \
+      Release/netcdf_inc.o
 
-Release/handle_err.o:
+Release/handle_err.o: \
+      Release/netcdf_inc.o 
 
 Release/stel_kinds.o:
 
-Release/bsc_T.o:
+Release/bsc_T.o: \
+	Release/stel_kinds.o
 
 Release/mpi_params.o:
 
@@ -57,9 +61,11 @@ Release/mpi_inc.o: \
 	Release/mpi_params.o
 
 Release/ezcdf_attrib.o: \
+      Release/netcdf_inc.o \
 	Release/ezcdf_inqvar.o
 
 Release/ezcdf_GenGet.o: \
+      Release/netcdf_inc.o \
 	Release/ezcdf_opncls.o \
 	Release/ezcdf_inqvar.o
 
@@ -197,29 +203,29 @@ Release/profile_functions.o: \
 
 
 Release/vforces.o : \
-			Release/stel_kinds.o 
+	Release/stel_kinds.o 
 
 Release/parallel_vmec_module.o : \
-			Release/stel_kinds.o \
-			Release/mpi_inc.o
+	Release/stel_kinds.o \
+	Release/mpi_inc.o
 
 Release/vmec_dim.o :
 
 Release/vacmod0.o :
 
 Release/vac_persistent.o : \
-			Release/stel_kinds.o
+	Release/stel_kinds.o
 
 Release/vacmod.o : \
-			Release/mgrid_mod.o \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/mgrid_mod.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/vac_persistent.o \
       Release/vacmod0.o \
       Release/vmec_params.o 
  
 Release/add_fluxes.o : \
-			Release/vmec_input.o \
+	Release/vmec_input.o \
       Release/parallel_include_module.o \
       Release/precon2d.o \
       Release/realspace.o \
@@ -247,7 +253,7 @@ Release/aspectratio.o : \
       
 
 Release/bcovar.o : \
-			Release/vmec_input.o \
+	Release/vmec_input.o \
       Release/fbal.o \
       Release/parallel_include_module.o \
       Release/precon2d.o \
@@ -262,7 +268,7 @@ Release/bcovar.o : \
 Release/blocktridiagonalsolver_bst.o : \
       Release/parallel_include_module.o \
       Release/parallel_vmec_module.o \
-			Release/mpi_inc.o
+	Release/mpi_inc.o
 
 Release/blocktridiagonalsolver.o : \
       Release/parallel_include_module.o 
@@ -278,12 +284,12 @@ Release/csplinx.o : \
       Release/stel_kinds.o
 
 Release/directaccess.o : \
-			Release/safe_open_mod.o \
+	Release/safe_open_mod.o \
       Release/stel_kinds.o
 
 Release/fbal.o : \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
       Release/parallel_include_module.o \
       Release/realspace.o \
       Release/vforces.o \
@@ -301,8 +307,8 @@ Release/forces.o : \
       
 
 Release/funct3d.o : \
-			Release/vmec_utils.o \
-			Release/vparams.o \
+	Release/vmec_utils.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/precon2d.o \
       Release/realspace.o \
@@ -323,7 +329,7 @@ Release/getfsq.o : \
       
 
 Release/jacobian.o : \
-			Release/vmec_input.o \
+	Release/vmec_input.o \
       Release/parallel_include_module.o \
       Release/realspace.o \
       Release/vforces.o \
@@ -361,7 +367,7 @@ Release/residue.o : \
       
 
 Release/scalfor.o : \
-			Release/stel_kinds.o \
+	Release/stel_kinds.o \
       Release/blocktridiagonalsolver_bst.o \
       Release/parallel_include_module.o \
       Release/realspace.o \
@@ -411,29 +417,29 @@ Release/totzsp_mod.o : \
 
 
 Release/vmec_main.o : \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/vmec_dim.o \
       Release/vmec_params.o \
       Release/vmec_persistent.o 
       
 
 Release/vmec_params.o : \
-			Release/stel_kinds.o \
-			Release/vparams.o
+	Release/stel_kinds.o \
+	Release/vparams.o
 
 Release/vmec_persistent.o : \
-			Release/stel_kinds.o
+	Release/stel_kinds.o
 
 Release/xstuff.o : \
-			Release/stel_kinds.o
+	Release/stel_kinds.o
       
 
 Release/precon2d.o : \
-			Release/safe_open_mod.o \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/safe_open_mod.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/blocktridiagonalsolver.o \
       Release/directaccess.o \
       Release/realspace.o \
@@ -445,7 +451,7 @@ Release/precon2d.o : \
       
 
 Release/allocate_funct3d.o : \
-			Release/vmec_input.o \
+	Release/vmec_input.o \
       Release/realspace.o \
       Release/vacmod.o \
       Release/vforces.o \
@@ -454,8 +460,8 @@ Release/allocate_funct3d.o : \
       
 
 Release/allocate_ns.o : \
-			Release/mgrid_mod.o \
-			Release/vmec_input.o \
+	Release/mgrid_mod.o \
+	Release/vmec_input.o \
       Release/csplinx.o \
       Release/fbal.o \
       Release/parallel_include_module.o \
@@ -474,7 +480,7 @@ Release/allocate_nunv.o : \
       
 
 Release/close_all_files.o : \
-			Release/vparams.o
+	Release/vparams.o
 
 Release/fixaray.o : \
       Release/angle_constraints.o \
@@ -504,7 +510,7 @@ Release/free_mem_nunv.o : \
       
 
 Release/free_persistent_mem.o : \
-			Release/mgrid_mod.o \
+	Release/mgrid_mod.o \
       Release/parallel_vmec_module.o \
       Release/vmec_main.o \
       Release/xstuff.o 
@@ -518,8 +524,8 @@ Release/guess_axis.o : \
       
 
 Release/heading.o : \
-			Release/date_and_computer.o \
-			Release/vparams.o \
+	Release/date_and_computer.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/vmec_main.o \
       Release/vmec_params.o 
@@ -540,9 +546,9 @@ Release/initialize_radial.o : \
       
 
 Release/load_xc_from_wout.o : \
-			Release/read_wout_mod.o \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/read_wout_mod.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/vmec_dim.o \
       Release/vmec_main.o \
@@ -550,19 +556,19 @@ Release/load_xc_from_wout.o : \
       
 
 Release/magnetic_fluxes.o : \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
       Release/vmec_main.o 
       
 
 Release/open_output_files.o : \
-			Release/safe_open_mod.o \
-			Release/vparams.o
+	Release/safe_open_mod.o \
+	Release/vparams.o
       
 
 Release/profil1d.o : \
-			Release/vmec_input.o \
-			Release/init_geometry.o \
+	Release/vmec_input.o \
+	Release/init_geometry.o \
       Release/parallel_include_module.o \
       Release/realspace.o \
       Release/vmec_dim.o \
@@ -582,12 +588,12 @@ Release/profil3d.o : \
       
 
 Release/profile_functions.o : \
-			Release/functions.o \
-			Release/line_segment.o \
-			Release/stel_constants.o \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
-			Release/vparams.o
+	Release/functions.o \
+	Release/line_segment.o \
+	Release/stel_constants.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
+	Release/vparams.o
       
 
 Release/reset_params.o : \
@@ -597,7 +603,7 @@ Release/reset_params.o : \
       
 
 Release/vsetup.o : \
-			Release/mgrid_mod.o \
+	Release/mgrid_mod.o \
       Release/gmres_mod.o \
       Release/realspace.o \
       Release/vacmod.o \
@@ -619,10 +625,10 @@ Release/elongation.o : \
       
 
 Release/eqfor.o : \
-			Release/mgrid_mod.o \
-			Release/safe_open_mod.o \
-			Release/stel_constants.o \
-			Release/v3f_vmec_comm.o \
+	Release/mgrid_mod.o \
+	Release/safe_open_mod.o \
+	Release/stel_constants.o \
+	Release/v3f_vmec_comm.o \
       Release/csplinx.o \
       Release/fbal.o \
       Release/parallel_include_module.o \
@@ -637,8 +643,8 @@ Release/eqfor.o : \
       
 
 Release/fileout.o : \
-			Release/vmec_ext_interface.o \
-			Release/safe_open_mod.o \
+	Release/vmec_ext_interface.o \
+	Release/safe_open_mod.o \
       Release/angle_constraints.o \
       Release/parallel_include_module.o \
       Release/precon2d.o \
@@ -666,21 +672,21 @@ Release/fsym_invfft.o : \
       
 
 Release/getbrho.o : \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
       Release/vmec_dim.o \
       Release/vmec_main.o \
       Release/vmec_persistent.o 
       
 
 Release/getcurmid.o : \
-			Release/vmec_input.o \
+	Release/vmec_input.o \
       Release/vmec_dim.o 
       
 
 Release/jxbforce.o : \
-			Release/ezcdf.o \
-			Release/safe_open_mod.o \
+	Release/ezcdf.o \
+	Release/safe_open_mod.o \
       Release/fbal.o \
       Release/parallel_include_module.o \
       Release/realspace.o \
@@ -690,9 +696,9 @@ Release/jxbforce.o : \
       
 
 Release/mercier.o : \
-			Release/safe_open_mod.o \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/safe_open_mod.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/vmercier.o 
       
 
@@ -707,24 +713,24 @@ Release/printout.o : \
       
 
 Release/read_indata.o : \
-			Release/safe_open_mod.o \
-			Release/vmec_input.o \
+	Release/safe_open_mod.o \
+	Release/vmec_input.o \
       Release/parallel_include_module.o \
       Release/vacmod.o \
       Release/vmec_main.o \
       Release/vmec_params.o 
       
 Release/initialize_vmec_arrays.o : \
-			Release/vmec_main.o \
-			Release/vmec_input.o \
-			Release/vmec_params.o \
-			Release/vacmod.o \
-			Release/parallel_include_module.o \
-			Release/init_geometry.o \
-			Release/parallel_vmec_module.o
+	Release/vmec_main.o \
+	Release/vmec_input.o \
+	Release/vmec_params.o \
+	Release/vacmod.o \
+	Release/parallel_include_module.o \
+	Release/init_geometry.o \
+	Release/parallel_vmec_module.o
 
 Release/readin.o : \
-			Release/mgrid_mod.o \
+	Release/mgrid_mod.o \
       Release/init_geometry.o \
       Release/parallel_include_module.o \
       Release/timer_sub.o \
@@ -735,11 +741,11 @@ Release/readin.o : \
       
 
 Release/TestWout.o : \
-			Release/read_wout_mod.o \
-			Release/stel_constants.o \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
-			Release/vmec_utils.o \
+	Release/read_wout_mod.o \
+	Release/stel_constants.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
+	Release/vmec_utils.o \
       Release/realspace.o \
       Release/vforces.o \
       Release/vmec_dim.o \
@@ -748,16 +754,16 @@ Release/TestWout.o : \
       
 
 Release/timer_sub.o : \
-			Release/stel_kinds.o \
+	Release/stel_kinds.o \
       Release/parallel_include_module.o 
       
 
 Release/vmec_io.o : \
-			Release/stel_kinds.o
+	Release/stel_kinds.o
       
 
 Release/vmercier.o : \
-			Release/vparams.o
+	Release/vparams.o
       
 
 Release/write_dcon.o : \
@@ -767,11 +773,11 @@ Release/write_dcon.o : \
       
 
 Release/wrout.o : \
-			Release/ezcdf.o \
-			Release/mgrid_mod.o \
-			Release/read_wout_mod.o \
-			Release/safe_open_mod.o \
-			Release/vmec_input.o \
+	Release/ezcdf.o \
+	Release/mgrid_mod.o \
+	Release/read_wout_mod.o \
+	Release/safe_open_mod.o \
+	Release/vmec_input.o \
       Release/angle_constraints.o \
       Release/parallel_include_module.o \
       Release/realspace.o \
@@ -806,20 +812,20 @@ Release/analyt.o : \
       
 
 Release/becoil.o : \
-			Release/vparams.o \
+	Release/vparams.o \
       Release/timer_sub.o \
       Release/parallel_include_module.o \
       Release/vacmod.o 
       
 
 Release/belicu.o : \
-			Release/biotsavart.o \
+	Release/biotsavart.o \
       Release/parallel_include_module.o \
       Release/vacmod.o 
       
 
 Release/bextern.o : \
-			Release/mgrid_mod.o \
+	Release/mgrid_mod.o \
       Release/parallel_include_module.o \
       Release/vacmod.o 
       
@@ -837,13 +843,13 @@ Release/fourp.o : \
       
 
 Release/greenf.o : \
-			Release/vparams.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/vacmod.o 
       
 
 Release/precal.o : \
-			Release/vparams.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/vacmod.o \
       Release/vmec_main.o 
@@ -863,8 +869,8 @@ Release/surface.o : \
       
 
 Release/tolicu.o : \
-			Release/biotsavart.o \
-			Release/vparams.o \
+	Release/biotsavart.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/vacmod.o 
       
@@ -872,8 +878,8 @@ Release/tolicu.o : \
      
 
 Release/vacuum.o : \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/timer_sub.o \
       Release/vacmod.o \
@@ -886,8 +892,8 @@ Release/add_tension.o : \
       
 
 Release/getspline.o : \
-			Release/vparams.o \
-			Release/vsvd0.o
+	Release/vparams.o \
+	Release/vsvd0.o
       
 
 Release/gety2.o : \
@@ -903,8 +909,8 @@ Release/jacprod.o : \
       
 
 Release/set_dual.o : \
-			Release/vmec_input.o \
-			Release/vparams.o \
+	Release/vmec_input.o \
+	Release/vparams.o \
       Release/vspline.o 
       
 
@@ -913,31 +919,31 @@ Release/setspline.o : \
       
 
 Release/setup_int.o : \
-			Release/stel_kinds.o \
-			Release/vparams.o
+	Release/stel_kinds.o \
+	Release/vparams.o
       
 
 Release/sort_data.o : \
-			Release/stel_kinds.o
+	Release/stel_kinds.o
       
 
 Release/splinint.o : \
-			Release/vparams.o \
+	Release/vparams.o \
       Release/vspline.o 
       
 
 Release/splints.o : \
-			Release/vmec_input.o \
+	Release/vmec_input.o \
       Release/vspline.o 
       
 
 Release/splintx.o : \
-			Release/vparams.o \
+	Release/vparams.o \
       Release/csplinx.o 
       
 
 Release/vspline.o : \
-			Release/vsvd0.o
+	Release/vsvd0.o
       
 
 Release/eqsolve.o : \
@@ -964,8 +970,8 @@ Release/evolve.o : \
 
 Release/gmres_mod.o : \
       Release/precon2d.o \
-			Release/stel_kinds.o \
-			Release/gmres.o \
+	Release/stel_kinds.o \
+	Release/gmres.o \
       Release/parallel_include_module.o \
       Release/vmec_dim.o \
       Release/vmec_main.o \
@@ -981,8 +987,8 @@ Release/interp.o : \
       
 
 Release/parallel_include_module.o : \
-			Release/stel_kinds.o \
-			Release/mpi_inc.o \
+	Release/stel_kinds.o \
+	Release/mpi_inc.o \
       Release/parallel_vmec_module.o 
       
 
@@ -993,7 +999,7 @@ Release/restart.o : \
       
 
 Release/runvmec.o : \
-			Release/initialize_vmec_arrays.o \
+	Release/initialize_vmec_arrays.o \
       Release/blocktridiagonalsolver_bst.o \
       Release/parallel_include_module.o \
       Release/parallel_vmec_module.o \
@@ -1004,37 +1010,46 @@ Release/runvmec.o : \
       Release/xstuff.o 
 
 Release/vmec_ext_interface.o : \
-			Release/totzsp_mod.o \
-			Release/mercier.o \
-			Release/safe_open_mod.o \
-			Release/vmec_input.o \
-			Release/vmec_io.o \
-			Release/vmec_main.o \
-			Release/vmec_seq.o \
-			Release/vmec_utils.o \
-			Release/vparams.o \
+	Release/totzsp_mod.o \
+	Release/mercier.o \
+	Release/safe_open_mod.o \
+	Release/vmec_input.o \
+	Release/vmec_io.o \
+	Release/vmec_main.o \
+	Release/vmec_seq.o \
+	Release/vmec_utils.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/parallel_vmec_module.o \
       Release/vmec_params.o \
-			Release/vac_persistent.o \
-		  Release/vacmod.o \
-			Release/vspline.o
+	Release/vac_persistent.o \
+	Release/vacmod.o \
+	Release/vspline.o
 
 Release/vmec.o : \
-			Release/safe_open_mod.o \
-			Release/vmec_input.mod \
-			Release/vmec_seq.o \
-			Release/vparams.o \
+	Release/safe_open_mod.o \
+	Release/vmec_input.o \
+	Release/vmec_seq.o \
+	Release/vparams.o \
       Release/parallel_include_module.o \
       Release/parallel_vmec_module.o \
       Release/vmec_params.o 
       
 
 Release/vmec_history.o : \
-			Release/safe_open_mod.o \
-			Release/stel_kinds.o \
-			Release/vmec_input.o \
+	Release/safe_open_mod.o \
+	Release/stel_kinds.o \
+	Release/vmec_input.o \
       Release/precon2d.o \
       Release/vmec_dim.o \
       Release/vmec_main.o \
       Release/xstuff.o 
+
+Release/reinit.o : \
+      Release/mgrid_mod.o \
+      Release/vmec_main.o \
+      Release/vmec_params.o \
+      Release/vacmod.o \
+      Release/vspline.o \
+      Release/timer_sub.o \
+      Release/init_geometry.o
