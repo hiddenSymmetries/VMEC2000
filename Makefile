@@ -40,13 +40,19 @@ TS_f90_SRC = $(shell find Sources/TimeStep -name '*.f90' | sed "s|&\./||")
 TS_f90_OBJ = $(addprefix Release/,$(subst .f90,.o,$(notdir $(TS_f90_SRC))))
 TS_f90_MOD = $(addprefix Release/,$(subst .f90,.mod,$(notdir $(TS_f90_SRC))))
 
-PET_DIR = ${PWD}/../../../
-VMEC_TARGET = ${PET_DIR}/lib/libvmec.a
+VMEC_TARGET = Release/libvmec.a
 VMEC_EXEC = xvmec2000
 
+# The following lines are used in OSX
+SCALAPACK_HOME ?= /usr/local/opt/scalapack
+FFTW_HOME ?= /usr/local/opt/fftw
+HDF5_HOME ?= /usr/local/opt/hdf5
+NETCDF_HOME ?= /usr/local/opt/netcdf
+LIBS    = -L${SCALAPACK_HOME}/lib -lscalapack
+# GCC compiler options
 PRECOMP = -cpp -DLINUX -DMPI_OPT -DNETCDF
-FC_COMPILE_FLAGS = -I${F95ROOT}/include/intel64/lp64 -m64 -I${MKLROOT}/include -I ${NETCDF_F_DIR}/include -I Release -J Release 
-FLINKER = mpifort -O3 -march=native -ffree-line-length-none
+FC_COMPILE_FLAGS = -I${NETCDF_HOME}/include -I${FFTW_HOME}/include -I Release 
+FLINKER = mpif90 -O3 -march=native -ffree-line-length-none
 
 
 .PHONY: all vmec_clean
@@ -105,10 +111,12 @@ Release/%.o: Sources/TimeStep/%.f
 	$(FLINKER) $(FC_COMPILE_FLAGS) $(PRECOMP) -c -o $@ $<
 
 $(VMEC_TARGET): $(LM_f_OBJ) $(LM_f90_OBJ) $(G_f_OBJ) $(G_f90_OBJ) $(IC_f_OBJ) $(IC_f90_OBJ) $(H_f_OBJ) $(IO_f_OBJ) $(NV_f_OBJ) $(S_f_OBJ) $(TS_f_OBJ) $(TS_f90_OBJ)
-	ar rcs $@ $^ Release/*.mod
+	ar rcs $@ $^ 
 
 $(VMEC_EXEC): $(LM_f_OBJ) $(LM_f90_OBJ) $(G_f_OBJ) $(G_f90_OBJ) $(IC_f_OBJ) $(IC_f90_OBJ) $(H_f_OBJ) $(IO_f_OBJ) $(NV_f_OBJ) $(S_f_OBJ) $(TS_f_OBJ) $(TS_f90_OBJ)
-	$(FLINKER) $(FC_COMPILE_FLAGS) -o $@ $^ -L${NETCDF_C_DIR}/lib -lnetcdf -L${NETCDF_F_DIR}/lib -lnetcdff ${F95ROOT}/lib/intel64/libmkl_blas95_lp64.a ${F95ROOT}/lib/intel64/libmkl_lapack95_lp64.a -L${MKLROOT}/lib/intel64 -L${TBBROOT}/lib/intel64_lin/gcc4.8 -Wl,--no-as-needed -lmkl_scalapack_lp64 -lmkl_gf_lp64 -lmkl_tbb_thread -lmkl_core -lmkl_blacs_intelmpi_lp64 -ltbb -lpthread -lm -ldl
+	$(FLINKER) $(FC_COMPILE_FLAGS) -o $@ $^ -L${NETCDF_HOME}/lib -lnetcdf -lnetcdff \
+	-L${FFTW_HOME}/lib -lfftw3\
+	-L${SCALAPACK_HOME}/lib -lscalapack
 
 vmec_clean:
 	rm -f Release/*.o Release/*.mod $(VMEC_TARGET)
