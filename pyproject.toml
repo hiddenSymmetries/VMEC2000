@@ -6,4 +6,4 @@ name = "vmec"
 dependencies = [
     "numpy>=1.23.5",
 ]
-dynamic = ["version"]
+version = "v0.0.4"
