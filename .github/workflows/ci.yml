@@ -93,7 +93,9 @@ jobs:
     - name: Install more python packages
       # If using 'pip install', these packages should be included automatically.
       if: "contains(matrix.use-pip, 'no-pip')"
-      run: pip install wheel scikit-build ninja f90wrap
+      run: |
+        pip install wheel scikit-build ninja
+        pip install git+https://github.com/jameskermode/f90wrap
      
     - name: List installed python packages
       run: pip list
