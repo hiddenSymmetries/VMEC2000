@@ -82,7 +82,7 @@ jobs:
     # mpi4py is not needed for installation, but it is needed to actually do anything with the vmec python module.
     # scipy is not needed for the vmec module itself, but we use it for testing (to read netcdf).
     - name: Install python packages
-      run: pip install numpy mpi4py scipy
+      run: pip install "numpy<2.0.0" mpi4py scipy
 
     #- name: Install the latest version of f90wrap, more recent than the PyPI version
     #  run: pip install git+https://github.com/jameskermode/f90wrap
