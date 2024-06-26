@@ -37,7 +37,7 @@ jobs:
       run: |
         sudo -H -E $pythonLocation/bin/python -m pip install --upgrade pip
         sudo -H -E $pythonLocation/bin/python -m pip install numpy mpi4py 
-        sudo -H -E $pythonLocation/bin/python -m pip install wheel scikit-build ninja git+https://github.com/jameskermode/f90wrap
+        sudo -H -E $pythonLocation/bin/python -m pip install wheel scikit-build ninja f90wrap
 
     - name: Install simsopt package
       run: | 
