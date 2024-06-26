@@ -12,7 +12,7 @@ jobs:
       matrix:
         # If os = macos-latest, the extension builds ok, but there is a seg fault when trying to use it.
         os: [ubuntu-latest]
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         use-pip: [yes-pip, no-pip]
 
     runs-on: ${{ matrix.os }}
@@ -58,7 +58,7 @@ jobs:
         gfortran --version
         #mpifort --version
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       # If we want submodules downloaded, uncomment the next 2 lines:
       #with:
       #  submodules: true
@@ -67,7 +67,7 @@ jobs:
       run: ls -l
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
