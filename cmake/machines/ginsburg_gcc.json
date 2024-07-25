@@ -1,0 +1,14 @@
+{
+    "cmake_args": [
+	   "-DCMAKE_C_COMPILER=gcc",
+           "-DCMAKE_CXX_COMPILER=g++",
+           "-DCMAKE_Fortran_COMPILER=gfortran",
+	   "-DNETCDF_INC_PATH=/burg/opt/netcdf-fortran-4.5.3/include",
+	   "-DNETCDF_LIB_PATH=/burg/opt/netcdf-fortran-4.5.3/lib",
+	   "-DBLA_VENDOR=Intel10_64lp",
+           "-DSCALAPACK_LIB_DIR=/burg/opt/parallel_studio_xe_2020/compilers_and_libraries_2020.4.304/linux/mkl/lib/intel64",
+           "-DSCALAPACK_LIB_NAME=mkl_scalapack_lp64",
+           "-DBLACS_LIB_DIR=/burg/opt/parallel_studio_xe_2020/compilers_and_libraries_2020.4.304/linux/mkl/lib/intel64",
+           "-DBLACS_LIB_NAME=mkl_blacs_openmpi_lp64"]
+
+}
