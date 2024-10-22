@@ -65,3 +65,6 @@ get_target_property(VMEC_LINK_LIB vmec LINK_LIBRARIES)
 message(STATUS "vmec linked libraries are ${VMEC_LINK_LIB}")
 set(VMEC_LINK_LIB ${VMEC_LINK_LIB} PARENT_SCOPE)
 
+install(TARGETS xvmec RUNTIME DESTINATION bin)
+install(TARGETS vmec RUNTIME DESTINATION lib)
+
