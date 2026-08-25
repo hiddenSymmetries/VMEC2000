@@ -56,14 +56,16 @@ if (MPI_Fortran_FOUND)
 #  depending on the current platform or implementation of MPI the oversubscribe
 #  flag changes. MPIEXEC may not write to stdout correctly. Add the ability to
 #  set this variable manually.
-	if (NOT DEFINED ${MPI_OVERSUBSCRIBE_FLAG}) 
-		execute_process(COMMAND ${MPIEXEC} --version OUTPUT_VARIABLE MPI_VERSION)
-		if (${MPI_VERSION} MATCHES "Open MPI" OR
-		    ${MPI_VERSION} MATCHES "OpenRTE"  OR
-		    ${MPI_VERSION} MATCHES "slurm"    OR
-		    ${MPI_VERSION} MATCHES "aprun")
+	if (NOT DEFINED MPI_OVERSUBSCRIBE_FLAG)
+		execute_process(COMMAND ${MPIEXEC_EXECUTABLE} --version
+		                OUTPUT_VARIABLE MPI_VERSION
+		                ERROR_QUIET)
+		if (MPI_VERSION MATCHES "Open MPI" OR
+		    MPI_VERSION MATCHES "OpenRTE"  OR
+		    MPI_VERSION MATCHES "slurm"    OR
+		    MPI_VERSION MATCHES "aprun")
 			set (MPI_OVERSUBSCRIBE_FLAG "--oversubscribe")
-	 	endif ()
+		endif ()
 	endif ()
 endif ()
 
