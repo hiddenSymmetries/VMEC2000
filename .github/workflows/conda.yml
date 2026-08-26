@@ -36,7 +36,9 @@ jobs:
           channel-priority: strict
 
       - name: Prepare
-        run: conda install conda-build
+        run: |
+          conda activate base
+          conda install conda-build
 
       - name: Build
         run: conda build conda.recipe
