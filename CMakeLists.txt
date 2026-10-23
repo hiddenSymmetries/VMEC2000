@@ -32,9 +32,9 @@ link_directories(${USER_LIB_DIR})
 
 # Add linker and incldue directories for conda build before finding any library
 if (DEFINED ENV{CONDA_BUILD})
-  link_directories("$ENV{BUILD_PREFIX}/lib")
-  include_directories("$ENV{BUILD_PREFIX}/include")
-  message(STATUS "Prefix environment variable is $ENV{BUILD_PREFIX}")
+  link_directories("$ENV{PREFIX}/lib")
+  include_directories("$ENV{PREFIX}/include")
+  message(STATUS "Prefix environment variable is $ENV{PREFIX}")
 endif ()
 
 # Configure MPI
