@@ -35,7 +35,6 @@ C-----------------------------------------------
 
       CALL read_namelist (iunit, iosnml, 'mseprofile')
 
-      lwouttxt = .false.
       IF (lrecon .and. itse.le.0 .and. imse.le.0) lrecon = .false.
       IF (lfreeb .and. mgrid_file.eq.'NONE') lfreeb = .false.
 

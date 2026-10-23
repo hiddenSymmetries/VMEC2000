@@ -18,7 +18,6 @@
         CHARACTER(LEN=1)   :: ch1, ch2
         LOGICAL :: lwrite
 
-        lwouttxt = .false.
         IF (lrecon .and. itse.le.0 .and. imse.le.0) lrecon = .false.
         IF (lfreeb .and. mgrid_file.eq.'NONE') lfreeb = .false.
 
