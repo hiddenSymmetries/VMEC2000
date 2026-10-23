@@ -6,5 +6,6 @@ requires = [
   "cmake",
   "ninja",
   "numpy",
-  "f90wrap"
+  "f90wrap<0.3; python_version < '3.9'",
+  "f90wrap; python_version >= '3.9'"
 ]
