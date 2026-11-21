@@ -130,6 +130,22 @@ class FreeBoundaryMgridTests(unittest.TestCase):
         self.assertLess(abs(raxis - 1.600552), 1.0e-3)
         self.assertLess(abs(volume / 5.358354 - 1), 1.0e-3)
 
+    def test_second_run(self):
+        """A second free-boundary run in the same process gives the same result."""
+        comm = MPI.COMM_WORLD
+        cwd = os.getcwd()
+        tmp = comm.bcast(tempfile.mkdtemp() if comm.Get_rank() == 0 else None)
+        os.chdir(tmp)
+        try:
+            first = self.run_free_boundary('first', 33, 37)
+            second = self.run_free_boundary('second', 33, 37)
+        finally:
+            os.chdir(cwd)
+            comm.Barrier()
+            if comm.Get_rank() == 0:
+                shutil.rmtree(tmp)
+        np.testing.assert_allclose(second, first, rtol=1.0e-12)
+
 
 if __name__ == "__main__":
     unittest.main()

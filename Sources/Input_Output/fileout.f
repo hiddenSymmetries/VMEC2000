@@ -132,6 +132,7 @@ C-----------------------------------------------
       SUBROUTINE fileout(iseq, ictrl_flag, ier_flag, lscreen)
       USE vmec_main
       USE vac_persistent
+      USE parallel_include_module, ONLY: counts_vac, disps_vac
       USE realspace
       USE vmec_params, ONLY: mscale, nscale, signgs, uminus,
      &      norm_term_flag, more_iter_flag, output_flag,
@@ -325,6 +326,12 @@ C-----------------------------------------------
      &              cosu1, sinv1, cosv1, imirr, xmpot, xnpot,
      &              stat=istat1)
       IF (istat1 .ne. 0) PRINT *, Warning // "#3"
+!     precal allocates these again in the next run of the same process
+      IF (ALLOCATED(sinmni)) DEALLOCATE (sinmni, cosmni, stat=istat1)
+      IF (istat1 .ne. 0) PRINT *, Warning // "#3b"
+      IF (ALLOCATED(counts_vac))
+     &   DEALLOCATE (counts_vac, disps_vac, stat=istat1)
+      IF (istat1 .ne. 0) PRINT *, Warning // "#3c"
 
       CALL free_mem_funct3d
       CALL free_mem_ns (lreset_xc)
