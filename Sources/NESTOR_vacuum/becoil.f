@@ -21,15 +21,17 @@ C-----------------------------------------------
 C   L o c a l   V a r i a b l e s
 C-----------------------------------------------
       INTEGER, SAVE :: icount = 0
-      INTEGER :: i, kv, ir, jz, ir1, jz1
-      REAL(dp) :: rad0, zee0, ri, zj,
-     1   pr, qz, w22, w21, w12, w11, tbecon, tbecoff
+      INTEGER :: i, kv, ir, jz, ii, jj, nrw, nzw
+      REAL(dp) :: rad0, zee0, ri, zj, pr, qz, w, tbecon, tbecoff
+      REAL(dp), DIMENSION(4) :: wr, wz
 C-----------------------------------------------
 !
 !     DETERMINE THE CYLINDRICAL COMPONENTS OF THE EXTERNAL
 !     MAGNETIC FIELD (BR, BP, BZ) AT A FIXED PHI PLANE BY 
-!     USING 2-D INTERPOLATION BASED ON THE FOUR POINT FORMULA
-!     IN ABRAMOWITZ AND STEGUN, EQ. 25.2.66 
+!     USING 2-D TENSOR-PRODUCT 4-POINT (CUBIC) LAGRANGE INTERPOLATION
+!     ON A CENTRED STENCIL, SHIFTED INWARD AT THE GRID EDGES.
+!     THE FORMER BILINEAR FORMULA (ABRAMOWITZ AND STEGUN 25.2.66) LEFT
+!     AN O(H**2) FIELD ERROR THAT MOVED THE FREE BOUNDARY.
 !
 !     BRVAC, BPVAC, BZVAC:       CYLINDRICAL COMPONENTS OF VACUUM B-FIELD 
 !                                STORED ON R, Z, PHI GRID
@@ -58,33 +60,31 @@ C-----------------------------------------------
          kv = MIN (kv, np0b)                       !!Axi-symmetric special case
 !
 !
-!       DETERMINE INTEGER INDICES (IR,JZ) FOR LOWER LEFT R, Z CORNER GRID POINT
+!       DETERMINE THE FIRST STENCIL NODE (IR,JZ) AND THE OFFSETS PR, QZ
+!       OF THE POINT FROM IT IN UNITS OF THE GRID SPACING
 !
-         ir = INT((rad0 - rminb)/delrb) + 1
-         jz = INT((zee0 - zminb)/delzb) + 1
-         ir1 = MIN(nr0b,ir + 1)
-         jz1 = MIN(nz0b,jz + 1)
-!
-!       COMPUTE RI, ZJ AND PR , QZ AT GRID POINT (IR , JZ)
-!       ALSO, COMPUTE WEIGHTS WIJ FOR 4 CORNER GRID POINTS
-!
-         ri = rminb + (ir - 1)*delrb
-         zj = zminb + (jz - 1)*delzb
-         pr = (rad0 - ri)/delrb
-         qz = (zee0 - zj)/delzb
-         w22 = pr*qz                   !p*q               
-         w21 = pr - w22                !p*(1-q)
-         w12 = qz - w22                !q*(1-p)
-         w11 = 1 + w22 - (pr + qz)     !(1-p)*(1-q)
+         nrw = MIN(4, nr0b)
+         nzw = MIN(4, nz0b)
+         ri = (rad0 - rminb)/delrb
+         zj = (zee0 - zminb)/delzb
+         ir = MIN(MAX(INT(ri) - 1, 0), nr0b - nrw) + 1
+         jz = MIN(MAX(INT(zj) - 1, 0), nz0b - nzw) + 1
+         pr = ri - (ir - 1)
+         qz = zj - (jz - 1)
+         CALL lagrange_weights (pr, nrw, wr)
+         CALL lagrange_weights (qz, nzw, wz)
 !
 !       COMPUTE B FIELD AT R, PHI, Z BY INTERPOLATION
 !
-         br(i) = w11*brvac(ir,jz,kv) + w22*brvac(ir1,jz1,kv) +
-     1      w21*brvac(ir1,jz,kv) + w12*brvac(ir,jz1,kv)
-         bz(i) = w11*bzvac(ir,jz,kv) + w22*bzvac(ir1,jz1,kv) +
-     1      w21*bzvac(ir1,jz,kv) + w12*bzvac(ir,jz1,kv)
-         bp(i) = w11*bpvac(ir,jz,kv) + w22*bpvac(ir1,jz1,kv) +
-     1      w21*bpvac(ir1,jz,kv) + w12*bpvac(ir,jz1,kv)
+         br(i) = 0; bp(i) = 0; bz(i) = 0
+         DO jj = 1, nzw
+            DO ii = 1, nrw
+               w = wr(ii)*wz(jj)
+               br(i) = br(i) + w*brvac(ir+ii-1,jz+jj-1,kv)
+               bp(i) = bp(i) + w*bpvac(ir+ii-1,jz+jj-1,kv)
+               bz(i) = bz(i) + w*bzvac(ir+ii-1,jz+jj-1,kv)
+            END DO
+         END DO
 
       END DO
 
@@ -116,5 +116,24 @@ C-----------------------------------------------
 
       CALL second0(tbecoff)
       becoil_time = becoil_time + (tbecoff - tbecon)
+
+      CONTAINS
+
+      SUBROUTINE lagrange_weights (u, n, wt)
+!     WEIGHTS OF THE N-NODE LAGRANGE POLYNOMIAL ON NODES 0, ..., N-1 AT U
+      REAL(dp), INTENT(in) :: u
+      INTEGER, INTENT(in) :: n
+      REAL(dp), DIMENSION(4), INTENT(out) :: wt
+      INTEGER :: k, m
+
+      wt = 0
+      DO k = 1, n
+         wt(k) = 1
+         DO m = 1, n
+            IF (m .ne. k) wt(k) = wt(k)*(u - (m - 1))/(k - m)
+         END DO
+      END DO
+
+      END SUBROUTINE lagrange_weights
 
       END SUBROUTINE becoil
