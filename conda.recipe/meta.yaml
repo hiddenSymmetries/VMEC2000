@@ -21,17 +21,17 @@ requirements:
     - ninja
     - numpy >=1.19
     - f90wrap
-    - hdf5
-    - netcdf4
-    - netcdf-fortran
-    - scalapack
-    - lapack
     - python
     - scikit-build
 
   host:
     - python
     - pip
+    - hdf5
+    - netcdf4
+    - netcdf-fortran
+    - scalapack
+    - lapack
     - numpy >=1.19
     - f90wrap
     - {{ mpi }}
