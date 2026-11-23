@@ -43,6 +43,7 @@ class SimpleTests(unittest.TestCase):
         self.assertEqual(vmec.vmec_input.nfp, 3)
         self.assertEqual(vmec.vmec_input.mpol, 4)
         self.assertEqual(vmec.vmec_input.ntor, 3)
+        self.assertTrue(vmec.vmec_input.lwouttxt)
         logger.info('rbc.shape: {}'.format(vmec.vmec_input.rbc.shape))
         logger.info('rbc: {}'.format(vmec.vmec_input.rbc[101:103, 0:4]))
 

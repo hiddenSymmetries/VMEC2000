@@ -212,3 +212,17 @@ add_subdirectory(Sources)
 if (SKBUILD)
     add_subdirectory(python)
 endif()
+
+include(CTest)
+if(BUILD_TESTING)
+    foreach(text_output IN ITEMS TRUE FALSE)
+        add_test(NAME lwouttxt_${text_output}
+            COMMAND ${CMAKE_COMMAND}
+                -DVMEC_EXECUTABLE=$<TARGET_FILE:xvmec>
+                -DINPUT_FILE=${CMAKE_CURRENT_SOURCE_DIR}/python/tests/input.li383_low_res
+                -DTEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}/tests/lwouttxt_${text_output}
+                -DTEXT_OUTPUT=${text_output}
+                -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/TestLwouttxt.cmake)
+        set_tests_properties(lwouttxt_${text_output} PROPERTIES TIMEOUT 120)
+    endforeach()
+endif()
