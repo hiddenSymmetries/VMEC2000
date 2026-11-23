@@ -51,6 +51,8 @@ cd build; ninja
 ````
 
 ## Python Extension Compiling
+The Python extension requires Python 3.10 or later.
+
 In the VMEC root folder, edit the `cmake_config_file.json` as necessary for your system. Several example `.json` files are provided in the `cmake/machines` folder. The default one works for CentOS 8 with netcdf and openmpi installed from CentOS repos and Intel MKL.
 
 There are two ways to build the python extension. 
