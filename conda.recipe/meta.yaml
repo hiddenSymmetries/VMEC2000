@@ -7,7 +7,6 @@ source:
 
 build:
   include_recipe: False
-  # skip: "true # [win, py<37]"
   number: 0
   # script: python -m pip install . -vvv
 
@@ -26,11 +25,11 @@ requirements:
     - netcdf-fortran
     - scalapack
     - lapack
-    - python
+    - python >=3.10
     - scikit-build
 
   host:
-    - python
+    - python >=3.10
     - pip
     - numpy >=1.19
     - f90wrap
@@ -38,7 +37,7 @@ requirements:
     - scikit-build
 
   run:
-    - python
+    - python >=3.10
     - numpy >=1.19
     - f90wrap
     - {{ mpi }}
