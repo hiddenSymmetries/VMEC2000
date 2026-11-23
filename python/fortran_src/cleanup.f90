@@ -16,6 +16,7 @@
         use vmec_main
         USE vmec_params, ONLY: mscale, nscale, uminus
         use vac_persistent
+        use parallel_include_module, ONLY: counts_vac, disps_vac
         use parallel_vmec_module, ONLY: RUNVMEC_COMM_WORLD, NS_COMM,&
              FinalizeSurfaceComm, FinalizeRunVmec, grid_procs,&
              grid_size, grid_time, f3d_time, f3d_num, vgrid_time
@@ -47,6 +48,12 @@
              cosu1, sinv1, cosv1, imirr, xmpot, xnpot,&
              stat=istat1)
         IF (istat1 .ne. 0) PRINT *, "cleanup deallocate error #3"
+
+        ! precal allocates these again in the next run
+        IF (ALLOCATED(sinmni)) DEALLOCATE (sinmni, cosmni, stat=istat1)
+        IF (istat1 .ne. 0) PRINT *, "cleanup deallocate error #3b"
+        IF (ALLOCATED(counts_vac)) DEALLOCATE (counts_vac, disps_vac, stat=istat1)
+        IF (istat1 .ne. 0) PRINT *, "cleanup deallocate error #3c"
      
         CALL free_persistent_mem 
         CALL free_mem_funct3d
